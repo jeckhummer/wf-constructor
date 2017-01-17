@@ -1,5 +1,5 @@
 import React from 'react';
-import {UOMList} from '../../entities/UOM';
+import {UOMList} from '../../catalogs/UOM';
 import {Dropdown} from 'semantic-ui-react';
 
 export class UOMSelect extends React.Component {

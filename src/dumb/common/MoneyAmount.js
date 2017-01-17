@@ -1,6 +1,6 @@
 import React from 'react';
 import * as accounting from 'accounting';
-import {Currencies} from "../../entities/Currencies";
+import {Currencies} from "../../catalogs/Currencies";
 import {Space} from "./Space";
 
 export const MoneyAmount = ({amount, currency, label}) => {

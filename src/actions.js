@@ -1,11 +1,11 @@
-import {Mode, Status, TransitionStatus} from './entities/ItemDescriptors';
+import {Mode, Status, TransitionStatus} from './catalogs/ItemDescriptors';
 import {
     getSortedItems,
     hasDuplicatedItems,
     getEditedItems
 } from './selectors';
 import {API} from './API/CurrentAPI';
-import {UOMs} from "./entities/UOM";
+import {UOMs} from "./catalogs/UOM";
 import * as _ from 'lodash';
 
 export const ADD_ITEM = 'ADD_ITEM';

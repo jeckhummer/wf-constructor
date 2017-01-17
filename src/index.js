@@ -6,7 +6,7 @@ import {App} from './dumb/App';
 import {reducer} from './reducers/Reducer';
 import thunk from 'redux-thunk';
 import {Loader} from "semantic-ui-react";
-import {parse} from './utils/parser';
+import {parse} from "./parse";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
