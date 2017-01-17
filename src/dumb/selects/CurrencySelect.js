@@ -1,5 +1,5 @@
 import React from 'react';
-import {CurrencyList} from '../../entities/Currencies';
+import {CurrencyList} from '../../catalogs/Currencies';
 import {Dropdown} from 'semantic-ui-react';
 
 export class CurrencySelect extends React.Component {
