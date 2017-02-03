@@ -1,213 +1,132 @@
-import {Mode, Status, TransitionStatus} from './catalogs/ItemDescriptors';
 import {
-    getSortedItems,
-    hasDuplicatedItems,
-    getEditedItems
+    getTeams,
+    getTeamsDictionary,
+    getPhases,
+    getPhasesDictionary,
+    getTasksDictionary
 } from './selectors';
-import {API} from './API/CurrentAPI';
-import {UOMs} from "./catalogs/UOM";
-import * as _ from 'lodash';
 
-export const ADD_ITEM = 'ADD_ITEM';
-export function addItem() {
-    return (dispatch, getState) => {
-        const items = getState().items;
+// PHASES
 
-        const newItemId = items.length + 1;
-        const newItem = {
-            id: newItemId,
-            name: '',
-            comment: '',
-            UOM: UOMs.PCS,
-            cost: 0,
-            quantity: 1,
-            deliveryDays: '0',
-            mode: Mode.EDIT,
-            status: Status.DRAFT,
-            previousStatus: Status.DRAFT,
-            transitionStatus: TransitionStatus.NONE
-        };
-
-        dispatch({
-            type: ADD_ITEM,
-            item: newItem
-        });
+export const CHANGE_PHASE_ORDER = 'CHANGE_PHASE_ORDER';
+function changePhaseOrder(id, order) {
+    return (dispatch) => {
+        dispatch({type: CHANGE_PHASE_ORDER, id, order});
     };
 }
 
-export const SAVE_ITEM = 'SAVE_ITEM';
-export function saveItem(itemId) {
+function movePhase(id, movementValidityPredicate, directionDiff) {
     return (dispatch, getState) => {
         const state = getState();
-        const items = state.items;
+        const phase = getPhasesDictionary(state)[id];
 
-        if(checkItemsForDuplicates(state)){
-            return;
+        if (movementValidityPredicate(phase)) {
+            const newOrder = phase.order + directionDiff;
+            const prevPhase = getPhases(state)
+                .find(phase => phase.order === newOrder);
+
+            dispatch(changePhaseOrder(phase.id, newOrder));
+            dispatch(changePhaseOrder(prevPhase.id, phase.order));
+        }
+    };
+}
+
+export function movePhaseLeft(id) {
+    return movePhase(id, x => !x.first, -1);
+}
+
+export function movePhaseRight(id) {
+    return movePhase(id, x => !x.last, 1);
+}
+
+// TEAMS
+
+export const CHANGE_TEAM_ORDER = 'CHANGE_TEAM_ORDER';
+function changeTeamOrder(id, order) {
+    return (dispatch) => {
+        dispatch({type: CHANGE_TEAM_ORDER, id, order});
+    };
+}
+
+function moveTeam(id, movementValidityPredicate, directionDiff) {
+    return (dispatch, getState) => {
+        const state = getState();
+        const team = getTeamsDictionary(state)[id];
+
+        if (movementValidityPredicate(team)) {
+            const newOrder = team.order + directionDiff;
+            const prevTeam = getTeams(state)
+                .find(team => team.order === newOrder);
+
+            dispatch(changeTeamOrder(team.id, newOrder));
+            dispatch(changeTeamOrder(prevTeam.id, team.order));
+        }
+    };
+}
+
+export function moveTeamUp(id) {
+    return moveTeam(id, x => !x.first, -1);
+}
+
+export function moveTeamDown(id) {
+    return moveTeam(id, x => !x.last, 1);
+}
+
+// TASKS
+
+export const SET_TASK_PARENT = 'SET_TASK_PARENT';
+function setTaskParent(id, parentId) {
+    return (dispatch) => {
+        dispatch({type: SET_TASK_PARENT, id, parentId});
+    };
+}
+
+export const DELETE_TASK = 'DELETE_TASK';
+function _deleteTask(id) {
+    return (dispatch) => {
+        dispatch({type: DELETE_TASK, id});
+    };
+}
+
+export function deleteTask(id) {
+    return (dispatch, getState) => {
+        const state = getState();
+        const task = getTasksDictionary(state)[id];
+
+        if (!task.isLeaf) {
+            const parentId = task.isRoot ? null : task.parent.id;
+            dispatch(setTaskParent(task.child.id, parentId));
         }
 
-        const item = _.find(items, {id: itemId});
-        let approve = API.saveItem(item);
-
-        dispatch(
-            doWithTransition(
-                (id) => {
-                    dispatch({
-                        type: SAVE_ITEM,
-                        itemId: itemId,
-                        newItemId: id
-                    });
-                    dispatch(changeItemMode(id, Mode.READ));
-                },
-                TransitionStatus.SAVING,
-                itemId,
-                approve
-            )
-        );
+        dispatch(_deleteTask(id));
     };
 }
 
-export function saveAllEditedItems() {
+export function moveTaskLeft(id) {
     return (dispatch, getState) => {
-        const editedItems = getEditedItems(getState());
+        const state = getState();
+        const task = getTasksDictionary(state)[id];
 
-        editedItems.forEach(
-            (item) => dispatch(saveItem(item.id))
-        );
-    };
-}
+        if (!task.isRoot) {
+            const parentId = task.parent.id;
 
-export const UPDATE_ITEM = 'UPDATE_ITEM';
-export function updateItem(item) {
-    return (dispatch) => {
-        dispatch({
-            type: 'UPDATE_ITEM',
-            item: {
-                ...item,
-                cost: Math.abs(item.cost),
-                quantity: Math.abs(item.quantity),
-                deliveryDays: Math.abs(item.deliveryDays),
+            dispatch(setTaskParent(task.id, task.parent.parentId));
+            dispatch(setTaskParent(parentId, task.id));
+
+            if (!task.isLeaf) {
+                dispatch(setTaskParent(task.child.id, parentId));
             }
-        });
-    };
-}
-
-export const REMOVE_ITEM = 'REMOVE_ITEM';
-export function removeItem(itemId) {
-    return (dispatch, getState) => {
-        const items = getSortedItems(getState());
-        const item = _.find(items, {id: itemId});
-
-        if (item === undefined) {
-            return;
         }
-
-        let approve = item.status === Status.DRAFT
-            ? Promise.resolve()
-            : API.removeItem(itemId);
-
-        dispatch(
-            doWithTransition(
-                () => dispatch({
-                    type: REMOVE_ITEM,
-                    itemId
-                }),
-                TransitionStatus.REMOVING,
-                itemId,
-                approve
-            )
-        );
     };
 }
 
-export const RESTORE_ITEM = 'RESTORE_ITEM';
-export function restoreItem(itemId) {
+export function moveTaskRight(id) {
     return (dispatch, getState) => {
-        const items = getSortedItems(getState());
-        const item = _.find(items, {id: itemId});
+        const state = getState();
+        const task = getTasksDictionary(state)[id];
 
-        if (item === undefined) {
-            return;
+        if (!task.isLeaf) {
+            dispatch(moveTaskLeft(task.child.id));
         }
-
-        let approve = item.previousStatus === Status.DRAFT
-            ? Promise.resolve()
-            : API.saveItem(item);
-
-        dispatch(
-            doWithTransition(
-                (id) => {
-                    dispatch({
-                        type: SAVE_ITEM,
-                        itemId: itemId,
-                        newItemId: id
-                    });
-                    dispatch(changeItemMode(id, Mode.READ));
-                },
-                TransitionStatus.RESTORING,
-                itemId,
-                approve
-            )
-        );
-    };
-}
-
-export const CHANGE_ITEM_MODE = 'CHANGE_ITEM_MODE';
-export function changeItemMode(itemId, mode) {
-    return (dispatch) => {
-        dispatch({
-            type: CHANGE_ITEM_MODE,
-            itemId,
-            mode
-        });
-    };
-}
-
-export const CHANGE_ITEM_TRANSITION_STATUS = 'CHANGE_ITEM_TRANSITION_STATUS';
-export function changeItemTransitionStatus(itemId, transitionStatus) {
-    return (dispatch) => {
-        dispatch({
-            type: CHANGE_ITEM_TRANSITION_STATUS,
-            itemId,
-            transitionStatus
-        });
-    };
-}
-
-export const CHANGE_CURRENCY = 'CHANGE_CURRENCY';
-export function changeCurrency(currency) {
-    return (dispatch, getState) => {
-        dispatch({
-            type: CHANGE_CURRENCY,
-            currency
-        });
-
-        const newCurrency = getState().currency;
-        API.saveCurrency(newCurrency);
-    };
-}
-
-export const TOGGLE_IS_VAT_PAYER = 'TOGGLE_IS_VAT_PAYER';
-export function toggleIsVATPayer() {
-    return (dispatch, getState) => {
-        dispatch({
-            type: TOGGLE_IS_VAT_PAYER,
-        });
-
-        const isVATPayer = getState().isVATPayer;
-        API.saveIsVATPayer(isVATPayer);
-    };
-}
-
-export function checkItemsForDuplicates(state) {
-    return hasDuplicatedItems(state);
-}
-
-function doWithTransition(onSuccess, transitionStatus, itemId, approve) {
-    return (dispatch) => {
-        dispatch(changeItemTransitionStatus(itemId, transitionStatus));
-        approve.then((arg) => {
-            dispatch(changeItemTransitionStatus(itemId, TransitionStatus.NONE));
-            dispatch(() => onSuccess(arg));
-        });
     };
 }

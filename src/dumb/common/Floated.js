@@ -1,15 +1,11 @@
 import React from 'react';
 
-export const Floated = ({right, children, clear, style}) => {
+export const Floated = ({right, children, style}) => {
     const direction = right !== undefined ? 'right' : 'left';
-    const clearDiv = clear ? (<div style={{clear: 'both'}}/>) : null;
 
     return (
-        <div>
-            <div style={{float: direction}}>
-                {children}
-            </div>
-            {clearDiv}
+        <div style={{float: direction, ...style}}>
+            {children}
         </div>
     );
 };

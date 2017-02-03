@@ -1,0 +1,22 @@
+import React from 'react';
+import {COLORS, TASK_SCENARIO} from '../../styles';
+import {PlusButton} from "./PlusButton";
+
+export const ArrowBlock = ({ interceptable }) => {
+    return(
+        <div style={{
+            paddingTop: '14px',
+            width: TASK_SCENARIO.ARROW_BLOCK_WIDTH + 'px'
+        }}>
+            <div style={{
+                textAlign: 'center',
+                fontSize: '33px',
+                color: COLORS.PRIMARY,
+                paddingBottom: '2px'
+            }}>
+                →
+            </div>
+            { interceptable ? <PlusButton/> : null }
+        </div>
+    );
+};

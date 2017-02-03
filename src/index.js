@@ -3,10 +3,11 @@ import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 import {createStore, applyMiddleware, compose} from 'redux';
 import {App} from './dumb/App';
-import {reducer} from './reducers/Reducer';
+import {reducer} from './reducers/reducer';
 import thunk from 'redux-thunk';
 import {Loader} from "semantic-ui-react";
-import {parse} from "./parse";
+// import {parse} from "./parse";
+import {initialState} from './mocks';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -37,5 +38,5 @@ function initApp(state){
     );
 }
 
-const initialState = parse(window.initialState);
+// const initialState = parse(window.initialState);
 initApp(initialState);
