@@ -66,7 +66,7 @@ $.fn.transition = function() {
 
         initialize: function() {
 
-          // get full settings
+          // get full editors
           settings        = module.get.settings.apply(element, moduleArguments);
 
           // shorthand
@@ -88,7 +88,7 @@ $.fn.transition = function() {
 
           // method not invoked, lets run an animation
           if(methodInvoked === false) {
-            module.verbose('Converted arguments into settings object', settings);
+            module.verbose('Converted arguments into editors object', settings);
             if(settings.interval) {
               module.delay(settings.animate);
             }
@@ -507,7 +507,7 @@ $.fn.transition = function() {
         },
         get: {
           settings: function(animation, duration, onComplete) {
-            // single settings object
+            // single editors object
             if(typeof animation == 'object') {
               return $.extend(true, {}, $.fn.transition.settings, animation);
             }
@@ -526,7 +526,7 @@ $.fn.transition = function() {
                 duration  : duration
               });
             }
-            // duration is actually settings object
+            // duration is actually editors object
             else if(typeof duration == 'object') {
               return $.extend({}, $.fn.transition.settings, duration, {
                 animation : animation
@@ -1013,7 +1013,7 @@ $.fn.transition.settings = {
   // module info
   name          : 'Transition',
 
-  // hide all output from this component regardless of other settings
+  // hide all output from this component regardless of other editors
   silent        : false,
 
   // debug content outputted to console

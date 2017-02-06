@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {getTeamRulerItems} from '../selectors';
+import {getTeamRulerItems} from '../selectors/workflow';
 import {List} from '../dumb/common/List';
 import {EDITOR} from '../styles';
 import {TeamRulerItem} from "./TeamRulerItem";

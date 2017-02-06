@@ -1,4 +1,4 @@
-import { CHANGE_PHASE_ORDER } from '../../actions';
+import {CHANGE_PHASE_ORDER} from "../../actions/phases";
 
 export const phases = (state = [], action) => {
     switch (action.type) {

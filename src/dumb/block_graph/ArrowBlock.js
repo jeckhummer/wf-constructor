@@ -1,12 +1,12 @@
 import React from 'react';
-import {COLORS, TASK_SCENARIO} from '../../styles';
+import {COLORS, TASK_GRAPH} from '../../styles';
 import {PlusButton} from "./PlusButton";
 
 export const ArrowBlock = ({ interceptable }) => {
     return(
         <div style={{
             paddingTop: '14px',
-            width: TASK_SCENARIO.ARROW_BLOCK_WIDTH + 'px'
+            width: TASK_GRAPH.ARROW_BLOCK_WIDTH + 'px'
         }}>
             <div style={{
                 textAlign: 'center',

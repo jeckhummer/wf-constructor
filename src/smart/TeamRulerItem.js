@@ -1,8 +1,8 @@
 import {connect} from 'react-redux';
 import {RulerItem} from "../dumb/coordinate_plane/RulerItem";
-import {getTeamsDictionary} from '../selectors';
-import {moveTeamDown, moveTeamUp} from '../actions';
 import {COLORS, EDITOR} from '../styles';
+import {getTeamsDictionary} from "../selectors/teams";
+import {moveTeamUp, moveTeamDown} from "../actions/teams";
 
 const mapStateToProps = (state, {id, size}) => {
     const item = getTeamsDictionary(state)[id];

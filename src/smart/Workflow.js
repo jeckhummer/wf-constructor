@@ -1,27 +1,22 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {getWorkflow} from "../selectors";
+import {getWorkflow} from "../selectors/workflow";
+import {TASK_GRAPH} from '../styles';
+import {WorkflowBlock} from "./WorkflowBlock";
 import {Grid} from '../dumb/common/Grid';
-import {BlockScenario} from "../dumb/block_graph/BlockScenario";
-import {TASK_SCENARIO} from '../styles';
-import {WOTBlock} from "./WOTBlock";
 
 const mapStateToProps = (state) => {
     const matrix = getWorkflow(state)
         .map(row =>
-            row.map(sequences => {
-                const blockSequences = sequences
-                    .map(row =>
-                        row.map(taskId => <WOTBlock id={taskId}/>)
-                    );
-                return (<BlockScenario blockSequences={blockSequences}/>);
-            })
+            row.map(items =>
+                <WorkflowBlock items={items}/>
+            )
         );
 
     return {
         matrix,
         inner: true,
-        border: TASK_SCENARIO.BORDER
+        border: TASK_GRAPH.BORDER
     };
 };
 

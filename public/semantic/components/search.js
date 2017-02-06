@@ -1120,7 +1120,7 @@ $.fn.search.settings = {
   verbose           : false,
   performance       : true,
 
-  // template to use (specified in settings.templates)
+  // template to use (specified in editors.templates)
   type              : 'standard',
 
   // minimum characters required to search
@@ -1165,7 +1165,7 @@ $.fn.search.settings = {
   // whether no results errors should be shown
   showNoResults  : true,
 
-  // transition settings
+  // transition editors
   transition     : 'scale',
   duration       : 200,
   easing         : 'easeOutExpo',

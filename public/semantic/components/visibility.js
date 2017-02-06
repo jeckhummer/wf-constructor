@@ -1229,7 +1229,7 @@ $.fn.visibility.settings = {
   // z-index to use with visibility 'fixed'
   zIndex                 : '10',
 
-  // image only animation settings
+  // image only animation editors
   transition             : 'fade in',
   duration               : 1000,
 

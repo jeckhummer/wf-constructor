@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {getPhaseRulerItems} from '../selectors';
+import {getPhaseRulerItems} from '../selectors/workflow';
 import {List} from '../dumb/common/List';
 import {EDITOR} from '../styles';
 import {PhaseRulerItem} from "./PhaseRulerItem";

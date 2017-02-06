@@ -579,7 +579,7 @@ $.fn.embed.settings = {
   url      : false,
   id       : false,
 
-  // standard video settings
+  // standard video editors
   autoplay  : 'auto',
   color     : '#444444',
   hd        : true,

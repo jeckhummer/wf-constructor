@@ -1,4 +1,4 @@
-import { CHANGE_TEAM_ORDER } from '../../actions';
+import {CHANGE_TEAM_ORDER} from "../../actions/teams";
 
 export const teams = (state = [], action) => {
     switch (action.type) {

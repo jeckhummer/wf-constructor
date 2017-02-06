@@ -1,6 +1,6 @@
 import {createStateSaver} from './StateSaver';
 import {API} from '../API/CurrentAPI';
-import {CHANGE_ITEM_TRANSITION_STATUS} from '../actions';
+import {CHANGE_ITEM_TRANSITION_STATUS} from '../actions/tasks';
 
 let timeout = null;
 

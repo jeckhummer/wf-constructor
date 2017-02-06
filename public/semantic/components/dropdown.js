@@ -3538,7 +3538,7 @@ $.fn.dropdown.settings = {
 
   glyphWidth             : 1.037,      // widest glyph width in em (W is 1.037 em) used to calculate multiselect input width
 
-  // label settings on multi-select
+  // label editors on multi-select
   label: {
     transition : 'scale',
     duration   : 200,

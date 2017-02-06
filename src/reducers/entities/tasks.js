@@ -1,25 +1,22 @@
-import {SET_TASK_PARENT, DELETE_TASK} from '../../actions';
+import {DELETE_TASK, UPDATE_TASK} from '../../actions/tasks';
 
 export const tasks = (state = [], action) => {
     switch (action.type) {
-        case SET_TASK_PARENT:
-            return changeTaskParent(state, action.id, action.parentId);
         case DELETE_TASK:
             return deleteTask(state, action.id);
+        case UPDATE_TASK:
+            return updateTask(state, action.id, action.diff);
         default:
             return state;
     }
 };
 
-function changeTaskParent(state, id, parentId) {
-    return state.map(
-        task => ({
-            ...task,
-            parentId: task.id === id ? parentId : task.parentId
-        })
-    );
-}
-
 function deleteTask(state, id) {
     return state.filter(task => task.id !== id);
+}
+
+function updateTask(state, id, diff) {
+    return state.map(
+        task => task.id === id ? { ...task, ...diff } : task
+    );
 }
