@@ -1,5 +1,7 @@
 import {createSelector} from "reselect";
 import * as _ from "lodash";
+import {getSortedPhases} from "./phases";
+import {getSortedTeams} from "./teams";
 
 export const getTasks = (state) => state.entities.tasks;
 
@@ -18,6 +20,7 @@ export const getTasksRelationalDataDictionary = createSelector(
             const childId = child && child.id;
 
             return {
+                id: task.id,
                 parentId: task.parentId,
                 phaseId: task.phaseId,
                 teamId: task.teamId,
@@ -34,6 +37,7 @@ export const getTasksInfoDataDictionary = createSelector(
     tasksDictionary => _.mapValues(
         tasksDictionary,
         task => ({
+            id: task.id,
             name: task.name,
             approvalFlow: task.approvalFlow,
             notificationMap: task.notificationMap,
@@ -44,10 +48,26 @@ export const getTasksInfoDataDictionary = createSelector(
 
 export const getTasksTeamAndPhaseDictionary = createSelector(
     getTasks,
-    tasks => {
-        return _.mapValues(
-            _.groupBy(tasks, 'teamId'),
-            teamTasks => _.groupBy(teamTasks, 'phaseId')
+    getSortedPhases,
+    getSortedTeams,
+    (
+        tasks,
+        phases,
+        teams
+    ) => {
+        let dictionary = {};
+
+        teams.forEach(
+            team => {
+                dictionary[team.id] = {};
+                phases.forEach(
+                    phase => dictionary[team.id][phase.id] = tasks.filter(
+                        task => task.phaseId === phase.id && task.teamId === team.id
+                    )
+                )
+            }
         );
+
+        return dictionary;
     }
 );

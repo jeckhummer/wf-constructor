@@ -31,6 +31,10 @@ export function closeTaskEditor() {
 export const UPDATE_EDITED_TASK = 'UPDATE_EDITED_TASK';
 export function updateEditedTask(diff) {
     return (dispatch) => {
+        // если таск перемещается в другую фазу или навешивается на другую команду,
+        // ссылка на родительский таск автоматически заnullяется,
+        // так как родительский таск и его дочерние таски обязательно должны принадлежать
+        // одной фазе и быть у одной команды
         if (diff.parentId === undefined
             && (diff.phaseId !== undefined || diff.teamId !== undefined)) {
             dispatch({type: UPDATE_EDITED_TASK, diff: {parentId: null}});
