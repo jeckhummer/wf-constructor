@@ -11,7 +11,7 @@ export const TaskBlock = ({
     color,
     onPrevClick,
     onNextClick,
-    onSettingsClick,
+    onEditClick,
     onDeleteClick
 }) => {
     const cover = (
@@ -20,7 +20,7 @@ export const TaskBlock = ({
             last={last}
             onPrevClick={onPrevClick}
             onNextClick={onNextClick}
-            onSettingsClick={onSettingsClick}
+            onSettingsClick={onEditClick}
             onDeleteClick={onDeleteClick}
         />
     );
@@ -38,6 +38,8 @@ export const TaskBlock = ({
                 padding: `0px ${TASK_BLOCK.PADDING}px`,
                 textOverflow: 'ellipsis',
                 whiteSpace: 'nowrap',
+                fontWeight: 'bold',
+                textTransform: 'uppercase',
                 backgroundColor,
                 color
             }}>

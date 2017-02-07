@@ -1,7 +1,7 @@
 import {connect} from 'react-redux';
-import {TaskEditorControls} from "../dumb/TaskEditorControls";
+import {TaskDataControls} from "../dumb/TaskDataControls";
 import {getTaskEditorState} from "../selectors/ui";
-import {updateEditedTask} from "../actions/taskEditor";
+import {updateEditorTask} from "../actions/taskEditor";
 import {getSortedTeams} from "../selectors/teams";
 import {getTasksRelationalDataDictionary} from "../selectors/tasks";
 import {getSortedPhases} from "../selectors/phases";
@@ -17,35 +17,46 @@ function getChildTaskIds(parentId, dictionary) {
 
 const mapStateToProps = (state) => {
     const editorState = getTaskEditorState(state);
-    const task = editorState.editedTask;
-    const dictionary = getTasksRelationalDataDictionary(state);
+    const isNewTask = editorState.isNewTask;
+    const task = editorState.task;
+    let possibleParents;
 
-    const children = getChildTaskIds(task.id, dictionary);
-    const possibleParents = getTasksTeamAndPhaseDictionary(state)[task.teamId][task.phaseId]
-        .filter(x => !_.includes(children.concat([task.id]), x.id))
-        .map(x => ({ text: x.name, value: x.id }));
+    const allTasksInBlock = getTasksTeamAndPhaseDictionary(state)[task.teamId][task.phaseId];
+
+    if (isNewTask) {
+        possibleParents = allTasksInBlock;
+    } else {
+        const dictionary = getTasksRelationalDataDictionary(state);
+        const children = getChildTaskIds(task.id, dictionary);
+        possibleParents = allTasksInBlock
+            .filter(x => !_.includes(children.concat([task.id]), x.id));
+    }
+
+    const parentOptions = [{text: '-- no parent task --', value: '0'}].concat(
+        possibleParents.map(x => ({text: x.name, value: x.id}))
+    );
 
     return {
         name: task.name,
         parentId: task.parentId,
-        parentOptions: [{ text: '-- no parent task --', value: '0' }].concat(possibleParents),
         teamId: task.teamId,
+        parentOptions,
         teamOptions: getSortedTeams(state)
-            .map(x => ({ text: x.name, value: x.id })),
+            .map(x => ({text: x.name, value: x.id})),
         phaseId: task.phaseId,
         phaseOptions: getSortedPhases(state)
-            .map(x => ({ text: x.name, value: x.id })),
+            .map(x => ({text: x.name, value: x.id})),
         approvalFlow: task.approvalFlow
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onTaskChange: diff => dispatch(updateEditedTask(diff))
+        onTaskChange: diff => dispatch(updateEditorTask(diff))
     };
 };
 
 export const SelectedTaskEditorControls = connect(
     mapStateToProps,
     mapDispatchToProps
-)(TaskEditorControls);
+)(TaskDataControls);

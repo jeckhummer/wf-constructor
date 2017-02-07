@@ -1,7 +1,7 @@
 import {getTasksRelationalDataDictionary, getTasksInfoDataDictionary} from '../selectors/tasks';
 
 export const OPEN_TASK_EDITOR = 'SHOW_TASK_EDITOR';
-export function openTaskEditor(id) {
+export function openTaskEditorForEdit(id) {
     return (dispatch, getState) => {
         const state = getState();
         const taskRelations = getTasksRelationalDataDictionary(state)[id];
@@ -9,7 +9,8 @@ export function openTaskEditor(id) {
 
         dispatch({
             type: OPEN_TASK_EDITOR,
-            editedTask: {
+            isNewTask: false,
+            task: {
                 id,
                 name: taskInfo.name,
                 parentId: taskRelations.parentId,
@@ -21,6 +22,16 @@ export function openTaskEditor(id) {
     };
 }
 
+export function openTaskEditorForAdding(task) {
+    return (dispatch) => {
+        dispatch({
+            type: OPEN_TASK_EDITOR,
+            isNewTask: true,
+            task
+        });
+    };
+}
+
 export const CLOSE_TASK_EDITOR = 'CLOSE_TASK_EDITOR';
 export function closeTaskEditor() {
     return (dispatch) => {
@@ -28,8 +39,8 @@ export function closeTaskEditor() {
     };
 }
 
-export const UPDATE_EDITED_TASK = 'UPDATE_EDITED_TASK';
-export function updateEditedTask(diff) {
+export const UPDATE_EDITOR_TASK = 'UPDATE_EDITOR_TASK';
+export function updateEditorTask(diff) {
     return (dispatch) => {
         // если таск перемещается в другую фазу или навешивается на другую команду,
         // ссылка на родительский таск автоматически заnullяется,
@@ -37,9 +48,9 @@ export function updateEditedTask(diff) {
         // одной фазе и быть у одной команды
         if (diff.parentId === undefined
             && (diff.phaseId !== undefined || diff.teamId !== undefined)) {
-            dispatch({type: UPDATE_EDITED_TASK, diff: {parentId: null}});
+            dispatch({type: UPDATE_EDITOR_TASK, diff: {parentId: null}});
         }
-        dispatch({type: UPDATE_EDITED_TASK, diff});
+        dispatch({type: UPDATE_EDITOR_TASK, diff});
     };
 }
 
