@@ -1,1 +1,1 @@
-export const workflow = (state = {}, action) => state;
+export const workflowEditor = (state = {}, action) => state;

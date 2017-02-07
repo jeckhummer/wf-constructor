@@ -4,6 +4,7 @@ import {TASK_BLOCK, TASK_GRAPH} from '../styles';
 import {getTasksRelationalDataDictionary, getTasksTeamAndPhaseDictionary} from "./tasks";
 import {getSortedPhasesIds} from "./phases";
 import {getSortedTeamsIds} from "./teams";
+import {getEditMode} from "./ui";
 
 export const getTasksTeamAndPhaseMatrix = createSelector(
     getSortedPhasesIds,
@@ -46,14 +47,15 @@ export const getWorkflow = createSelector(
 
 export const getWorkflowSizes = createSelector(
     getWorkflow,
-    workflow => workflow
-        .map(row =>
+    getEditMode,
+    (workflow, editMode) =>
+        workflow.map(row =>
             row.map(sequences => ({
                 width: _.max(sequences.map(sequence => sequence.length)) || 0,
                 height: sequences.length
             })).map(sizes => ({
-                height: TASK_BLOCK.HEIGHT * (sizes.height + 1) + sizes.height * TASK_GRAPH.PADDING,
-                width: TASK_BLOCK.WIDTH + (TASK_BLOCK.WIDTH + TASK_GRAPH.ARROW_BLOCK_WIDTH) * sizes.width
+                height: TASK_BLOCK.HEIGHT * (sizes.height + editMode) + TASK_GRAPH.PADDING * (sizes.height - 1 + editMode),
+                width: TASK_BLOCK.WIDTH * (sizes.width + editMode) + TASK_GRAPH.ARROW_BLOCK_WIDTH * (sizes.width - 1 + editMode)
             })).map(sizes => ({
                 height: sizes.height + TASK_GRAPH.PADDING * 2,
                 width: sizes.width + TASK_GRAPH.PADDING * 2

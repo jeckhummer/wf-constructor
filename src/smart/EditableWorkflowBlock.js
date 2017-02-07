@@ -1,23 +1,18 @@
 import {connect} from 'react-redux';
 import {EditableBlockGraph} from "../dumb/block_graph/EditableBlockGraph";
-import {COLORS, TASK_BLOCK} from '../styles';
 import {getTasksRelationalDataDictionary, getTasksInfoDataDictionary} from "../selectors/tasks";
 import {
     moveTaskLeft,
     moveTaskRight,
     deleteTask
 } from "../actions/tasks";
-import {openTaskEditorForEdit, openTaskEditorForAdding} from "../actions/taskEditor";
+import {openTaskEditorForEdit, openTaskEditorForAdding} from "../actions/ui";
 import {DEFAULT_AF_MODE} from "../constants";
-import {getEditMode} from "../selectors/ui";
 
 const mapStateToProps = (state, {items, phaseId, teamId}) => {
-    const editMode = getEditMode(state);
-
     return {
         phaseId,
         teamId,
-        editMode,
         matrix: items.map(row => row.map(id => {
             const taskRelations = getTasksRelationalDataDictionary(state)[id];
             const taskInfo = getTasksInfoDataDictionary(state)[id];
@@ -29,9 +24,6 @@ const mapStateToProps = (state, {items, phaseId, teamId}) => {
                 name: taskInfo.name,
                 first: taskRelations.isRoot,
                 last: taskRelations.isLeaf,
-                ...(!editMode
-                    ? COLORS.STATUS[taskInfo.statusId]
-                    : TASK_BLOCK.COLORS)
             };
         }))
     };
@@ -78,7 +70,7 @@ const mergeProps = (stateProps, dispatchProps) => {
     };
 };
 
-export const WorkflowBlock = connect(
+export const EditableWorkflowBlock = connect(
     mapStateToProps,
     mapDispatchToProps,
     mergeProps

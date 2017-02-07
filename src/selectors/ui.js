@@ -1,5 +1,3 @@
-// import {createSelector} from 'reselect';
-
-export const getTaskEditorState = state => state.ui.editors.task;
-export const getNewTaskEditorState = state => state.ui.editors.newTask;
-export const getWorkflowEditorState = state => state.ui.editors.workflow;
+export const getTaskEditorState = state => state.ui.taskEditor;
+export const getWorkflowEditorState = state => state.ui.workflowEditor;
+export const getEditMode = state => state.ui.editMode;

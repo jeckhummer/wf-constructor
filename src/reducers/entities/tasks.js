@@ -1,4 +1,4 @@
-import {DELETE_TASK, UPDATE_TASK} from '../../actions/tasks';
+import {DELETE_TASK, UPDATE_TASK, ADD_NEW_TASK} from '../../actions/tasks';
 
 export const tasks = (state = [], action) => {
     switch (action.type) {
@@ -6,6 +6,8 @@ export const tasks = (state = [], action) => {
             return deleteTask(state, action.id);
         case UPDATE_TASK:
             return updateTask(state, action.id, action.diff);
+        case ADD_NEW_TASK:
+            return addNewTask(state, action.task);
         default:
             return state;
     }
@@ -19,4 +21,8 @@ function updateTask(state, id, diff) {
     return state.map(
         task => task.id === id ? { ...task, ...diff } : task
     );
+}
+
+function addNewTask(state, task) {
+    return state.concat([task]);
 }

@@ -1,6 +1,10 @@
 import {combineReducers} from "redux";
-import {editors} from "./editors/editors";
+import {taskEditor} from "./taskEditor";
+import {workflowEditor} from "./workflowEditor";
+import {editMode} from "./editMode";
 
 export const ui = combineReducers({
-    editors
+    taskEditor,
+    workflowEditor,
+    editMode
 });

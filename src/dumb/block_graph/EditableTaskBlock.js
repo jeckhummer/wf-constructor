@@ -3,12 +3,10 @@ import {TASK_BLOCK} from '../../styles';
 import {Covered} from "../common/Covered";
 import {TaskBlockCover} from "./TaskBlockCover";
 
-export const TaskBlock = ({
+export const EditableTaskBlock = ({
     name,
     first,
     last,
-    backgroundColor,
-    color,
     onPrevClick,
     onNextClick,
     onEditClick,
@@ -40,8 +38,7 @@ export const TaskBlock = ({
                 whiteSpace: 'nowrap',
                 fontWeight: 'bold',
                 textTransform: 'uppercase',
-                backgroundColor,
-                color
+                ...TASK_BLOCK.COLORS
             }}>
                 {name}
             </div>

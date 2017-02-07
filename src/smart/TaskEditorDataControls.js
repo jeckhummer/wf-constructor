@@ -1,7 +1,7 @@
 import {connect} from 'react-redux';
 import {TaskDataControls} from "../dumb/TaskDataControls";
 import {getTaskEditorState} from "../selectors/ui";
-import {updateEditorTask} from "../actions/taskEditor";
+import {updateEditorTask} from "../actions/ui";
 import {getSortedTeams} from "../selectors/teams";
 import {getTasksRelationalDataDictionary} from "../selectors/tasks";
 import {getSortedPhases} from "../selectors/phases";
@@ -56,7 +56,7 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export const SelectedTaskEditorControls = connect(
+export const TaskEditorDataControls = connect(
     mapStateToProps,
     mapDispatchToProps
 )(TaskDataControls);

@@ -1,32 +1,40 @@
 import {connect} from 'react-redux';
 import {SaveButton} from "../dumb/buttons/SaveButton";
-import {saveEditedTask} from "../actions/tasks";
+import {updateTask, addNewTask} from "../actions/tasks";
 import {getTaskEditorState} from "../selectors/ui";
-import {closeTaskEditor} from "../actions/taskEditor";
+import {closeTaskEditor} from "../actions/ui";
 
 const mapStateToProps = (state) => {
     const editorState = getTaskEditorState(state);
-    const task = editorState.editedTask;
+    const isNewTask = editorState.isNewTask;
+    const task = editorState.task;
 
     return {
         content: "SAVE",
-        taskData: task
+        task,
+        isNewTask
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onClick: task => {
-            dispatch(saveEditedTask(task.id, task));
-            dispatch(closeTaskEditor());
-        }
+        closeTaskEditor: () => dispatch(closeTaskEditor()),
+        updateTask: (task) => dispatch(updateTask(task.id, task)),
+        addNewTask: (task) => dispatch(addNewTask(task))
     };
 };
 
 const mergeProps = (stateProps, dispatchProps) => {
     return {
         content: stateProps.content,
-        onClick: () => dispatchProps.onClick(stateProps.taskData)
+        onClick: () => {
+            if (stateProps.isNewTask) {
+                dispatchProps.addNewTask(stateProps.task);
+            } else {
+                dispatchProps.updateTask(stateProps.task);
+            }
+            dispatchProps.closeTaskEditor();
+        }
     };
 };
 

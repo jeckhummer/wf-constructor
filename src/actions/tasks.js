@@ -1,7 +1,10 @@
-import {getTasksRelationalDataDictionary} from '../selectors/tasks';
+import {getTasksRelationalDataDictionary, getTasks} from '../selectors/tasks';
 
-function setTaskParent(id, parentId) {
-    return updateTask(id, {parentId});
+export const UPDATE_TASK = 'UPDATE_TASK';
+function _updateTask(id, diff) {
+    return (dispatch) => {
+        dispatch({type: UPDATE_TASK, id, diff});
+    }
 }
 
 export const DELETE_TASK = 'DELETE_TASK';
@@ -9,6 +12,25 @@ function _deleteTask(id) {
     return (dispatch) => {
         dispatch({type: DELETE_TASK, id});
     };
+}
+
+export const ADD_NEW_TASK = 'ADD_NEW_TASK';
+export function addNewTask(task) {
+    return (dispatch, getState) => {
+        const state = getState();
+
+        dispatch({
+            type: ADD_NEW_TASK,
+            task: {
+                ...task,
+                id: getTasks(state).length + 1 + ""
+            }
+        });
+    };
+}
+
+function setTaskParent(id, parentId) {
+    return _updateTask(id, {parentId});
 }
 
 export function deleteTask(id) {
@@ -55,20 +77,13 @@ export function moveTaskRight(id) {
     };
 }
 
-export const UPDATE_TASK = 'UPDATE_TASK';
 export function updateTask(id, diff) {
-    return (dispatch) => {
-        dispatch({type: UPDATE_TASK, id, diff});
-    }
-}
-
-export function saveEditedTask(id, diff) {
     return (dispatch, getState) => {
         const state = getState();
         const dictionary = getTasksRelationalDataDictionary(state);
         const task = dictionary[id];
 
-        dispatch(updateTask(id, diff));
+        dispatch(_updateTask(id, diff));
 
         const phaseChange = diff.phaseId !== undefined && diff.phaseId !== task.phaseId;
         const teamChange = diff.teamId !== undefined && diff.teamId !== task.teamId;
@@ -81,10 +96,10 @@ export function saveEditedTask(id, diff) {
             // все дочерние таски тоже "перемещаются" вслед за ним.
             while (!temp.isLeaf) {
                 if (phaseChange) {
-                    dispatch(updateTask(temp.childId, {phaseId: diff.phaseId}));
+                    dispatch(_updateTask(temp.childId, {phaseId: diff.phaseId}));
                 }
                 if (teamChange) {
-                    dispatch(updateTask(temp.childId, {teamId: diff.teamId}));
+                    dispatch(_updateTask(temp.childId, {teamId: diff.teamId}));
                 }
 
                 temp = dictionary[temp.childId];
@@ -103,9 +118,10 @@ export function saveEditedTask(id, diff) {
                 const newParent = dictionary[diff.parentId];
 
                 if (newParent && !newParent.isLeaf) {
-                    dispatch(updateTask(newParent.childId, {parentId: tasksLastChild.id}));
+                    dispatch(_updateTask(newParent.childId, {parentId: tasksLastChild.id}));
                 }
             }
         }
     };
 }
+

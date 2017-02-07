@@ -1,9 +1,9 @@
 import {
     OPEN_TASK_EDITOR,
     CLOSE_TASK_EDITOR,
-    UPDATE_EDITED_TASK,
+    UPDATE_EDITOR_TASK,
     OPEN_TASK_EDITOR_TAB
-} from "../../../actions/taskEditor";
+} from "../../actions/ui";
 
 export const TASK_EDITOR_TABS = {
     GENERAL: 1,
@@ -13,18 +13,19 @@ export const TASK_EDITOR_TABS = {
 
 const CLOSED_STATE = {
     open: false,
+    isNewTask: false,
     activeTab: TASK_EDITOR_TABS.GENERAL,
-    editedTask: {}
+    task: {}
 };
 
-export const task = (state = CLOSED_STATE, action) => {
+export const taskEditor = (state = CLOSED_STATE, action) => {
     switch (action.type) {
         case OPEN_TASK_EDITOR:
-            return openTaskEditor(state, action.editedTask);
+            return openTaskEditor(state, action.isNewTask, action.task);
         case CLOSE_TASK_EDITOR:
             return closeTaskEditor(state);
-        case UPDATE_EDITED_TASK:
-            return updateEditedTask(state, action.diff);
+        case UPDATE_EDITOR_TASK:
+            return updateEditorTask(state, action.diff);
         case OPEN_TASK_EDITOR_TAB:
             return openTaskEditorTab(state, action.tab);
         default:
@@ -32,11 +33,12 @@ export const task = (state = CLOSED_STATE, action) => {
     }
 };
 
-function openTaskEditor(state, editedTask) {
+function openTaskEditor(state, isNewTask, task) {
     return {
         open: true,
+        isNewTask,
         activeTab: TASK_EDITOR_TABS.GENERAL,
-        editedTask
+        task
     };
 }
 
@@ -44,11 +46,11 @@ function closeTaskEditor(state) {
     return CLOSED_STATE;
 }
 
-function updateEditedTask(state, diff) {
+function updateEditorTask(state, diff) {
     return {
         ...state,
-        editedTask: {
-            ...state.editedTask,
+        task: {
+            ...state.task,
             ...diff
         }
     };

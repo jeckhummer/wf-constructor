@@ -2,15 +2,10 @@ import React from 'react';
 import {TASK_GRAPH} from "../../styles";
 import {ArrowBlock} from "./ArrowBlock";
 import {Grid} from '../common/Grid';
-import {AddBlockCommandBlock} from "./AddBlockCommandBlock";
-import {TaskBlock} from '../block_graph/TaskBlock';
 import * as _ from "lodash";
+import {ReadonlyTaskBlock} from "./ReadonlyTaskBlock";
 
-export const BlockGraph = ({
-    matrix,
-    editMode,
-    onRootAddClick
-}) => {
+export const ReadonlyBlockGraph = ({ matrix }) => {
     return (
         <div style={{ padding: TASK_GRAPH.PADDING }}>
             {
@@ -19,33 +14,25 @@ export const BlockGraph = ({
                         const blocks = [
                             _.flatten(row.map(
                                 (item, i) =>
-                                    [<TaskBlock {...item} />].concat(
-                                        i === row.length - 1
-                                            ? editMode
-                                                ? [
-                                                    <ArrowBlock/>,
-                                                    <AddBlockCommandBlock onClick={item.onAddAfterCurrentClick}/>
-                                                ] : null
-                                            : [
-                                                <ArrowBlock
-                                                    onClick={item.onAddAfterCurrentClick}
-                                                    interceptable={editMode}
-                                                />
-                                            ]
-                                    )
+                                    [<ReadonlyTaskBlock {...item} />].concat([
+                                        i !== row.length - 1
+                                        ? <ArrowBlock interceptable={false}/>
+                                        : null
+                                    ])
                                 )
                             )
                         ];
 
                         return (
-                            <div style={{paddingBottom: TASK_GRAPH.PADDING}} key={key}>
-                                <Grid borderless matrix={blocks}/>
+                            <div
+                                style={{paddingBottom: key === matrix.length -1 ? '0px' : TASK_GRAPH.PADDING}}
+                                key={key}>
+                            <Grid borderless matrix={blocks}/>
                             </div>
                         );
                     }
                 )
             }
-            {editMode ? <AddBlockCommandBlock onClick={onRootAddClick} horizontal/> : null}
         </div>
     );
 };

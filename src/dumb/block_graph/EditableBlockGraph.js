@@ -3,12 +3,11 @@ import {TASK_GRAPH} from "../../styles";
 import {ArrowBlock} from "./ArrowBlock";
 import {Grid} from '../common/Grid';
 import {AddBlockCommandBlock} from "./AddBlockCommandBlock";
-import {TaskBlock} from '../block_graph/TaskBlock';
+import {EditableTaskBlock} from './EditableTaskBlock';
 import * as _ from "lodash";
 
-export const BlockGraph = ({
+export const EditableBlockGraph = ({
     matrix,
-    editMode,
     onRootAddClick
 }) => {
     return (
@@ -19,19 +18,17 @@ export const BlockGraph = ({
                         const blocks = [
                             _.flatten(row.map(
                                 (item, i) =>
-                                    [<TaskBlock {...item} />].concat(
+                                    [<EditableTaskBlock {...item} />].concat(
                                         i === row.length - 1
-                                            ? editMode
-                                                ? [
-                                                    <ArrowBlock/>,
-                                                    <AddBlockCommandBlock onClick={item.onAddAfterCurrentClick}/>
-                                                ] : null
-                                            : [
-                                                <ArrowBlock
-                                                    onClick={item.onAddAfterCurrentClick}
-                                                    interceptable={editMode}
-                                                />
-                                            ]
+                                        ? [
+                                            <ArrowBlock/>,
+                                            <AddBlockCommandBlock onClick={item.onAddAfterCurrentClick}/>
+                                        ] : [
+                                            <ArrowBlock
+                                                onClick={item.onAddAfterCurrentClick}
+                                                interceptable={true}
+                                            />
+                                        ]
                                     )
                                 )
                             )
@@ -45,7 +42,7 @@ export const BlockGraph = ({
                     }
                 )
             }
-            {editMode ? <AddBlockCommandBlock onClick={onRootAddClick} horizontal/> : null}
+            <AddBlockCommandBlock onClick={onRootAddClick} horizontal/>
         </div>
     );
 };

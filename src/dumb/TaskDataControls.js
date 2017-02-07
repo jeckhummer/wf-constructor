@@ -1,7 +1,7 @@
 import React from 'react';
 import {Form} from "semantic-ui-react";
 
-export const TaskEditorControls = ({
+export const TaskDataControls = ({
     name,
     parentOptions,
     parentId,
