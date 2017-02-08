@@ -44,6 +44,7 @@ const mergeProps = (stateProps, dispatchProps) => {
         name: 'New Task',
         teamId: stateProps.teamId,
         phaseId: stateProps.phaseId,
+        parentId: null,
         approvalFlow: DEFAULT_AF_MODE,
         statusId: '1'
     };

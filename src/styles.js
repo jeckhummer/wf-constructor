@@ -15,7 +15,7 @@ export const COLORS = {
 };
 
 export const TASK_BLOCK = {
-    WIDTH: 130,
+    WIDTH: 100,
     HEIGHT: 50,
     PADDING: 5,
     BORDER: {
@@ -46,7 +46,7 @@ export const TASK_GRAPH = {
 
 export const EDITOR = {
     CONTENT: {
-        WIDTH: 1300,
+        WIDTH: 1250,
         HEIGHT: 600,
     },
     CORNER: {

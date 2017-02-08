@@ -27,7 +27,7 @@ export function addNewTask(task) {
             task: { ...task, id }
         });
 
-        if (!parent.isLeaf) {
+        if (parent && !parent.isLeaf) {
             dispatch(setTaskParent(parent.childId, id));
         }
     };
