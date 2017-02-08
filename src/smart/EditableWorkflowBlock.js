@@ -45,6 +45,7 @@ const mergeProps = (stateProps, dispatchProps) => {
         teamId: stateProps.teamId,
         phaseId: stateProps.phaseId,
         approvalFlow: DEFAULT_AF_MODE,
+        statusId: '1'
     };
 
     return {

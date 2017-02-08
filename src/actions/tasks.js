@@ -18,14 +18,18 @@ export const ADD_NEW_TASK = 'ADD_NEW_TASK';
 export function addNewTask(task) {
     return (dispatch, getState) => {
         const state = getState();
+        const dictionary = getTasksRelationalDataDictionary(state);
+        const parent = dictionary[task.parentId];
+        const id = getTasks(state).length + 1 + "";
 
         dispatch({
             type: ADD_NEW_TASK,
-            task: {
-                ...task,
-                id: getTasks(state).length + 1 + ""
-            }
+            task: { ...task, id }
         });
+
+        if (!parent.isLeaf) {
+            dispatch(setTaskParent(parent.childId, id));
+        }
     };
 }
 

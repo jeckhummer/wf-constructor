@@ -4,4 +4,4 @@ export const CUSTOM_FIELD_TYPES = {
     FILE_ATTACH: { id: '3', name: 'File attach' },
 };
 
-export const DEFAULT_AF_MODE = false;
+export const DEFAULT_AF_MODE = true;
