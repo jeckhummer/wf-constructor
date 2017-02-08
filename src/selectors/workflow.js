@@ -1,24 +1,37 @@
 import {createSelector} from 'reselect';
 import * as _ from 'lodash';
 import {TASK_BLOCK, TASK_GRAPH} from '../styles';
-import {getTasksRelationalDataDictionary, getTasksTeamAndPhaseDictionary} from "./tasks";
-import {getSortedPhasesIds} from "./phases";
-import {getSortedTeamsIds} from "./teams";
+import {getTasksRelationalDataDictionary, getTasks} from "./tasks";
+import {getSortedPhasesIds, getSortedPhases} from "./phases";
+import {getSortedTeamsIds, getSortedTeams} from "./teams";
 import {getEditMode} from "./ui";
 
+export const getTasksTeamAndPhaseDictionary = createSelector(
+    [getTasks, getSortedPhases, getSortedTeams],
+    (tasks, phases, teams) => {
+        let dictionary = {};
+
+        teams.forEach(
+            team => {
+                dictionary[team.id] = {};
+                phases.forEach(
+                    phase => dictionary[team.id][phase.id] = tasks.filter(
+                        task => task.phaseId === phase.id && task.teamId === team.id
+                    )
+                )
+            }
+        );
+
+        return dictionary;
+    }
+);
+
 export const getTasksTeamAndPhaseMatrix = createSelector(
-    getSortedPhasesIds,
-    getSortedTeamsIds,
-    getTasksTeamAndPhaseDictionary,
-    (
-        sortedPhasesIds,
-        sortedTeamsIds,
-        tasksTeamAndPhaseDictionary
-    ) => {
+    [getSortedPhasesIds, getSortedTeamsIds, getTasksTeamAndPhaseDictionary],
+    (sortedPhasesIds, sortedTeamsIds, tasksTeamAndPhaseDictionary) => {
         return sortedTeamsIds.map(teamId =>
             sortedPhasesIds.map(phaseId =>
-                ((tasksTeamAndPhaseDictionary[teamId] || [])[phaseId] || [])
-                    .map(task => task.id)
+                tasksTeamAndPhaseDictionary[teamId][phaseId].map(task => task.id)
             )
         );
     }
@@ -32,24 +45,24 @@ const getChildTasksSequence = (taskIds, taskDictionary, parentId) => {
 };
 
 export const getWorkflow = createSelector(
-    getTasksTeamAndPhaseMatrix,
-    getTasksRelationalDataDictionary,
-    (tasksTeamAndPhaseMatrix, taskDictionary) => tasksTeamAndPhaseMatrix
-        .map(row =>
-            row.map(taskIds => taskIds
-                .filter(taskId => taskDictionary[taskId].isRoot)
-                .map(rootTaskId =>
-                    [rootTaskId].concat(getChildTasksSequence(taskIds, taskDictionary, rootTaskId))
+    [getTasksTeamAndPhaseMatrix, getTasksRelationalDataDictionary],
+    (tasksTeamAndPhaseMatrix, taskDictionary) => {
+        return tasksTeamAndPhaseMatrix
+            .map(row =>
+                row.map(taskIds => taskIds
+                    .filter(taskId => taskDictionary[taskId].isRoot)
+                    .map(rootTaskId =>
+                        [rootTaskId].concat(getChildTasksSequence(taskIds, taskDictionary, rootTaskId))
+                    )
                 )
-            )
-        )
+            );
+    }
 );
 
 export const getWorkflowSizes = createSelector(
-    getWorkflow,
-    getEditMode,
-    (workflow, editMode) =>
-        workflow.map(row =>
+    [getWorkflow, getEditMode],
+    (workflow, editMode) => {
+        return workflow.map(row =>
             row.map(sequences => ({
                 width: _.max(sequences.map(sequence => sequence.length)) || 0,
                 height: sequences.length
@@ -61,24 +74,27 @@ export const getWorkflowSizes = createSelector(
                 width: sizes.width + TASK_GRAPH.PADDING * 2
             }))
         )
+    }
 );
 
 export const getPhaseRulerItems = createSelector(
-    getWorkflowSizes,
-    getSortedPhasesIds,
-    (workflowSizes, sortedPhasesIds) => _.range(0, workflowSizes[0].length)
-        .map(index => ({
-            size: _.max(workflowSizes.map(row => row[index].width)),
-            id: sortedPhasesIds[index],
-        }))
+    [getWorkflowSizes, getSortedPhasesIds],
+    (workflowSizes, sortedPhasesIds) => {
+        return _.range(0, sortedPhasesIds.length)
+            .map(index => ({
+                size: _.max(workflowSizes.map(row => row[index].width)),
+                id: sortedPhasesIds[index],
+            }));
+    }
 );
 
 export const getTeamRulerItems = createSelector(
-    getWorkflowSizes,
-    getSortedTeamsIds,
-    (workflowSizes, sortedTeamsIds) => workflowSizes
-        .map((row, index) => ({
-            size: _.max(row.map(sizes => sizes.height)),
-            id: sortedTeamsIds[index],
-        }))
+    [getWorkflowSizes, getSortedTeamsIds],
+    (workflowSizes, sortedTeamsIds) => {
+        return workflowSizes
+            .map((row, index) => ({
+                size: _.max(row.map(sizes => sizes.height)),
+                id: sortedTeamsIds[index],
+            }));
+    }
 );

@@ -14,24 +14,6 @@ export const TaskDataControls = ({
 }) => {
     return (
         <Form>
-            <Form.Group widths='equal'>
-                <Form.Select
-                    onChange={(_, {value}) => onTaskChange({ phaseId: value })}
-                    search={true}
-                    label='Phase'
-                    options={phaseOptions}
-                    value={phaseId || ''}
-                    placeholder='Select phase'
-                />
-                <Form.Select
-                    onChange={(_, {value}) => onTaskChange({ teamId: value })}
-                    search={true}
-                    label='Team'
-                    options={teamOptions}
-                    value={teamId || ''}
-                    placeholder='Select team'
-                />
-            </Form.Group>
             <Form.Input
                 label='Name'
                 onChange={(_, {value}) => onTaskChange({ name: value })}
@@ -40,8 +22,26 @@ export const TaskDataControls = ({
             />
             <Form.Group widths='equal'>
                 <Form.Select
+                    onChange={(_, {value}) => onTaskChange({ phaseId: value })}
+                    search
+                    label='Phase'
+                    options={phaseOptions}
+                    value={phaseId || ''}
+                    placeholder='Select phase'
+                />
+                <Form.Select
+                    onChange={(_, {value}) => onTaskChange({ teamId: value })}
+                    search
+                    label='Team'
+                    options={teamOptions}
+                    value={teamId || ''}
+                    placeholder='Select team'
+                />
+            </Form.Group>
+            <Form.Group widths='equal'>
+                <Form.Select
                     onChange={(_, {value}) => onTaskChange({ parentId: value === '0' ? null : value })}
-                    search={true}
+                    search
                     label='Parent task'
                     options={parentOptions}
                     value={parentId || '0'}

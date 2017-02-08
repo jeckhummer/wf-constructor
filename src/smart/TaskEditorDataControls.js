@@ -5,8 +5,8 @@ import {updateEditorTask} from "../actions/ui";
 import {getSortedTeams} from "../selectors/teams";
 import {getTasksRelationalDataDictionary} from "../selectors/tasks";
 import {getSortedPhases} from "../selectors/phases";
-import {getTasksTeamAndPhaseDictionary} from "../selectors/tasks";
 import * as _ from "lodash";
+import {getTasksTeamAndPhaseDictionary} from "../selectors/workflow";
 
 function getChildTaskIds(parentId, dictionary) {
     const childId = dictionary[parentId].childId;

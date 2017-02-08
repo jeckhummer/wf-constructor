@@ -1,5 +1,5 @@
 import React from 'react';
-import {WorkflowEditor} from "./WorkflowEditor";
+import {WorkflowEditor} from "../smart/WorkflowEditor";
 import {TaskEditor} from "../smart/TaskEditor";
 import {EditModeToggle} from "../smart/EditModeToggle";
 

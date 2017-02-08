@@ -21,7 +21,7 @@ export class CoordinatePlane extends React.Component {
 
     render() {
         const {
-            content,
+            children,
             contentHeight,
             contentWidth,
             hRulerContent,
@@ -69,7 +69,7 @@ export class CoordinatePlane extends React.Component {
                 hScroll={true}
                 vScroll={true}
                 onScroll={this.onScroll.bind(this)}>
-                {content}
+                {children}
             </ScrollScope>
         );
 
