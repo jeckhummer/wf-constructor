@@ -10,9 +10,9 @@ const getTasksDictionary = createSelector(
 
 export const getTasksRelationalDataDictionary = createSelector(
     [getTasks, getTasksDictionary],
-    (tasks, tasksDictionary) => {
+    (tasks, dictionary) => {
         return _.mapValues(
-            tasksDictionary,
+            dictionary,
             task => {
                 const child = tasks.find(t => t.parentId === task.id);
                 const childId = child && child.id;
@@ -33,8 +33,8 @@ export const getTasksRelationalDataDictionary = createSelector(
 
 export const getTasksInfoDataDictionary = createSelector(
     [getTasksDictionary],
-    tasksDictionary => _.mapValues(
-        tasksDictionary,
+    dictionary => _.mapValues(
+        dictionary,
         task => ({
             id: task.id,
             name: task.name,

@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {CheckboxMatrix} from "../dumb/block_graph/CheckboxMatrix";
+import {CheckboxMatrix} from "../../dumb/editor/CheckboxMatrix";
 
 const mapStateToProps = (state) => {
     return {

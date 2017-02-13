@@ -6,12 +6,12 @@ const getRowTeams = state => state.entities.teams;
 
 export const getTeams = createSelector(
     [getTasks, getRowTeams],
-    (tasks, rowTeams) => {
-        const orders = rowTeams.map(team => team.order);
+    (tasks, teams) => {
+        const orders = teams.map(team => team.order);
         const maxOrder = _.max(orders);
         const minOrder = _.min(orders);
 
-        return rowTeams.map(
+        return teams.map(
             team => ({
                 ...team,
                 hasTasks: tasks.some(task => task.teamId === team.id),
@@ -22,14 +22,24 @@ export const getTeams = createSelector(
     }
 );
 
-export const getSortedTeams = createSelector(
+export const getWorkflowTeams = createSelector(
     [getTeams],
     teams => _.sortBy(teams.filter(team => team.hasTasks), 'order')
 );
 
-export const getSortedTeamsIds = createSelector(
-    [getSortedTeams],
-    sortedTeams => sortedTeams.map(team => team.id)
+export const getWorkflowTeamIds = createSelector(
+    [getWorkflowTeams],
+    teams => teams.map(team => team.id)
+);
+
+export const getAllTeams = createSelector(
+    [getTeams],
+    teams => _.sortBy(teams, 'name')
+);
+
+export const getAllTeamIds = createSelector(
+    [getAllTeams],
+    teams => teams.map(team => team.id)
 );
 
 export const getTeamsDictionary = createSelector(

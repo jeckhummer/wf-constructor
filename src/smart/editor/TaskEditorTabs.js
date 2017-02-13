@@ -1,8 +1,8 @@
 import {connect} from 'react-redux';
-import {openTaskEditorTab} from "../actions/ui";
+import {openTaskEditorTab} from "../../actions/ui";
 import {Menu} from "semantic-ui-react";
-import {getTaskEditorState} from '../selectors/ui';
-import {TASK_EDITOR_TABS} from "../reducers/ui/taskEditor";
+import {getTaskEditorState} from '../../selectors/ui';
+import {TASK_EDITOR_TABS} from "../../reducers/ui/taskEditor";
 
 const mapStateToProps = (state) => {
     const editorState = getTaskEditorState(state);

@@ -15,7 +15,7 @@ export const COLORS = {
 };
 
 export const TASK_BLOCK = {
-    WIDTH: 100,
+    WIDTH: 130,
     HEIGHT: 50,
     PADDING: 5,
     BORDER: {
@@ -34,7 +34,7 @@ export const TASK_BLOCK = {
     }
 };
 
-export const TASK_GRAPH = {
+export const WORKFLOW_GRID = {
     PADDING: 10,
     BORDER: {
         style: 'dotted',

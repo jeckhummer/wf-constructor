@@ -1,6 +1,6 @@
 import React from 'react';
 import {PlusButton} from "./PlusButton";
-import { TASK_GRAPH, TASK_BLOCK } from "../../styles";
+import { WORKFLOW_GRID, TASK_BLOCK } from "../../styles";
 
 export const AddBlockCommandBlock = ({ onClick }) => {
     const style = {
@@ -10,7 +10,7 @@ export const AddBlockCommandBlock = ({ onClick }) => {
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        border: `${TASK_GRAPH.BORDER.width}px ${TASK_GRAPH.BORDER.style} ${TASK_GRAPH.BORDER.color}`,
+        border: `${WORKFLOW_GRID.BORDER.width}px ${WORKFLOW_GRID.BORDER.style} ${WORKFLOW_GRID.BORDER.color}`,
         borderRadius: `${TASK_BLOCK.BORDER.radius}px`
     };
 

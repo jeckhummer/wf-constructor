@@ -1,17 +1,19 @@
 import {connect} from 'react-redux';
-import {SaveButton} from "../dumb/buttons/SaveButton";
-import {updateTask, addNewTask} from "../actions/tasks";
-import {getTaskEditorState} from "../selectors/ui";
-import {closeTaskEditor} from "../actions/ui";
+import {SaveButton} from "../../dumb/buttons/SaveButton";
+import {updateTask, addNewTask} from "../../actions/tasks";
+import {getTaskEditorState, isEditedTaskValid} from "../../selectors/ui";
+import {closeTaskEditor} from "../../actions/ui";
 
 const mapStateToProps = (state) => {
     const editorState = getTaskEditorState(state);
+    const disabled = !isEditedTaskValid(state);
     const isNewTask = editorState.isNewTask;
     const task = editorState.task;
 
     return {
         content: "SAVE",
         task,
+        disabled,
         isNewTask
     };
 };
@@ -27,6 +29,7 @@ const mapDispatchToProps = (dispatch) => {
 const mergeProps = (stateProps, dispatchProps) => {
     return {
         content: stateProps.content,
+        disabled: stateProps.disabled,
         onClick: () => {
             if (stateProps.isNewTask) {
                 dispatchProps.addNewTask(stateProps.task);

@@ -15,7 +15,8 @@ const CLOSED_STATE = {
     open: false,
     isNewTask: false,
     activeTab: TASK_EDITOR_TABS.GENERAL,
-    task: {}
+    task: {},
+    valid: true
 };
 
 export const taskEditor = (state = CLOSED_STATE, action) => {

@@ -1,5 +1,5 @@
 import React from 'react';
-import {TASK_GRAPH} from "../../styles";
+import {WORKFLOW_GRID} from "../../styles";
 import {ArrowBlock} from "./ArrowBlock";
 import {Grid} from '../common/Grid';
 import {AddBlockCommandBlock} from "./AddBlockCommandBlock";
@@ -11,7 +11,7 @@ export const EditableBlockGraph = ({
     onRootAddClick
 }) => {
     return (
-        <div style={{ padding: TASK_GRAPH.PADDING }}>
+        <div style={{ padding: WORKFLOW_GRID.PADDING }}>
             {
                 matrix.map(
                     (row, key) => {
@@ -35,7 +35,7 @@ export const EditableBlockGraph = ({
                         ];
 
                         return (
-                            <div style={{paddingBottom: TASK_GRAPH.PADDING}} key={key}>
+                            <div style={{paddingBottom: WORKFLOW_GRID.PADDING}} key={key}>
                                 <Grid borderless matrix={blocks}/>
                             </div>
                         );

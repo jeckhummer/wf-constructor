@@ -1,14 +1,14 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {getTeamRulerItems} from '../selectors/workflow';
-import {List} from '../dumb/common/List';
-import {EDITOR} from '../styles';
-import {TeamRulerItem} from "./TeamRulerItem";
+import {getTeamRulerItems} from '../../selectors/workflow';
+import {List} from '../../dumb/common/List';
+import {EDITOR} from '../../styles';
+import {WorkflowTeamRulerItem} from "./WorkflowTeamRulerItem";
 
 const mapStateToProps = (state) => {
     const items = getTeamRulerItems(state).map(
         item => (
-            <TeamRulerItem
+            <WorkflowTeamRulerItem
                 id={item.id}
                 size={item.size}
             />
@@ -27,7 +27,7 @@ const mapDispatchToProps = (dispatch) => {
     return {};
 };
 
-export const TeamRuler = connect(
+export const WorkflowTeamRuler = connect(
     mapStateToProps,
     mapDispatchToProps
 )(List);

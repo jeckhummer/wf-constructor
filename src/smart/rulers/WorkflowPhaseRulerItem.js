@@ -1,8 +1,8 @@
 import {connect} from 'react-redux';
-import {RulerItem} from "../dumb/coordinate_plane/RulerItem";
-import {COLORS, EDITOR} from '../styles';
-import {getPhasesDictionary} from "../selectors/phases";
-import {movePhaseLeft, movePhaseRight} from "../actions/phases";
+import {RulerItem} from "../../dumb/coordinate_plane/RulerItem";
+import {COLORS, EDITOR} from '../../styles';
+import {getPhasesDictionary} from "../../selectors/phases";
+import {movePhaseLeft, movePhaseRight} from "../../actions/phases";
 
 const mapStateToProps = (state, {id, size}) => {
     const item = getPhasesDictionary(state)[id];

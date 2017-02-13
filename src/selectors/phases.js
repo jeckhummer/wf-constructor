@@ -5,12 +5,12 @@ const getRowPhases = state => state.entities.phases;
 
 export const getPhases = createSelector(
     [getRowPhases],
-    (rowPhases) => {
-        const orders = rowPhases.map(phase => phase.order);
+    (phases) => {
+        const orders = phases.map(phase => phase.order);
         const maxOrder = _.max(orders);
         const minOrder = _.min(orders);
 
-        return rowPhases.map(
+        return phases.map(
             phase => ({
                 ...phase,
                 first: phase.order === minOrder,
@@ -27,10 +27,10 @@ export const getSortedPhases = createSelector(
 
 export const getSortedPhasesIds = createSelector(
     [getSortedPhases],
-    sortedPhases => sortedPhases.map(phase => phase.id)
+    phases => phases.map(phase => phase.id)
 );
 
 export const getPhasesDictionary = createSelector(
-    [getPhases],
+    [getSortedPhases],
     phases => _.keyBy(phases, 'id')
 );

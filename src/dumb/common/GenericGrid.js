@@ -24,6 +24,7 @@ export const GenericGrid = ({
         return (
             <GenericList
                 items={matrix.map(row => row[0])}
+                vertical={true}
                 border={border}
                 borderPredicate={borderPredicate}
             />

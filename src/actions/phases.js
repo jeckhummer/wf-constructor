@@ -1,4 +1,5 @@
-import {getPhasesDictionary, getPhases} from "../selectors/phases";
+import {getPhasesDictionary, getSortedPhases, getPhases} from "../selectors/phases";
+import * as _ from "lodash";
 
 export const CHANGE_PHASE_ORDER = 'CHANGE_PHASE_ORDER';
 function changePhaseOrder(id, order) {
@@ -14,7 +15,7 @@ function movePhase(id, movementValidityPredicate, directionDiff) {
 
         if (movementValidityPredicate(phase)) {
             const newOrder = phase.order + directionDiff;
-            const prevPhase = getPhases(state)
+            const prevPhase = getSortedPhases(state)
                 .find(phase => phase.order === newOrder);
 
             dispatch(changePhaseOrder(phase.id, newOrder));
@@ -29,4 +30,18 @@ export function movePhaseLeft(id) {
 
 export function movePhaseRight(id) {
     return movePhase(id, x => !x.last, 1);
+}
+
+export const ADD_PHASE = 'ADD_PHASE';
+export function addPhase(name, onAdditionComplete) {
+    return (dispatch, getState) => {
+        const state = getState();
+        const phases = getPhases(state);
+        const id = phases.length + 1 + '';
+        const maxOrder = _.max(phases.map(phase => phase.order)) || 0;
+
+        dispatch({type: ADD_PHASE, name, id, order: maxOrder + 1});
+        onAdditionComplete(id);
+        // еще надо получить id с сервера и переписать временный id
+    };
 }

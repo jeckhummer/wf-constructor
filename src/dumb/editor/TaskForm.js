@@ -22,6 +22,7 @@ export const TaskDataControls = ({
             />
             <Form.Group widths='equal'>
                 <Form.Select
+                    disabled={phaseOptions.length === 0}
                     onChange={(_, {value}) => onTaskChange({ phaseId: value })}
                     search
                     label='Phase'
@@ -30,6 +31,7 @@ export const TaskDataControls = ({
                     placeholder='Select phase'
                 />
                 <Form.Select
+                    disabled={teamOptions.length === 0}
                     onChange={(_, {value}) => onTaskChange({ teamId: value })}
                     search
                     label='Team'
@@ -40,6 +42,7 @@ export const TaskDataControls = ({
             </Form.Group>
             <Form.Group widths='equal'>
                 <Form.Select
+                    disabled={parentOptions.length === 1}
                     onChange={(_, {value}) => onTaskChange({ parentId: value === '0' ? null : value })}
                     search
                     label='Parent task'

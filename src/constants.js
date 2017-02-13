@@ -5,3 +5,4 @@ export const CUSTOM_FIELD_TYPES = {
 };
 
 export const DEFAULT_AF_MODE = true;
+export const DEFAULT_TASK_NAME = 'new task';

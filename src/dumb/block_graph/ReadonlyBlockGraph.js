@@ -1,5 +1,5 @@
 import React from 'react';
-import {TASK_GRAPH} from "../../styles";
+import {WORKFLOW_GRID} from "../../styles";
 import {ArrowBlock} from "./ArrowBlock";
 import {Grid} from '../common/Grid';
 import * as _ from "lodash";
@@ -7,7 +7,7 @@ import {ReadonlyTaskBlock} from "./ReadonlyTaskBlock";
 
 export const ReadonlyBlockGraph = ({ matrix }) => {
     return (
-        <div style={{ padding: TASK_GRAPH.PADDING }}>
+        <div style={{ padding: WORKFLOW_GRID.PADDING }}>
             {
                 matrix.map(
                     (row, key) => {
@@ -25,7 +25,7 @@ export const ReadonlyBlockGraph = ({ matrix }) => {
 
                         return (
                             <div
-                                style={{paddingBottom: key === matrix.length -1 ? '0px' : TASK_GRAPH.PADDING}}
+                                style={{paddingBottom: key === matrix.length -1 ? '0px' : WORKFLOW_GRID.PADDING}}
                                 key={key}>
                             <Grid borderless matrix={blocks}/>
                             </div>

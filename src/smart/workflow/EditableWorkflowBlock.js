@@ -1,13 +1,12 @@
 import {connect} from 'react-redux';
-import {EditableBlockGraph} from "../dumb/block_graph/EditableBlockGraph";
-import {getTasksRelationalDataDictionary, getTasksInfoDataDictionary} from "../selectors/tasks";
+import {EditableBlockGraph} from "../../dumb/block_graph/EditableBlockGraph";
+import {getTasksRelationalDataDictionary, getTasksInfoDataDictionary} from "../../selectors/tasks";
 import {
     moveTaskLeft,
     moveTaskRight,
     deleteTask
-} from "../actions/tasks";
-import {openTaskEditorForEdit, openTaskEditorForAdding} from "../actions/ui";
-import {DEFAULT_AF_MODE} from "../constants";
+} from "../../actions/tasks";
+import {openTaskEditorForEdit, openTaskEditorForAdding} from "../../actions/ui";
 
 const mapStateToProps = (state, {items, phaseId, teamId}) => {
     return {
@@ -41,12 +40,8 @@ const mapDispatchToProps = (dispatch) => {
 
 const mergeProps = (stateProps, dispatchProps) => {
     const newRootTask = {
-        name: 'New Task',
         teamId: stateProps.teamId,
         phaseId: stateProps.phaseId,
-        parentId: null,
-        approvalFlow: DEFAULT_AF_MODE,
-        statusId: '1'
     };
 
     return {

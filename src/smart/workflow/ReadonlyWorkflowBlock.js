@@ -1,7 +1,7 @@
 import {connect} from 'react-redux';
-import {TASK_BLOCK} from '../styles';
-import {getTasksInfoDataDictionary} from "../selectors/tasks";
-import {ReadonlyBlockGraph} from "../dumb/block_graph/ReadonlyBlockGraph";
+import {TASK_BLOCK} from '../../styles';
+import {getTasksInfoDataDictionary} from "../../selectors/tasks";
+import {ReadonlyBlockGraph} from "../../dumb/block_graph/ReadonlyBlockGraph";
 
 const mapStateToProps = (state, {items}) => {
     return {

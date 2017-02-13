@@ -1,0 +1,1 @@
+export const getStatuses = state => state.entities.statuses;

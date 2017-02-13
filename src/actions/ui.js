@@ -1,4 +1,5 @@
 import {getTasksRelationalDataDictionary, getTasksInfoDataDictionary} from '../selectors/tasks';
+import {DEFAULT_TASK_NAME, DEFAULT_AF_MODE} from "../constants";
 
 export const OPEN_TASK_EDITOR = 'SHOW_TASK_EDITOR';
 export function openTaskEditorForEdit(id) {
@@ -22,12 +23,20 @@ export function openTaskEditorForEdit(id) {
     };
 }
 
-export function openTaskEditorForAdding(task) {
+export function openTaskEditorForAdding(task = {}) {
     return (dispatch) => {
         dispatch({
             type: OPEN_TASK_EDITOR,
             isNewTask: true,
-            task
+            task: {
+                name: DEFAULT_TASK_NAME,
+                teamId: null,
+                phaseId: null,
+                parentId: null,
+                approvalFlow: DEFAULT_AF_MODE,
+                statusId: '1',
+                ...task
+            }
         });
     };
 }
@@ -64,6 +73,6 @@ export function openTaskEditorTab(tab) {
 export const TOGGLE_EDIT_MODE = 'TOGGLE_EDIT_MODE';
 export function toggleEditMode() {
     return (dispatch) => {
-        dispatch({ type: TOGGLE_EDIT_MODE });
+        dispatch({type: TOGGLE_EDIT_MODE});
     };
 }
