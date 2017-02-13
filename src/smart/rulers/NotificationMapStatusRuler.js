@@ -1,14 +1,15 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {List} from '../../dumb/common/List';
-import {getAllTeams} from "../../selectors/teams";
+import {getStatuses} from '../../selectors/statuses';
 
 const mapStateToProps = (state) => {
-    const items = getAllTeams(state).map(
+    const items = getStatuses(state).map(
         item => (
             <div style={{
                 width: '100px',
-                height: '2em'
+                height: '4em',
+                textAlign: 'center'
             }}>
                 {item.name}
             </div>
@@ -16,7 +17,6 @@ const mapStateToProps = (state) => {
     );
 
     return {
-        vertical: true,
         borderless: true,
         items: items,
     };
@@ -26,7 +26,7 @@ const mapDispatchToProps = (dispatch) => {
     return {};
 };
 
-export const NotificationTeamRuler = connect(
+export const NotificationMapStatusRuler = connect(
     mapStateToProps,
     mapDispatchToProps
 )(List);

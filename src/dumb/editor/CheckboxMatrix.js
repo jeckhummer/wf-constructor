@@ -17,7 +17,12 @@ export const CheckboxMatrix = ({
     const matrix = map.map(
         (row, rowIndex) => row.map(
             (cell, cellIndex) => (
-                <div style={{padding: '5px'}}>
+                <div style={{
+                    height: '2em',
+                    width: '100px',
+                    padding: '5px',
+                    textAlign: 'center'
+                }}>
                     <Checkbox
                         checked={cell}
                         onChange={() => onChange(rowIndex, cellIndex)}/>

@@ -9,7 +9,6 @@ const mapStateToProps = (state) => {
     const activeTab = editorState.activeTab;
 
     return {
-        // tabular: true,
         secondary: true,
         pointing: true,
         items: [

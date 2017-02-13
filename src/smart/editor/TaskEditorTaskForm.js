@@ -2,7 +2,7 @@ import {connect} from 'react-redux';
 import {TaskForm} from "../../dumb/editor/TaskForm";
 import {getTaskEditorState} from "../../selectors/ui";
 import {updateEditorTask} from "../../actions/ui";
-import {getTeamsDictionary, getSortedTeams} from "../../selectors/teams";
+import {getTeamsDictionary, getAllTeams} from "../../selectors/teams";
 import {getTasksRelationalDataDictionary, getTasks} from "../../selectors/tasks";
 import {getSortedPhases, getPhasesDictionary} from "../../selectors/phases";
 import * as _ from "lodash";
@@ -53,7 +53,7 @@ const mapStateToProps = (state) => {
         parentId: task.parentId,
         teamId: task.teamId,
         parentOptions,
-        teamOptions: getSortedTeams(state)
+        teamOptions: getAllTeams(state)
             .map(x => ({text: x.name, value: x.id})),
         phaseId: task.phaseId,
         phaseOptions: getSortedPhases(state)

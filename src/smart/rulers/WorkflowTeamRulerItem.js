@@ -30,7 +30,7 @@ const mapDispatchToProps = (dispatch, {id}) => {
     };
 };
 
-export const TeamRulerItem = connect(
+export const WorkflowTeamRulerItem = connect(
     mapStateToProps,
     mapDispatchToProps
 )(RulerItem);

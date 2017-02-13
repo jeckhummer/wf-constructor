@@ -3,9 +3,11 @@ import {connect} from 'react-redux';
 import {EditorModal} from "../../dumb/editor/EditorModal";
 import {getTaskEditorState} from "../../selectors/ui";
 import {closeTaskEditor} from "../../actions/ui";
-import {TaskEditorDataControls} from "./TaskEditorDataControls";
 import {TaskEditorTabs} from "./TaskEditorTabs";
 import {SaveTaskButton} from "./SaveTaskButton";
+import {TaskFormValidationSummary} from "./TaskFormValidationSummary";
+import {} from '../../constants';
+import {TaskEditorContent} from "./TaskEditorContent";
 
 const mapStateToProps = (state) => {
     const editorState = getTaskEditorState(state);
@@ -18,8 +20,9 @@ const mapStateToProps = (state) => {
         isActive: active,
         header,
         tabs: <TaskEditorTabs/>,
-        content: <TaskEditorDataControls/>,
-        actions: [<SaveTaskButton key="1"/>]
+        content: <TaskEditorContent/>,
+        actions: [<SaveTaskButton key="1"/>],
+        alert: <TaskFormValidationSummary/>
     };
 };
 

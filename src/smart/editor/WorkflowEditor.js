@@ -1,17 +1,17 @@
 import React from 'react';
-import {EditableWorkflow} from "./EditableWorkflow";
-import {PhaseRuler} from "./PhaseRuler";
-import {TeamRuler} from "./TeamRuler";
-import {EDITOR, COLORS} from '../styles';
+import {EditableWorkflow} from "../workflow/EditableWorkflow";
+import {WorkflowPhaseRuler} from "../rulers/WorkflowPhaseRuler";
+import {WorkflowTeamRuler} from "../rulers/WorkflowTeamRuler";
+import {EDITOR, COLORS} from '../../styles';
 import {Icon} from "semantic-ui-react";
 import {connect} from 'react-redux';
-import {CoordinatePlane} from "../dumb/coordinate_plane/CoordinatePlane";
-import {getTasks} from "../selectors/tasks";
-import {NoTasksMessage} from "./NoTasksMessage";
-import {getSortedPhases} from "../selectors/phases";
-import {NoTasksWorkflow} from "./NoTasksWorkflow";
-import {getEditMode} from "../selectors/ui";
-import {ReadonlyWorkflow} from "./ReadonlyWorkflow";
+import {CoordinatePlane} from "../../dumb/coordinate_plane/CoordinatePlane";
+import {getTasks} from "../../selectors/tasks";
+import {NoTasksMessage} from "../workflow/NoTasksMessage";
+import {getSortedPhases} from "../../selectors/phases";
+import {NoTasksWorkflow} from "../workflow/NoTasksWorkflow";
+import {getEditMode} from "../../selectors/ui";
+import {ReadonlyWorkflow} from "../workflow/ReadonlyWorkflow";
 
 function mapStateToProps(state) {
     const cornerContent = (
@@ -52,13 +52,12 @@ function mapStateToProps(state) {
             children = <NoTasksMessage/>;
         } else {
             children = <ReadonlyWorkflow/>;
-
         }
     }
 
     return {
-        hRulerContent: <PhaseRuler/>,
-        vRulerContent: <TeamRuler/>,
+        hRulerContent: <WorkflowPhaseRuler/>,
+        vRulerContent: <WorkflowTeamRuler/>,
         cornerContent,
         contentHeight: EDITOR.CONTENT.HEIGHT + 'px',
         contentWidth: EDITOR.CONTENT.WIDTH + 'px',

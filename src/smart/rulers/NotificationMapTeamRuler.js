@@ -1,24 +1,25 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {getTeamRulerItems} from '../../selectors/workflow';
 import {List} from '../../dumb/common/List';
-import {EDITOR} from '../../styles';
-import {WorkflowTeamRulerItem} from "./WorkflowTeamRulerItem";
+import {getAllTeams} from "../../selectors/teams";
 
 const mapStateToProps = (state) => {
-    const items = getTeamRulerItems(state).map(
+    const items = getAllTeams(state).map(
         item => (
-            <WorkflowTeamRulerItem
-                id={item.id}
-                size={item.size}
-            />
+            <div style={{
+                width: '100px',
+                height: '2em',
+                textAlign: 'right',
+                padding: '5px',
+            }}>
+                {item.name}
+            </div>
         )
     );
 
     return {
         vertical: true,
-        inner: true,
-        border: EDITOR.BORDER,
+        borderless: true,
         items: items,
     };
 };
@@ -27,7 +28,7 @@ const mapDispatchToProps = (dispatch) => {
     return {};
 };
 
-export const WorkflowTeamRuler = connect(
+export const NotificationMapTeamRuler = connect(
     mapStateToProps,
     mapDispatchToProps
 )(List);

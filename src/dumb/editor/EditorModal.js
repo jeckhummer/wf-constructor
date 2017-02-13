@@ -1,7 +1,7 @@
 import React from 'react';
 import {Modal, Icon} from "semantic-ui-react";
-import {Floated} from "./common/Floated";
-import {Clear} from "./common/Clear";
+import {Floated} from "../common/Floated";
+import {Uppercase} from "../common/Uppercase";
 
 export const EditorModal = ({
     isActive,
@@ -9,7 +9,8 @@ export const EditorModal = ({
     tabs,
     content,
     header,
-    actions
+    actions,
+    alert
 }) => {
     return (
         <Modal
@@ -25,7 +26,9 @@ export const EditorModal = ({
                         name='close'>
                     </Icon>
                 </Floated>
-                {header}
+                <Uppercase>
+                    {header}
+                </Uppercase>
             </Modal.Header>
 
             <Modal.Content>
@@ -35,10 +38,20 @@ export const EditorModal = ({
             </Modal.Content>
 
             <Modal.Actions>
-                <Floated right>
-                    {actions}
-                </Floated>
-                <Clear/>
+                <div style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    textAlign: 'left'
+                }}>
+                    <div style={{flexGrow: '1'}}>
+                        {alert}
+                    </div>
+                    <div>
+                        {actions}
+                    </div>
+                </div>
             </Modal.Actions>
 
         </Modal>

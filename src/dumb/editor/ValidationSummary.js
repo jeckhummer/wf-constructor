@@ -1,3 +1,9 @@
-/**
- * Created by vasil on 02/10/2017.
- */
+import React from 'react';
+
+export const ValidationSummary = ({content}) => {
+    return (
+        <span style={{color: '#e33737'}}>
+            {content}
+        </span>
+    );
+};

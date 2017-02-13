@@ -1,7 +1,7 @@
 import React from 'react';
 import {Form} from "semantic-ui-react";
 
-export const TaskDataControls = ({
+export const TaskForm = ({
     name,
     parentOptions,
     parentId,
@@ -10,40 +10,54 @@ export const TaskDataControls = ({
     phaseOptions,
     phaseId,
     approvalFlow,
-    onTaskChange
+    onAddTeam,
+    onAddPhase,
+    onNameChange,
+    onPhaseChange,
+    onTeamChange,
+    onParentChange,
+    onApprovalFlowChange
 }) => {
     return (
         <Form>
             <Form.Input
                 label='Name'
-                onChange={(_, {value}) => onTaskChange({ name: value })}
+                onChange={(_, {value}) => onNameChange(value)}
                 placeholder='Enter task name'
                 value={name}
             />
             <Form.Group widths='equal'>
                 <Form.Select
-                    disabled={phaseOptions.length === 0}
-                    onChange={(_, {value}) => onTaskChange({ phaseId: value })}
-                    search
                     label='Phase'
+                    placeholder='Select phase'
+                    additionLabel='New phase: '
+                    noResultsMessage="Type new phase name"
+                    search
+                    allowAdditions
+                    selectOnBlur={false}
+                    onChange={(_, {value}) => onPhaseChange(value)}
+                    onAddItem={(_, {value}) => onAddPhase(value)}
                     options={phaseOptions}
                     value={phaseId || ''}
-                    placeholder='Select phase'
                 />
                 <Form.Select
-                    disabled={teamOptions.length === 0}
-                    onChange={(_, {value}) => onTaskChange({ teamId: value })}
-                    search
                     label='Team'
+                    placeholder='Select team'
+                    additionLabel='New team: '
+                    noResultsMessage="Type new team name"
+                    search
+                    allowAdditions
+                    selectOnBlur={false}
+                    onChange={(_, {value}) => onTeamChange(value)}
+                    onAddItem={(_, {value}) => onAddTeam(value)}
                     options={teamOptions}
                     value={teamId || ''}
-                    placeholder='Select team'
                 />
             </Form.Group>
             <Form.Group widths='equal'>
                 <Form.Select
                     disabled={parentOptions.length === 1}
-                    onChange={(_, {value}) => onTaskChange({ parentId: value === '0' ? null : value })}
+                    onChange={(_, {value}) => onParentChange(value === '0' ? null : value)}
                     search
                     label='Parent task'
                     options={parentOptions}
@@ -53,7 +67,7 @@ export const TaskDataControls = ({
                 <Form.Field>
                     <label>&nbsp;</label>
                     <Form.Checkbox
-                        onChange={(_, {checked}) => onTaskChange({ approvalFlow: checked })}
+                        onChange={(_, {checked}) => onApprovalFlowChange(checked)}
                         label='Participates in Approval Flow'
                         checked={approvalFlow} />
                 </Form.Field>

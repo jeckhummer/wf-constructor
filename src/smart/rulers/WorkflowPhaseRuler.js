@@ -3,12 +3,12 @@ import {connect} from 'react-redux';
 import {getPhaseRulerItems} from '../../selectors/workflow';
 import {List} from '../../dumb/common/List';
 import {EDITOR} from '../../styles';
-import {PhaseRulerItem} from "./PhaseRulerItem";
+import {WorkflowPhaseRulerItem} from "./WorkflowPhaseRulerItem";
 
 const mapStateToProps = (state) => {
     const items = getPhaseRulerItems(state).map(
         item => (
-            <PhaseRulerItem
+            <WorkflowPhaseRulerItem
                 id={item.id}
                 size={item.size}
             />
@@ -27,7 +27,7 @@ const mapDispatchToProps = (dispatch) => {
     return {};
 };
 
-export const PhaseRuler = connect(
+export const WorkflowPhaseRuler = connect(
     mapStateToProps,
     mapDispatchToProps
 )(List);

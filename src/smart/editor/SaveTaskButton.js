@@ -1,12 +1,12 @@
 import {connect} from 'react-redux';
 import {SaveButton} from "../../dumb/buttons/SaveButton";
 import {updateTask, addNewTask} from "../../actions/tasks";
-import {getTaskEditorState, isEditedTaskValid} from "../../selectors/ui";
+import {getTaskEditorState, getTaskEditorTaskValidationResult} from "../../selectors/ui";
 import {closeTaskEditor} from "../../actions/ui";
 
 const mapStateToProps = (state) => {
     const editorState = getTaskEditorState(state);
-    const disabled = !isEditedTaskValid(state);
+    const disabled = !getTaskEditorTaskValidationResult(state).result;
     const isNewTask = editorState.isNewTask;
     const task = editorState.task;
 
