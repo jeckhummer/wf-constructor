@@ -22,7 +22,7 @@ export const initialState = {
                 parentId: null,
                 statusId: '1',
                 approvalFlow: true,
-                notificationMap: '85'
+                notificationMapNumber: '920350134'
             },
             {
                 id: '2',
@@ -32,7 +32,7 @@ export const initialState = {
                 parentId: null,
                 statusId: '2',
                 approvalFlow: true,
-                notificationMap: '85'
+                notificationMapNumber: '920350134'
             },
             {
                 id: '3',
@@ -42,7 +42,7 @@ export const initialState = {
                 parentId: '2',
                 statusId: '3',
                 approvalFlow: true,
-                notificationMap: '85'
+                notificationMapNumber: '920350134'
             },
             {
                 id: '4',
@@ -52,7 +52,7 @@ export const initialState = {
                 parentId: '3',
                 statusId: '4',
                 approvalFlow: true,
-                notificationMap: '85'
+                notificationMapNumber: '920350134'
             },
             {
                 id: '5',
@@ -62,7 +62,7 @@ export const initialState = {
                 parentId: null,
                 statusId: '5',
                 approvalFlow: true,
-                notificationMap: '85'
+                notificationMapNumber: '920350134'
             },
             {
                 id: '6',
@@ -72,7 +72,7 @@ export const initialState = {
                 parentId: null,
                 statusId: '6',
                 approvalFlow: true,
-                notificationMap: '85'
+                notificationMapNumber: '920350134'
             },
             {
                 id: '7',
@@ -82,7 +82,7 @@ export const initialState = {
                 parentId: '6',
                 statusId: '1',
                 approvalFlow: true,
-                notificationMap: '85'
+                notificationMapNumber: '920350134'
             },
             {
                 id: '8',
@@ -92,7 +92,7 @@ export const initialState = {
                 parentId: null,
                 statusId: '2',
                 approvalFlow: true,
-                notificationMap: '85'
+                notificationMapNumber: '920350134'
             },
             {
                 id: '9',
@@ -102,7 +102,7 @@ export const initialState = {
                 parentId: null,
                 statusId: '3',
                 approvalFlow: true,
-                notificationMap: '85'
+                notificationMapNumber: '920350134'
             },
             {
                 id: '10',
@@ -112,7 +112,7 @@ export const initialState = {
                 parentId: '9',
                 statusId: '4',
                 approvalFlow: true,
-                notificationMap: '85'
+                notificationMapNumber: '920350134'
             },
             {
                 id: '11',
@@ -122,7 +122,7 @@ export const initialState = {
                 parentId: null,
                 statusId: '5',
                 approvalFlow: true,
-                notificationMap: '85'
+                notificationMapNumber: '920350134'
             },
             {
                 id: '12',
@@ -132,7 +132,7 @@ export const initialState = {
                 parentId: '11',
                 statusId: '6',
                 approvalFlow: true,
-                notificationMap: '85'
+                notificationMapNumber: '920350134'
             },
         ] : [],
         statuses: [
@@ -161,10 +161,10 @@ export const initialState = {
     },
     ui: {
         taskEditor: {
-            open: true,
+            open: false,
             isNewTask: false,
             activeTab: 3,
-            task: {name: 'aaaa'},
+            task: {},
             valid: true
         },
         workflowEditor: {

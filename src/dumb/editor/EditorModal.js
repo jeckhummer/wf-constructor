@@ -33,7 +33,6 @@ export const EditorModal = ({
 
             <Modal.Content>
                 {tabs}
-                <br/>
                 {content}
             </Modal.Content>
 

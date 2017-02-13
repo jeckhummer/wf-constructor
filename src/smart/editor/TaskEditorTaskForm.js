@@ -17,10 +17,8 @@ function getChildTaskIds(parentId, dictionary) {
 }
 
 const mapStateToProps = (state) => {
-    const editorState = getTaskEditorState(state);
+    const {isNewTask, task} = getTaskEditorState(state);
     const noTasks = getTasks(state).length === 0;
-    const isNewTask = editorState.isNewTask;
-    const task = editorState.task;
     const phasesDictionary = getPhasesDictionary(state);
     const teamsDictionary = getTeamsDictionary(state);
 

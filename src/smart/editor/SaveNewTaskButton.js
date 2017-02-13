@@ -1,7 +1,7 @@
 import {connect} from 'react-redux';
 import {SaveButton} from "../../dumb/buttons/SaveButton";
 import {getTaskEditorTaskValidationResult} from "../../selectors/ui";
-import {closeTaskEditor, saveEditorTask} from "../../actions/ui";
+import {closeTaskEditor, saveEditorNewTask} from "../../actions/ui";
 
 const mapStateToProps = (state) => {
     const disabled = !getTaskEditorTaskValidationResult(state).result;
@@ -15,13 +15,13 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         onClick: () => {
-            dispatch(saveEditorTask());
+            dispatch(saveEditorNewTask());
             dispatch(closeTaskEditor());
         }
     };
 };
 
-export const SaveTaskButton = connect(
+export const SaveNewTaskButton = connect(
     mapStateToProps,
     mapDispatchToProps
 )(SaveButton);

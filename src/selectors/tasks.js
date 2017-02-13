@@ -1,5 +1,6 @@
 import {createSelector} from "reselect";
 import * as _ from "lodash";
+import {getStatuses} from "./statuses";
 
 export const getTasks = (state) => state.entities.tasks;
 
@@ -32,14 +33,14 @@ export const getTasksRelationalDataDictionary = createSelector(
 );
 
 export const getTasksInfoDataDictionary = createSelector(
-    [getTasksDictionary],
-    dictionary => _.mapValues(
+    [getTasksDictionary, getStatuses],
+    (dictionary, statuses) => _.mapValues(
         dictionary,
         task => ({
             id: task.id,
             name: task.name,
             approvalFlow: task.approvalFlow,
-            notificationMap: task.notificationMap,
+            notificationMapNumber: task.notificationMapNumber,
             statusId: task.statusId
         })
     )

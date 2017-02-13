@@ -8,26 +8,31 @@ import {getEditMode} from "./ui";
 
 const getChildTasksSequence = (taskIds, taskDictionary, parentId) => {
     const childId = taskIds.find(taskId => taskDictionary[taskId].parentId === parentId);
-    return childId == null
+    const childSequence = childId == null
         ? []
         : [childId].concat(getChildTasksSequence(taskIds, taskDictionary, childId));
+
+    return childSequence;
 };
 
 export const getWorkflowMatrix = createSelector(
     [getSortedPhasesIds, getWorkflowTeamIds, getTasks, getTasksRelationalDataDictionary],
     (phasesIds, teamsIds, tasks, dictionary) => {
-        return teamsIds.map(teamId =>
+        const map = teamsIds.map(teamId =>
             phasesIds.map(phaseId => {
-                const rootTaskIds = tasks
+                const nearbyTaskIds = tasks
                     .filter(task => task.teamId === teamId && task.phaseId === phaseId)
-                    .filter(task => dictionary[task.id].isRoot)
                     .map(task => task.id);
 
-                return rootTaskIds.map(rootTaskId =>
-                    [rootTaskId].concat(getChildTasksSequence(rootTaskIds, dictionary, rootTaskId))
+                const nearbyRootTaskIds = nearbyTaskIds.filter(taskId => dictionary[taskId].isRoot);
+
+                return nearbyRootTaskIds.map(rootTaskId =>
+                    [rootTaskId].concat(getChildTasksSequence(nearbyTaskIds, dictionary, rootTaskId))
                 );
             })
-        )
+        );
+
+        return map;
     }
 );
 

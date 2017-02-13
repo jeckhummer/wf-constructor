@@ -1,5 +1,7 @@
 import {getTasksRelationalDataDictionary, getTasksInfoDataDictionary} from '../selectors/tasks';
 import {DEFAULT_TASK_NAME, DEFAULT_AF_MODE} from "../constants";
+import {getTaskEditorActiveTask} from "../selectors/ui";
+import {addNewTask, updateTask} from './tasks';
 
 export const OPEN_TASK_EDITOR = 'SHOW_TASK_EDITOR';
 export function openTaskEditorForEdit(id) {
@@ -13,11 +15,8 @@ export function openTaskEditorForEdit(id) {
             isNewTask: false,
             task: {
                 id,
-                name: taskInfo.name,
-                parentId: taskRelations.parentId,
-                teamId: taskRelations.teamId,
-                phaseId: taskRelations.phaseId,
-                approvalFlow: taskInfo.approvalFlow,
+                ...taskInfo,
+                ...taskRelations,
             }
         });
     };
@@ -75,4 +74,22 @@ export function toggleEditMode() {
     return (dispatch) => {
         dispatch({type: TOGGLE_EDIT_MODE});
     };
+}
+
+export function saveEditorNewTask() {
+    return function (dispatch, getState) {
+        const state = getState();
+        const editorTask = getTaskEditorActiveTask(state);
+
+        dispatch(addNewTask(editorTask));
+    }
+}
+
+export function saveEditorTask() {
+    return function (dispatch, getState) {
+        const state = getState();
+        const editorTask = getTaskEditorActiveTask(state);
+
+        dispatch(updateTask(editorTask.id, editorTask));
+    }
 }
