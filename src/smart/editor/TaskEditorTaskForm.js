@@ -1,6 +1,6 @@
 import {connect} from 'react-redux';
 import {TaskForm} from "../../dumb/editor/TaskForm";
-import {getTaskEditorState} from "../../selectors/ui";
+import {getTaskEditorState, getTaskEditorActiveTask} from "../../selectors/ui";
 import {updateEditorTask} from "../../actions/ui";
 import {getTeamsDictionary, getAllTeams} from "../../selectors/teams";
 import {getTasksRelationalDataDictionary, getTasks} from "../../selectors/tasks";
@@ -17,7 +17,8 @@ function getChildTaskIds(parentId, dictionary) {
 }
 
 const mapStateToProps = (state) => {
-    const {isNewTask, task} = getTaskEditorState(state);
+    const {isNewTask} = getTaskEditorState(state);
+    const task = getTaskEditorActiveTask(state);
     const noTasks = getTasks(state).length === 0;
     const phasesDictionary = getPhasesDictionary(state);
     const teamsDictionary = getTeamsDictionary(state);

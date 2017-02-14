@@ -7,7 +7,8 @@ const getRowTeams = state => state.entities.teams;
 export const getTeams = createSelector(
     [getTasks, getRowTeams],
     (tasks, teams) => {
-        const orders = teams.map(team => team.order);
+        const orders = teams.filter(x => x.order !== null)
+            .map(team => team.order);;
         const maxOrder = _.max(orders);
         const minOrder = _.min(orders);
 

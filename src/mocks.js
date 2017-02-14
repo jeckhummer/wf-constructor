@@ -11,7 +11,7 @@ export const initialState = {
             {id: '2', name: 'PS', order: 2},
             {id: '3', name: 'TX', order: 3},
             {id: '4', name: 'IT/Business', order: 4},
-            {id: '5', name: 'Test', order: 5},
+            {id: '5', name: 'Test', order: null}, // null если нет order
         ] : [],
         tasks: true ? [
             {
