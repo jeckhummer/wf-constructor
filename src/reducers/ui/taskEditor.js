@@ -2,7 +2,8 @@ import {
     OPEN_TASK_EDITOR,
     CLOSE_TASK_EDITOR,
     UPDATE_EDITOR_TASK,
-    OPEN_TASK_EDITOR_TAB
+    OPEN_TASK_EDITOR_TAB,
+    SELECT_CUSTOM_FIELD, SET_CUSTOM_FIELDS_LOADING_ANIMATION_VISIBILITY, SET_CUSTOM_FIELDS
 } from "../../actions/ui";
 
 export const TASK_EDITOR_TABS = {
@@ -16,7 +17,9 @@ const CLOSED_STATE = {
     isNewTask: false,
     activeTab: TASK_EDITOR_TABS.GENERAL,
     task: {},
-    valid: true
+    selectedCustomField: null,
+    customFieldsLoading: false,
+    customFields: []
 };
 
 export const taskEditor = (state = CLOSED_STATE, action) => {
@@ -29,6 +32,12 @@ export const taskEditor = (state = CLOSED_STATE, action) => {
             return updateEditorTask(state, action.diff);
         case OPEN_TASK_EDITOR_TAB:
             return openTaskEditorTab(state, action.tab);
+        case SELECT_CUSTOM_FIELD:
+            return selectTaskCustomField(state, action.field);
+        case SET_CUSTOM_FIELDS_LOADING_ANIMATION_VISIBILITY:
+            return setCustomFieldsLoadingAnimationVisibility(state, action.visible);
+        case SET_CUSTOM_FIELDS:
+            return setCustomFields(state, action.fields);
         default:
             return state;
     }
@@ -61,5 +70,26 @@ function openTaskEditorTab(state, tab) {
     return {
         ...state,
         activeTab: tab
+    };
+}
+
+function selectTaskCustomField(state, field) {
+    return {
+        ...state,
+        selectedCustomField: field
+    };
+}
+
+function setCustomFieldsLoadingAnimationVisibility(state, visible) {
+    return {
+        ...state,
+        customFieldsLoading: visible
+    };
+}
+
+function setCustomFields(state, fields) {
+    return {
+        ...state,
+        customFields: fields
     };
 }

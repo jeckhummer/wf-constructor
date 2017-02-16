@@ -1,10 +1,10 @@
 import {combineReducers} from "redux";
 import {entities} from "./entities/entities";
-import {relations} from "./relations/relations";
 import {ui} from "./ui/ui";
+import {cache} from "./cache";
 
 export const reducer = combineReducers({
     entities,
-    relations,
+    cache,
     ui
 });

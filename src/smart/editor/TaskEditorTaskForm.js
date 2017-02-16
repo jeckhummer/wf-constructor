@@ -1,7 +1,7 @@
 import {connect} from 'react-redux';
 import {TaskForm} from "../../dumb/editor/TaskForm";
 import {getTaskEditorState, getTaskEditorActiveTask} from "../../selectors/ui";
-import {updateEditorTask} from "../../actions/ui";
+import {updateTaskEditorTask} from "../../actions/ui";
 import {getTeamsDictionary, getAllTeams} from "../../selectors/teams";
 import {getTasksRelationalDataDictionary, getTasks} from "../../selectors/tasks";
 import {getSortedPhases, getPhasesDictionary} from "../../selectors/phases";
@@ -66,15 +66,15 @@ const mapDispatchToProps = (dispatch) => {
         addPhase: phase => dispatch(
             addPhase(
                 phase,
-                phaseId => dispatch(updateEditorTask({phaseId}))
+                phaseId => dispatch(updateTaskEditorTask({phaseId}))
             )),
         addTeam: team => dispatch(
             addTeam(
                 team,
-                teamId => dispatch(updateEditorTask({teamId}))
+                teamId => dispatch(updateTaskEditorTask({teamId}))
             )
         ),
-        changeTask: diff => dispatch(updateEditorTask(diff)),
+        changeTask: diff => dispatch(updateTaskEditorTask(diff)),
     };
 };
 

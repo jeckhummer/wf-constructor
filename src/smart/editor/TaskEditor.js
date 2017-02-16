@@ -4,21 +4,20 @@ import {EditorModal} from "../../dumb/editor/EditorModal";
 import {getTaskEditorState} from "../../selectors/ui";
 import {closeTaskEditor} from "../../actions/ui";
 import {TaskEditorTabs} from "./TaskEditorTabs";
-import {SaveTaskButton} from "./SaveTaskButton";
 import {TaskFormValidationSummary} from "./TaskFormValidationSummary";
 import {TaskEditorContent} from "./TaskEditorContent";
-import {SaveNewTaskButton} from "./SaveNewTaskButton";
+import {TaskEditorActions} from "./TaskEditorActions";
+import {TaskEditorHeader} from "./TaskEditorHeader";
 
 const mapStateToProps = (state) => {
-    const {isNewTask, task, open} = getTaskEditorState(state);
-    const header = isNewTask ? 'New task' : task.name;
+    const {open} = getTaskEditorState(state);
 
     return {
         isActive: open,
-        header,
+        header: <TaskEditorHeader/>,
         tabs: <TaskEditorTabs/>,
         content: <TaskEditorContent/>,
-        actions: [isNewTask ? <SaveNewTaskButton key="1"/> : <SaveTaskButton key="1"/> ],
+        actions: <TaskEditorActions/>,
         alert: <TaskFormValidationSummary/>
     };
 };

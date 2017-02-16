@@ -1,3 +1,5 @@
+import {CUSTOM_FIELD_TYPES} from './constants';
+
 export const initialState = {
     entities: {
         phases: true ? [
@@ -144,28 +146,18 @@ export const initialState = {
             {id: '6', name: 'On hold'},
         ],
     },
-    relations: {
-        taskCustomFields: {
-            '1': null,
-            '2': null,
-            '3': null,
-            '4': null,
-            '5': null,
-            '6': null,
-            '7': null,
-            '8': null,
-            '9': null,
-            '10': null,
-            '11': null
-        }
+    cache: {
+        taskCustomFields: {}
     },
     ui: {
         taskEditor: {
             open: false,
             isNewTask: false,
-            activeTab: 3,
+            activeTab: 1,
             task: {},
-            valid: true
+            selectedCustomField: null,
+            customFieldsLoading: false,
+            customFields: []
         },
         workflowEditor: {
             open: false
@@ -173,3 +165,61 @@ export const initialState = {
         editMode: true
     }
 };
+
+export const customFieldsMocks = [
+    {
+        type: CUSTOM_FIELD_TYPES.CHECKBOX_LIST,
+        data: {
+            label: 'test checkbox',
+            items: [
+                'option 1',
+                'option 2',
+                'option 3',
+                'option 4',
+            ]
+        }
+    },
+    {
+        type: CUSTOM_FIELD_TYPES.RADIO_BUTTON_LIST,
+        data: {
+            label: 'test radio button list',
+            items: [
+                'option 1',
+                'option 2',
+                'option 3',
+                'option 4',
+                'option 5',
+            ]
+        }
+    },
+    {
+        type: CUSTOM_FIELD_TYPES.TYPE_SELECTION,
+        data: {
+            label: 'test type selection',
+            items: [
+                'option 1',
+                'option 2',
+                'option 3',
+                'option 4',
+            ]
+        }
+    },
+    {
+        type: CUSTOM_FIELD_TYPES.ASSET_SELECTION,
+        data: {
+            label: 'test asset selection'
+        }
+    },
+    {
+        type: CUSTOM_FIELD_TYPES.FREE_TEXT,
+        data: {
+            label: 'test free text'
+        }
+    },
+    {
+        type: CUSTOM_FIELD_TYPES.TEXT_STRING,
+        data: {
+            label: 'test text string'
+        }
+    }
+];

@@ -4,6 +4,7 @@ import {getTaskEditorState} from '../../selectors/ui';
 import {TASK_EDITOR_TABS} from "../../reducers/ui/taskEditor";
 import {TaskEditorNotificationMap} from "./TaskEditorNotificationMap";
 import {TaskEditorTaskForm} from "./TaskEditorTaskForm";
+import {TaskCustomFieldsManager} from "./TaskCustomFieldsManager";
 
 const mapStateToProps = (state) => {
     const {activeTab} = getTaskEditorState(state);
@@ -14,7 +15,7 @@ const component = ({activeTab}) => {
     const contentMap = {
         [TASK_EDITOR_TABS.GENERAL]: <TaskEditorTaskForm/>,
         [TASK_EDITOR_TABS.NOTIFICATIONS]: <TaskEditorNotificationMap/>,
-        [TASK_EDITOR_TABS.CUSTOM_FIELDS]: null,
+        [TASK_EDITOR_TABS.CUSTOM_FIELDS]: <TaskCustomFieldsManager/>,
     };
 
     return contentMap[activeTab];

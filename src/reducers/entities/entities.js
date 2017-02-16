@@ -8,5 +8,5 @@ export const entities = combineReducers({
     tasks,
     statuses,
     teams,
-    phases
+    phases,
 });

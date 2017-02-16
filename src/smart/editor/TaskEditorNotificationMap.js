@@ -3,7 +3,7 @@ import {NotificationMap} from "../../dumb/editor/NotificationMap";
 import {getStatuses} from "../../selectors/statuses";
 import {getAllTeams} from "../../selectors/teams";
 import {getTaskEditorState} from "../../selectors/ui";
-import {updateEditorTask} from "../../actions/ui";
+import {updateTaskEditorTask} from "../../actions/ui";
 import {deserializeNotificationMap, serializeNotificationMap} from "../../utils/notificationMapSerializer";
 
 const mapStateToProps = (state) => {
@@ -23,7 +23,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        updateNotificationMapNumber: (number) => dispatch(updateEditorTask({notificationMapNumber: number}))
+        updateNotificationMapNumber: (number) => dispatch(updateTaskEditorTask({notificationMapNumber: number}))
     };
 };
 

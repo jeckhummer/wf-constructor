@@ -30,7 +30,6 @@ export const EditableTaskBlock = ({
                 height: TASK_BLOCK.HEIGHT + 'px',
                 lineHeight: TASK_BLOCK.HEIGHT + 'px',
                 textAlign: 'center',
-                border: `${TASK_BLOCK.BORDER.width}px ${TASK_BLOCK.BORDER.style} ${TASK_BLOCK.BORDER.color}`,
                 borderRadius: `${TASK_BLOCK.BORDER.radius}px`,
                 overflow: 'hidden',
                 padding: `0px ${TASK_BLOCK.PADDING}px`,

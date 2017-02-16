@@ -1,7 +1,11 @@
 import {getTasksRelationalDataDictionary, getTasksInfoDataDictionary} from '../selectors/tasks';
 import {DEFAULT_TASK_NAME, DEFAULT_AF_MODE} from "../constants";
-import {getTaskEditorActiveTask} from "../selectors/ui";
+import {getTaskEditorActiveTask, getTaskEditorState} from "../selectors/ui";
 import {addNewTask, updateTask} from './tasks';
+import {API} from "../API/CurrentAPI";
+import {getTaskCustomFieldsCache} from "../selectors/cache";
+import {cacheTaskCustomFields} from "./cache";
+import {TASK_EDITOR_TABS} from "../reducers/ui/taskEditor";
 
 export const OPEN_TASK_EDITOR = 'SHOW_TASK_EDITOR';
 export function openTaskEditorForEdit(id) {
@@ -48,7 +52,7 @@ export function closeTaskEditor() {
 }
 
 export const UPDATE_EDITOR_TASK = 'UPDATE_EDITOR_TASK';
-export function updateEditorTask(diff) {
+export function updateTaskEditorTask(diff) {
     return (dispatch) => {
         // если таск перемещается в другую фазу или навешивается на другую команду,
         // ссылка на родительский таск автоматически заnullяется,
@@ -64,7 +68,30 @@ export function updateEditorTask(diff) {
 
 export const OPEN_TASK_EDITOR_TAB = 'OPEN_TASK_EDITOR_TAB';
 export function openTaskEditorTab(tab) {
-    return (dispatch) => {
+    return (dispatch, getState) => {
+        const state = getState();
+
+        if (tab === TASK_EDITOR_TABS.CUSTOM_FIELDS){
+            const customFieldsCache = getTaskCustomFieldsCache(state);
+            const taskId = getTaskEditorState(state).task.id;
+            const cachedCustomFields = customFieldsCache[taskId];
+
+            if (cachedCustomFields !== undefined) {
+                dispatch(setCustomFieldsLoadingAnimationVisibility(false));
+                dispatch(setCustomFields(cachedCustomFields));
+            } else {
+                dispatch(setCustomFieldsLoadingAnimationVisibility(true));
+                dispatch(setCustomFields([]));
+
+                API.getCustomFields(taskId)
+                    .then(fields => {
+                        dispatch(cacheTaskCustomFields(taskId, fields));
+                        dispatch(setCustomFields(fields));
+                        dispatch(setCustomFieldsLoadingAnimationVisibility(false));
+                    });
+            }
+        }
+
         dispatch({type: OPEN_TASK_EDITOR_TAB, tab});
     };
 }
@@ -76,7 +103,7 @@ export function toggleEditMode() {
     };
 }
 
-export function saveEditorNewTask() {
+export function saveTaskEditorNewTask() {
     return function (dispatch, getState) {
         const state = getState();
         const editorTask = getTaskEditorActiveTask(state);
@@ -85,11 +112,38 @@ export function saveEditorNewTask() {
     }
 }
 
-export function saveEditorTask() {
+export function saveTaskEditorTask() {
     return function (dispatch, getState) {
         const state = getState();
         const editorTask = getTaskEditorActiveTask(state);
 
         dispatch(updateTask(editorTask.id, editorTask));
     }
+}
+
+export const SELECT_CUSTOM_FIELD = 'SELECT_CUSTOM_FIELD';
+export function selectCustomField(field) {
+    return function (dispatch) {
+        dispatch({type: SELECT_CUSTOM_FIELD, field});
+    }
+}
+
+export const SET_CUSTOM_FIELDS_LOADING_ANIMATION_VISIBILITY = 'SET_CUSTOM_FIELDS_LOADING_ANIMATION_VISIBILITY';
+export function setCustomFieldsLoadingAnimationVisibility(visible) {
+    return (dispatch) => {
+        dispatch({
+            type: SET_CUSTOM_FIELDS_LOADING_ANIMATION_VISIBILITY,
+            visible
+        });
+    };
+}
+
+export const SET_CUSTOM_FIELDS = 'SET_CUSTOM_FIELDS';
+export function setCustomFields(fields) {
+    return (dispatch) => {
+        dispatch({
+            type: SET_CUSTOM_FIELDS,
+            fields
+        });
+    };
 }
