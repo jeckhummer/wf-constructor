@@ -14,6 +14,7 @@ export const CustomFieldList = ({
                 {
                     customFields.map((field, key) =>
                         <Table.Row
+                            style={{cursor: 'pointer'}}
                             key={key}
                             onClick={() => onSelect(field)}>
 
@@ -22,8 +23,8 @@ export const CustomFieldList = ({
                             <Table.Cell>
                                 <Icon
                                     onClick={(e) => {
-                                        onEditClick(key);
-                                        e.stopPropagation()
+                                        onEditClick(field.id);
+                                        e.stopPropagation();
                                     }}
                                     name="pencil"
                                     color="blue"
@@ -31,7 +32,7 @@ export const CustomFieldList = ({
                                 <Icon
                                     onClick={(e) => {
                                         onDeleteClick(key);
-                                        e.stopPropagation()
+                                        e.stopPropagation();
                                     }}
                                     name="remove circle"
                                     color="red"
