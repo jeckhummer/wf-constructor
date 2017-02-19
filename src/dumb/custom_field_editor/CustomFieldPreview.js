@@ -15,7 +15,7 @@ export const CustomFieldPreview = ({
                         Select field to see preview.
                     </div>
                     : React.createElement(
-                        CUSTOM_FIELD_TYPES[selectedCustomField.typeId].templateType,
+                        CUSTOM_FIELD_TYPES[selectedCustomField.typeId].previewTemplate,
                         selectedCustomField.data
                     )
             }

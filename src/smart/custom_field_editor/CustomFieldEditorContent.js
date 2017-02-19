@@ -1,20 +1,19 @@
-import React from 'react';
 import {connect} from 'react-redux';
 import {getCustomFieldEditorActiveCustomField} from "../../selectors/ui";
-import {CustomFieldForm} from "../../dumb/editor/CustomFieldForm";
+import {CustomFieldForm} from "../../dumb/custom_field_editor/CustomFieldForm";
+import {updateActiveCustomField} from "../../actions/customFieldEditor";
 
 const mapStateToProps = (state) => {
     const customField = getCustomFieldEditorActiveCustomField(state);
 
-    return {
-        customField
-    };
+    return {customField};
 };
 
-const component = ({customField}) => {
-    return (
-        <CustomFieldForm customField={customField}/>
-    );
+const mapDispatchToProps = (dispatch) => {
+    return {onCustomFieldChange: (data) => dispatch(updateActiveCustomField(data))};
 };
 
-export const CustomFieldEditorContent = connect(mapStateToProps)(component);
+export const CustomFieldEditorContent = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(CustomFieldForm);

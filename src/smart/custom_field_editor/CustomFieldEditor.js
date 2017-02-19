@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {EditorModal} from "../../dumb/editor/EditorModal";
+import {EditorModal} from "../../dumb/task_editor/EditorModal";
 import {getCustomFieldEditorState} from "../../selectors/ui";
 import {CustomFieldEditorAlerts} from "./CustomFieldEditorAlerts";
 import {CustomFieldEditorHeader} from "./CustomFieldEditorHeader";

@@ -1,36 +1,51 @@
-import React from 'react';
-import {GenericListFormTemplate} from "./generic/GenericListFormTemplate";
+import {updateActiveCustomField} from "../../../actions/customFieldEditor";
+import {connect} from "react-redux";
+import {GenericListFormTemplate} from "../../../dumb/custom_field_editor/form_templates/GenericListFormTemplate";
 
-export const CheckboxListFormTemplate = ({label, items, onCustomFieldChange}) => {
-    const onDataChange = dataDiff => onCustomFieldChange({
-        data: {
-            ...items,
-            ...dataDiff
-        }
-    });
-    const onLabelChange = label => onDataChange({label});
-    const onItemChange = (index, value) => onDataChange({
-        items: items.map((item, i) =>
-            i === index ? value : item
-        )
-    });
-    const onItemDelete = index => onDataChange({
-        items: items.filter((item, i) => i !== index)
-    });
-    const onItemAdd = () => onDataChange({
-        items: items.concat([''])
-    });
-
-    return (
-        <GenericListFormTemplate
-            {...{
-                label,
-                items,
-                onLabelChange,
-                onItemAdd,
-                onItemDelete,
-                onItemChange
-            }}
-        />
-    );
+const mapStateToProps = (state, {label, items}) => {
+    return {label, items};
 };
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        updateActiveCustomField: diff => dispatch(updateActiveCustomField(diff))
+    };
+};
+
+export const mergeProps = (stateProps, dispatchProps) => {
+    return {
+        onLabelChange: label => dispatchProps.updateActiveCustomField({
+            data: {
+                ...stateProps,
+                label
+            }
+        }),
+        onItemChange: (index, value) => dispatchProps.updateActiveCustomField({
+            data: {
+                ...stateProps,
+                items: stateProps.items.map((item, i) =>
+                    i === index ? value : item
+                )
+            }
+        }),
+        onItemDelete: index => dispatchProps.updateActiveCustomField({
+            data: {
+                ...stateProps,
+                items: stateProps.items.filter((item, i) => i !== index)
+            }
+        }),
+        onItemAdd: () => dispatchProps.updateActiveCustomField({
+            data: {
+                ...stateProps,
+                items: stateProps.items.concat([''])
+            }
+        }),
+        ...stateProps
+    };
+};
+
+export const CheckboxListFormTemplate = connect(
+    mapStateToProps,
+    mapDispatchToProps,
+    mergeProps
+)(GenericListFormTemplate);

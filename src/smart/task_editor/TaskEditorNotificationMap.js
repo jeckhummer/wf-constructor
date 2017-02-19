@@ -1,5 +1,5 @@
 import {connect} from 'react-redux';
-import {NotificationMap} from "../../dumb/editor/NotificationMap";
+import {NotificationMap} from "../../dumb/task_editor/NotificationMap";
 import {getStatuses} from "../../selectors/statuses";
 import {getAllTeams} from "../../selectors/teams";
 import {getTaskEditorState} from "../../selectors/ui";

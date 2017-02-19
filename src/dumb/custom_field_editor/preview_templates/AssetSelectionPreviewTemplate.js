@@ -1,7 +1,7 @@
 import React from 'react';
 import {Form} from "semantic-ui-react";
 
-export const AssetSelectionTemplate = ({label}) => {
+export const AssetSelectionPreviewTemplate = ({label}) => {
     const options = [
         {text: 'asset 1', value: 'asset 1'},
         {text: 'asset 2', value: 'asset 2'},

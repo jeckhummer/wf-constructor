@@ -1,6 +1,6 @@
 import React from 'react';
 import {Form, Icon} from "semantic-ui-react";
-import {AddButton} from "../../../buttons/AddButton";
+import {AddButton} from "../../buttons/AddButton";
 
 export const GenericListFormTemplate = ({
     label,

@@ -1,6 +1,6 @@
 import React from 'react';
 import {Grid, Loader, Dimmer} from "semantic-ui-react";
-import {CustomFieldPreview} from "./CustomFieldPreview";
+import {CustomFieldPreview} from "../custom_field_editor/CustomFieldPreview";
 import {CustomFieldList} from "./CustomFieldList";
 
 export const CustomFieldManager = ({

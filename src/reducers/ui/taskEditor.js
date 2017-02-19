@@ -35,7 +35,7 @@ export const taskEditor = (state = DEFAULT_STATE, action) => {
         case SELECT_CUSTOM_FIELD:
             return selectTaskCustomField(state, action.field);
         case DELETE_CUSTOM_FIELD:
-            return deleteTaskCustomField(state, action.order);
+            return deleteTaskCustomField(state, action.id);
         case SET_CUSTOM_FIELDS_LOADING_ANIMATION_VISIBILITY:
             return setCustomFieldsLoadingAnimationVisibility(state, action.visible);
         case SET_CUSTOM_FIELDS:
@@ -82,10 +82,10 @@ function selectTaskCustomField(state, field) {
     };
 }
 
-function deleteTaskCustomField(state, order) {
+function deleteTaskCustomField(state, id) {
     return {
         ...state,
-        customFields: state.customFields.filter((_, i) => i !== order)
+        customFields: state.customFields.filter((field) => field.id !== id)
     };
 }
 

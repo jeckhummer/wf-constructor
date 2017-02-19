@@ -1,6 +1,6 @@
 import {getTasksRelationalDataDictionary, getTasksInfoDataDictionary} from '../selectors/tasks';
 import {DEFAULT_TASK_NAME, DEFAULT_TASK_AF_MODE, DEFAULT_TASK_STATUS_ID} from "../constants";
-import {getTaskEditorActiveTask, getTaskEditorState} from "../selectors/ui";
+import {getTaskEditorActiveTask, getTaskEditorState, getCustomFieldEditorState} from "../selectors/ui";
 import {addNewTask, updateTask} from './tasks';
 import {API} from "../API/CurrentAPI";
 import {getTaskCustomFieldsCache} from "../selectors/cache";
@@ -126,10 +126,10 @@ export function clearCustomFieldSelection() {
 }
 
 export const DELETE_CUSTOM_FIELD = 'DELETE_CUSTOM_FIELD';
-export function deleteCustomField(order) {
+export function deleteCustomField(id) {
     return function (dispatch) {
         dispatch(clearCustomFieldSelection());
-        dispatch({type: DELETE_CUSTOM_FIELD, order});
+        dispatch({type: DELETE_CUSTOM_FIELD, id});
     }
 }
 
@@ -144,5 +144,32 @@ export const SET_CUSTOM_FIELDS = 'SET_CUSTOM_FIELDS';
 export function setCustomFields(fields) {
     return (dispatch) => {
         dispatch({type: SET_CUSTOM_FIELDS, fields});
+    };
+}
+
+export function updateCustomField(id, customField) {
+    return (dispatch, getState) => {
+        const state = getState();
+        const {customFields} = getTaskEditorState(state);
+
+        dispatch(setCustomFields(
+            customFields.map(field =>
+                field.id === id
+                    ? {...customField, id}
+                    : field
+            )
+        ));
+    };
+}
+
+export function saveEditedCustomField() {
+    return (dispatch, getState) => {
+        const state = getState();
+        const {customField} = getCustomFieldEditorState(state);
+
+        dispatch(updateCustomField(
+            customField.id,
+            customField
+        ));
     };
 }

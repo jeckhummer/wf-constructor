@@ -1,12 +1,12 @@
 import {decorate} from "../utils/decorate";
 import * as $ from "jquery";
-import {customFieldsMocks} from "../mocks";
+import {customFieldMocks} from "../mocks";
 
 const _API = {
     getCustomFields: (taskId) => {
         const deferred = $.Deferred();
         setTimeout(
-            () => deferred.resolve(customFieldsMocks),
+            () => deferred.resolve(customFieldMocks),
             0 * 1000
         );
         return deferred.promise();

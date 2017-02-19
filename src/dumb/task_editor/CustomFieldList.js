@@ -31,7 +31,7 @@ export const CustomFieldList = ({
                                     link/>
                                 <Icon
                                     onClick={(e) => {
-                                        onDeleteClick(key);
+                                        onDeleteClick(field.id);
                                         e.stopPropagation();
                                     }}
                                     name="remove circle"

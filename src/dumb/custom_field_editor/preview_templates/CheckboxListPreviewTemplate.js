@@ -1,7 +1,7 @@
 import React from 'react';
 import {Form} from "semantic-ui-react";
 
-export const CheckboxListTemplate = ({label, items}) => {
+export const CheckboxListPreviewTemplate = ({label, items}) => {
     return (
         <Form>
             <Form.Field>

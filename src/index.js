@@ -245,8 +245,9 @@ initApp({
     },
     cache: {
         taskCustomFields: {
-            '2': [
+            '3': [
                 {
+                    id: '1',
                     typeId: 'CKB',
                     data: {
                         label: 'test checkbox',
@@ -259,6 +260,7 @@ initApp({
                     }
                 },
                 {
+                    id: '2',
                     typeId: 'RAD',
                     data: {
                         label: 'test radio button list',
@@ -272,6 +274,7 @@ initApp({
                     }
                 },
                 {
+                    id: '3',
                     typeId: 'DRP',
                     data: {
                         label: 'test type selection',
@@ -284,18 +287,21 @@ initApp({
                     }
                 },
                 {
+                    id: '4',
                     typeId: 'LNK',
                     data: {
                         label: 'test asset selection'
                     }
                 },
                 {
+                    id: '5',
                     typeId: 'TXT',
                     data: {
                         label: 'test free text'
                     }
                 },
                 {
+                    id: '6',
                     typeId: 'STR',
                     data: {
                         label: 'test text string'
@@ -310,21 +316,22 @@ initApp({
             isNewTask: false,
             activeTab: 2,
             task: {
-                id: '2',
-                name: 'Task 2',
+                id: '3',
+                name: 'Task 3',
                 approvalFlow: true,
                 notificationMapNumber: '920350134',
-                statusId: '2',
-                parentId: null,
+                statusId: '3',
+                parentId: '2',
                 phaseId: '2',
                 teamId: '1',
-                childId: '3',
-                isRoot: true,
+                childId: '4',
+                isRoot: false,
                 isLeaf: false
             },
             customFieldsLoading: false,
             customFields: [
                 {
+                    id: '1',
                     typeId: 'CKB',
                     data: {
                         label: 'test checkbox',
@@ -337,6 +344,7 @@ initApp({
                     }
                 },
                 {
+                    id: '2',
                     typeId: 'RAD',
                     data: {
                         label: 'test radio button list',
@@ -350,6 +358,7 @@ initApp({
                     }
                 },
                 {
+                    id: '3',
                     typeId: 'DRP',
                     data: {
                         label: 'test type selection',
@@ -362,41 +371,33 @@ initApp({
                     }
                 },
                 {
+                    id: '4',
                     typeId: 'LNK',
                     data: {
                         label: 'test asset selection'
                     }
                 },
                 {
+                    id: '5',
                     typeId: 'TXT',
                     data: {
                         label: 'test free text'
                     }
                 },
                 {
+                    id: '6',
                     typeId: 'STR',
                     data: {
                         label: 'test text string'
                     }
                 }
-            ],
-            selectedCustomField: {
-                typeId: 'CKB',
-                data: {
-                    label: 'test checkbox',
-                    items: [
-                        'option 1',
-                        'option 2',
-                        'option 3',
-                        'option 4'
-                    ]
-                }
-            }
+            ]
         },
         customFieldEditor: {
             open: true,
             isNewCustomField: false,
             customField: {
+                id: '2',
                 typeId: 'RAD',
                 data: {
                     label: 'test radio button list',

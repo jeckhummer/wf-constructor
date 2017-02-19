@@ -1,7 +1,7 @@
 import React from 'react';
 import {Form} from "semantic-ui-react";
 
-export const RadioButtonListTemplate = ({label, items}) => {
+export const RadioButtonListPreviewTemplate = ({label, items}) => {
     return (
         <Form>
             <Form.Field>

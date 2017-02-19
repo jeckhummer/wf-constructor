@@ -1,9 +1,15 @@
-import {CheckboxListTemplate} from "./dumb/custom_fields_templates/CheckboxListTemplate";
-import {FreeTextTemplate} from "./dumb/custom_fields_templates/FreeTextTemplate";
-import {RadioButtonListTemplate} from "./dumb/custom_fields_templates/RadioButtonListTemplate";
-import {TextStringTemplate} from "./dumb/custom_fields_templates/TextStringTemplate";
-import {TypeSelectionTemplate} from "./dumb/custom_fields_templates/TypeSelectionTemplate";
-import {AssetSelectionTemplate} from "./dumb/custom_fields_templates/AssetSelectionTemplate";
+import {CheckboxListPreviewTemplate} from "./dumb/custom_field_editor/preview_templates/CheckboxListPreviewTemplate";
+import {FreeTextPreviewTemplate} from "./dumb/custom_field_editor/preview_templates/FreeTextPreviewTemplate";
+import {RadioButtonListPreviewTemplate} from "./dumb/custom_field_editor/preview_templates/RadioButtonListPreviewTemplate";
+import {TextStringPreviewTemplate} from "./dumb/custom_field_editor/preview_templates/TextStringPreviewTemplate";
+import {TypeSelectionPreviewTemplate} from "./dumb/custom_field_editor/preview_templates/TypeSelectionPreviewTemplate";
+import {AssetSelectionPreviewTemplate} from "./dumb/custom_field_editor/preview_templates/AssetSelectionPreviewTemplate";
+import {TextStringFormTemplate} from "./smart/custom_field_editor/form_templates/TextStringFormTemplate";
+import {FreeTextFormTemplate} from "./smart/custom_field_editor/form_templates/FreeTextFormTemplate";
+import {TypeSelectionFormTemplate} from "./smart/custom_field_editor/form_templates/TypeSelectionFormTemplate";
+import {AssetSelectionFormTemplate} from "./smart/custom_field_editor/form_templates/AssetSelectionFormTemplate";
+import {RadioButtonListFormTemplate} from "./smart/custom_field_editor/form_templates/RadioButtonListFormTemplate";
+import {CheckboxListFormTemplate} from "./smart/custom_field_editor/form_templates/CheckboxListFormTemplate";
 
 export const CUSTOM_FIELD_TYPE_IDS = {
     FREE_TEXT: 'TXT',
@@ -15,12 +21,42 @@ export const CUSTOM_FIELD_TYPE_IDS = {
 };
 
 export const CUSTOM_FIELD_TYPES = {
-    [CUSTOM_FIELD_TYPE_IDS.FREE_TEXT]: {id: CUSTOM_FIELD_TYPE_IDS.FREE_TEXT, name: 'Free text', templateType: FreeTextTemplate},
-    [CUSTOM_FIELD_TYPE_IDS.TYPE_SELECTION]: {id: CUSTOM_FIELD_TYPE_IDS.TYPE_SELECTION, name: 'Type selection', templateType: TypeSelectionTemplate},
-    [CUSTOM_FIELD_TYPE_IDS.ASSET_SELECTION]: {id: CUSTOM_FIELD_TYPE_IDS.ASSET_SELECTION, name: 'Asset selection', templateType: AssetSelectionTemplate},
-    [CUSTOM_FIELD_TYPE_IDS.RADIO_BUTTON_LIST]: {id: CUSTOM_FIELD_TYPE_IDS.RADIO_BUTTON_LIST, name: 'Radio button list', templateType: RadioButtonListTemplate},
-    [CUSTOM_FIELD_TYPE_IDS.CHECKBOX_LIST]: {id: CUSTOM_FIELD_TYPE_IDS.CHECKBOX_LIST, name: 'Checkbox list', templateType: CheckboxListTemplate},
-    [CUSTOM_FIELD_TYPE_IDS.TEXT_STRING]: {id: CUSTOM_FIELD_TYPE_IDS.TEXT_STRING, name: 'Text string', templateType: TextStringTemplate},
+    [CUSTOM_FIELD_TYPE_IDS.FREE_TEXT]: {
+        id: CUSTOM_FIELD_TYPE_IDS.FREE_TEXT,
+        name: 'Free text',
+        formTemplate: FreeTextFormTemplate,
+        previewTemplate: FreeTextPreviewTemplate
+    },
+    [CUSTOM_FIELD_TYPE_IDS.TYPE_SELECTION]: {
+        id: CUSTOM_FIELD_TYPE_IDS.TYPE_SELECTION,
+        name: 'Type selection',
+        formTemplate: TypeSelectionFormTemplate,
+        previewTemplate: TypeSelectionPreviewTemplate
+    },
+    [CUSTOM_FIELD_TYPE_IDS.ASSET_SELECTION]: {
+        id: CUSTOM_FIELD_TYPE_IDS.ASSET_SELECTION,
+        name: 'Asset selection',
+        formTemplate: AssetSelectionFormTemplate,
+        previewTemplate: AssetSelectionPreviewTemplate
+    },
+    [CUSTOM_FIELD_TYPE_IDS.RADIO_BUTTON_LIST]: {
+        id: CUSTOM_FIELD_TYPE_IDS.RADIO_BUTTON_LIST,
+        name: 'Radio button list',
+        formTemplate: RadioButtonListFormTemplate,
+        previewTemplate: RadioButtonListPreviewTemplate
+    },
+    [CUSTOM_FIELD_TYPE_IDS.CHECKBOX_LIST]: {
+        id: CUSTOM_FIELD_TYPE_IDS.CHECKBOX_LIST,
+        name: 'Checkbox list',
+        formTemplate: CheckboxListFormTemplate,
+        previewTemplate: CheckboxListPreviewTemplate
+    },
+    [CUSTOM_FIELD_TYPE_IDS.TEXT_STRING]: {
+        id: CUSTOM_FIELD_TYPE_IDS.TEXT_STRING,
+        name: 'Text string',
+        formTemplate: TextStringFormTemplate,
+        previewTemplate: TextStringPreviewTemplate
+    },
 };
 
 export const DEFAULT_TASK_AF_MODE = true;

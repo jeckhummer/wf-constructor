@@ -180,8 +180,9 @@ export const initialState = {
     }
 };
 
-export const customFieldsMocks = [
+export const customFieldMocks = [
     {
+        id: '1',
         typeId: CUSTOM_FIELD_TYPE_IDS.CHECKBOX_LIST,
         data: {
             label: 'test checkbox',
@@ -194,6 +195,7 @@ export const customFieldsMocks = [
         }
     },
     {
+        id: '2',
         typeId: CUSTOM_FIELD_TYPE_IDS.RADIO_BUTTON_LIST,
         data: {
             label: 'test radio button list',
@@ -207,6 +209,7 @@ export const customFieldsMocks = [
         }
     },
     {
+        id: '3',
         typeId: CUSTOM_FIELD_TYPE_IDS.TYPE_SELECTION,
         data: {
             label: 'test type selection',
@@ -219,18 +222,21 @@ export const customFieldsMocks = [
         }
     },
     {
+        id: '4',
         typeId: CUSTOM_FIELD_TYPE_IDS.ASSET_SELECTION,
         data: {
             label: 'test asset selection'
         }
     },
     {
+        id: '5',
         typeId: CUSTOM_FIELD_TYPE_IDS.FREE_TEXT,
         data: {
             label: 'test free text'
         }
     },
     {
+        id: '6',
         typeId: CUSTOM_FIELD_TYPE_IDS.TEXT_STRING,
         data: {
             label: 'test text string'

@@ -1,5 +1,5 @@
 import {connect} from 'react-redux';
-import {TaskForm} from "../../dumb/editor/TaskForm";
+import {TaskForm} from "../../dumb/task_editor/TaskForm";
 import {getTaskEditorState, getTaskEditorActiveTask} from "../../selectors/ui";
 import {updateTaskEditorTask} from "../../actions/taskEditor";
 import {getTeamsDictionary, getAllTeams} from "../../selectors/teams";

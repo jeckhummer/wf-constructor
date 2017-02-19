@@ -1,6 +1,7 @@
 import {
     OPEN_CUSTOM_FIELD_EDITOR,
-    CLOSE_CUSTOM_FIELD_EDITOR
+    CLOSE_CUSTOM_FIELD_EDITOR,
+    UPDATE_ACTIVE_CUSTOM_FIELD
 } from "../../actions/customFieldEditor";
 
 const DEFAULT_STATE = {
@@ -20,6 +21,14 @@ export const customFieldEditor = (state = DEFAULT_STATE, action) => {
             };
         case CLOSE_CUSTOM_FIELD_EDITOR:
             return DEFAULT_STATE;
+        case UPDATE_ACTIVE_CUSTOM_FIELD:
+            return {
+                ...state,
+                customField: {
+                    ...state.customField,
+                    ...action.diff
+                }
+            };
         default:
             return state;
     }
