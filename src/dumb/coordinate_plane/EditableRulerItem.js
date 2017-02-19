@@ -1,14 +1,14 @@
 import React from 'react';
 import {Icon} from "semantic-ui-react";
+import {COLORS} from "../../styles";
 
-export const RulerItem = ({
+export const EditableRulerItem = ({
     content,
     vertical,
     height,
     width,
     onPrevClick,
     onNextClick,
-    style,
     last,
     first
 }) => {
@@ -20,7 +20,10 @@ export const RulerItem = ({
             alignItems: 'center',
             height: height,
             width: width,
-            ...style,
+            backgroundColor: COLORS.PRIMARY_LIGHT,
+            color: COLORS.PRIMARY,
+            fontWeight: 'bold',
+            textTransform: 'uppercase'
         }}>
             {
                 vertical

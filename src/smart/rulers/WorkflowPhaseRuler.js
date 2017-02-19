@@ -3,15 +3,23 @@ import {connect} from 'react-redux';
 import {getPhaseRulerItems} from '../../selectors/workflow';
 import {List} from '../../dumb/common/List';
 import {EDITOR} from '../../styles';
-import {WorkflowPhaseRulerItem} from "./WorkflowPhaseRulerItem";
+import {EditableWorkflowPhaseRulerItem} from "./EditableWorkflowPhaseRulerItem";
+import {getEditMode} from "../../selectors/ui";
+import {ReadonlyWorkflowPhaseRulerItem} from "./ReadonlyWorkflowPhaseRulerItem";
 
 const mapStateToProps = (state) => {
+    const editMode = getEditMode(state);
     const items = getPhaseRulerItems(state).map(
         item => (
-            <WorkflowPhaseRulerItem
-                id={item.id}
-                size={item.size}
-            />
+            editMode
+                ? <EditableWorkflowPhaseRulerItem
+                    id={item.id}
+                    size={item.size}
+                />
+                : <ReadonlyWorkflowPhaseRulerItem
+                    id={item.id}
+                    size={item.size}
+                />
         )
     );
 
@@ -23,11 +31,4 @@ const mapStateToProps = (state) => {
     };
 };
 
-const mapDispatchToProps = (dispatch) => {
-    return {};
-};
-
-export const WorkflowPhaseRuler = connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(List);
+export const WorkflowPhaseRuler = connect(mapStateToProps)(List);

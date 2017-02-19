@@ -3,15 +3,23 @@ import {connect} from 'react-redux';
 import {getTeamRulerItems} from '../../selectors/workflow';
 import {List} from '../../dumb/common/List';
 import {EDITOR} from '../../styles';
-import {WorkflowTeamRulerItem} from "./WorkflowTeamRulerItem";
+import {EditableWorkflowTeamRulerItem} from "./EditableWorkflowTeamRulerItem";
+import {getEditMode} from "../../selectors/ui";
+import {ReadonlyWorkflowTeamRulerItem} from "./ReadonlyWorkflowTeamRulerItem";
 
 const mapStateToProps = (state) => {
+    const editMode = getEditMode(state);
     const items = getTeamRulerItems(state).map(
         item => (
-            <WorkflowTeamRulerItem
-                id={item.id}
-                size={item.size}
-            />
+            editMode
+                ? <EditableWorkflowTeamRulerItem
+                    id={item.id}
+                    size={item.size}
+                />
+                : <ReadonlyWorkflowTeamRulerItem
+                    id={item.id}
+                    size={item.size}
+                />
         )
     );
 
@@ -23,11 +31,4 @@ const mapStateToProps = (state) => {
     };
 };
 
-const mapDispatchToProps = (dispatch) => {
-    return {};
-};
-
-export const WorkflowTeamRuler = connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(List);
+export const WorkflowTeamRuler = connect(mapStateToProps)(List);

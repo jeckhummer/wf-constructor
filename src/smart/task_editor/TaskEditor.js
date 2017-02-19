@@ -2,9 +2,9 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {EditorModal} from "../../dumb/editor/EditorModal";
 import {getTaskEditorState} from "../../selectors/ui";
-import {closeTaskEditor} from "../../actions/ui";
+import {closeTaskEditor} from "../../actions/taskEditor";
 import {TaskEditorTabs} from "./TaskEditorTabs";
-import {TaskFormValidationSummary} from "./TaskFormValidationSummary";
+import {TaskEditorAlerts} from "./TaskEditorAlerts";
 import {TaskEditorContent} from "./TaskEditorContent";
 import {TaskEditorActions} from "./TaskEditorActions";
 import {TaskEditorHeader} from "./TaskEditorHeader";
@@ -18,7 +18,7 @@ const mapStateToProps = (state) => {
         tabs: <TaskEditorTabs/>,
         content: <TaskEditorContent/>,
         actions: <TaskEditorActions/>,
-        alert: <TaskFormValidationSummary/>
+        alert: <TaskEditorAlerts/>
     };
 };
 

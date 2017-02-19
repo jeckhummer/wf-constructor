@@ -1,5 +1,6 @@
 import {connect} from 'react-redux';
 import {AddButton} from "../../dumb/buttons/AddButton";
+import {openCustomFieldEditorForAdding} from "../../actions/customFieldEditor";
 
 const mapStateToProps = (state) => {
     return {
@@ -10,13 +11,11 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onClick: () => {
-            console.log('test');
-        }
+        onClick: () => dispatch(openCustomFieldEditorForAdding())
     };
 };
 
-export const AddNewCustomFieldButton = connect(
+export const CustomFieldEditorTrigger = connect(
     mapStateToProps,
     mapDispatchToProps
 )(AddButton);

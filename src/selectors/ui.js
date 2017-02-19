@@ -1,10 +1,7 @@
 import {createSelector} from "reselect";
 
 export const getTaskEditorState = state => state.ui.taskEditor;
-export const getWorkflowEditorState = state => state.ui.workflowEditor;
-export const getEditMode = state => state.ui.editMode;
 export const getTaskEditorActiveTask = state => state.ui.taskEditor.task;
-
 export const getTaskEditorTaskValidationResult = createSelector(
     [getTaskEditorActiveTask],
     task => {
@@ -20,3 +17,11 @@ export const getTaskEditorTaskValidationResult = createSelector(
         };
     }
 );
+
+export const getCustomFieldEditorState = state => state.ui.customFieldEditor;
+export const getCustomFieldEditorActiveCustomField = state => state.ui.customFieldEditor.customField;
+
+export const getWorkflowEditorState = state => state.ui.workflowEditor;
+
+export const getEditMode = state => state.ui.editMode;
+

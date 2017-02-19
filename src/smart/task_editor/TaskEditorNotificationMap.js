@@ -3,8 +3,8 @@ import {NotificationMap} from "../../dumb/editor/NotificationMap";
 import {getStatuses} from "../../selectors/statuses";
 import {getAllTeams} from "../../selectors/teams";
 import {getTaskEditorState} from "../../selectors/ui";
-import {updateTaskEditorTask} from "../../actions/ui";
-import {deserializeNotificationMap, serializeNotificationMap} from "../../utils/notificationMapSerializer";
+import {updateTaskEditorTask} from "../../actions/taskEditor";
+import {deserializeNotificationMap, serializeNotificationMap} from "../../utils/notificationMapSerialization";
 
 const mapStateToProps = (state) => {
     const statuses = getStatuses(state).map(x => x.name);

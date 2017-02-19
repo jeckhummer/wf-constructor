@@ -4,7 +4,7 @@ import {getTaskEditorState} from '../../selectors/ui';
 import {TASK_EDITOR_TABS} from "../../reducers/ui/taskEditor";
 import {SaveNewTaskButton} from "./SaveNewTaskButton";
 import {SaveTaskButton} from "./SaveTaskButton";
-import {AddNewCustomFieldButton} from "./AddNewCustomFieldButton";
+import {CustomFieldEditorTrigger} from "./CustomFieldEditorTrigger";
 
 const mapStateToProps = (state) => {
     const {isNewTask, activeTab} = getTaskEditorState(state);
@@ -19,12 +19,12 @@ const component = ({activeTab, isNewTask}) => {
         [NEW_TASK]: {
             [TASK_EDITOR_TABS.GENERAL]: [SaveNewTaskButton],
             [TASK_EDITOR_TABS.NOTIFICATIONS]: [SaveNewTaskButton],
-            [TASK_EDITOR_TABS.CUSTOM_FIELDS]: [AddNewCustomFieldButton, SaveNewTaskButton],
+            [TASK_EDITOR_TABS.CUSTOM_FIELDS]: [CustomFieldEditorTrigger, SaveNewTaskButton],
         },
         [EXISTING_TASK]: {
             [TASK_EDITOR_TABS.GENERAL]: [SaveTaskButton],
             [TASK_EDITOR_TABS.NOTIFICATIONS]: [SaveTaskButton],
-            [TASK_EDITOR_TABS.CUSTOM_FIELDS]: [AddNewCustomFieldButton, SaveTaskButton],
+            [TASK_EDITOR_TABS.CUSTOM_FIELDS]: [CustomFieldEditorTrigger, SaveTaskButton],
         },
     };
 

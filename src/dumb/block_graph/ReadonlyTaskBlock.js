@@ -4,7 +4,10 @@ import {TASK_BLOCK, COLORS} from '../../styles';
 export const ReadonlyTaskBlock = ({
     name,
     statusId,
+    link
 }) => {
+    const {color, backgroundColor} = COLORS.STATUS[statusId];
+
     return (
         <div style={{
             width: TASK_BLOCK.WIDTH + 'px',
@@ -19,9 +22,16 @@ export const ReadonlyTaskBlock = ({
             whiteSpace: 'nowrap',
             fontWeight: 'bold',
             textTransform: 'uppercase',
-            ...COLORS.STATUS[statusId]
+            backgroundColor
         }}>
-            {name}
+            <a
+                href={link}
+                style={{
+                    color,
+                    cursor: 'pointer'
+                }}>
+                {name}
+            </a>
         </div>
     );
 };

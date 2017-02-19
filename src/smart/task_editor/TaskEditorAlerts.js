@@ -24,4 +24,4 @@ function mapStateToProps(state) {
     };
 }
 
-export const TaskFormValidationSummary = connect(mapStateToProps)(ValidationSummary);
+export const TaskEditorAlerts = connect(mapStateToProps)(ValidationSummary);

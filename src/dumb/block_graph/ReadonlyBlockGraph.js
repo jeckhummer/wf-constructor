@@ -1,6 +1,6 @@
 import React from 'react';
 import {WORKFLOW_GRID} from "../../styles";
-import {ArrowBlock} from "./ArrowBlock";
+import {ReadonlyArrowBlock} from "./ReadonlyArrowBlock";
 import {Grid} from '../common/Grid';
 import * as _ from "lodash";
 import {ReadonlyTaskBlock} from "./ReadonlyTaskBlock";
@@ -17,7 +17,7 @@ export const ReadonlyBlockGraph = ({ matrix }) => {
                         (item, i) =>
                             [<ReadonlyTaskBlock {...item} />].concat([
                                 i !== row.length - 1
-                                    ? <ArrowBlock interceptable={false}/>
+                                    ? <ReadonlyArrowBlock interceptable={false}/>
                                     : null
                             ])
                         )

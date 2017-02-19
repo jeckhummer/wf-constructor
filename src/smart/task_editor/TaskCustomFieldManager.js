@@ -1,7 +1,8 @@
 import {connect} from 'react-redux';
-import {selectCustomField} from "../../actions/ui";
-import {CustomFieldsManager} from "../../dumb/editor/CustomFieldsManager";
+import {selectCustomField, deleteCustomField} from "../../actions/taskEditor";
+import {CustomFieldManager} from "../../dumb/editor/CustomFieldManager";
 import {getTaskEditorState} from "../../selectors/ui";
+import {openCustomFieldEditorForEdit} from "../../actions/customFieldEditor";
 
 const mapStateToProps = (state) => {
     const {
@@ -12,21 +13,20 @@ const mapStateToProps = (state) => {
 
     return {
         loading: customFieldsLoading,
-        fields: customFields,
+        customFields,
         selectedCustomField
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onAddClick: () => {},
-        onDeleteClick: () => {},
-        onEditClick: () => {},
+        onDeleteClick: (order) => dispatch(deleteCustomField(order)),
+        onEditClick: (order) => {dispatch(openCustomFieldEditorForEdit(order))},
         onSelect: (field) => dispatch(selectCustomField(field))
     };
 };
 
-export const TaskCustomFieldsManager = connect(
+export const TaskCustomFieldManager = connect(
     mapStateToProps,
     mapDispatchToProps
-)(CustomFieldsManager);
+)(CustomFieldManager);

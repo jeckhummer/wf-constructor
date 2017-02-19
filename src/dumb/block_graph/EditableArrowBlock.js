@@ -2,7 +2,7 @@ import React from 'react';
 import {COLORS, WORKFLOW_GRID} from '../../styles';
 import {PlusButton} from "./PlusButton";
 
-export const ArrowBlock = ({ interceptable, onClick }) => {
+export const EditableArrowBlock = ({ onClick }) => {
     return(
         <div style={{
             paddingTop: '14px',
@@ -17,7 +17,7 @@ export const ArrowBlock = ({ interceptable, onClick }) => {
             }}>
                 →
             </div>
-            { interceptable ? <PlusButton onClick={onClick}/> : null }
+            <PlusButton onClick={onClick}/>
         </div>
     );
 };

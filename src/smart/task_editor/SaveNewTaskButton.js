@@ -1,7 +1,7 @@
 import {connect} from 'react-redux';
 import {SaveButton} from "../../dumb/buttons/SaveButton";
 import {getTaskEditorTaskValidationResult} from "../../selectors/ui";
-import {closeTaskEditor, saveTaskEditorNewTask} from "../../actions/ui";
+import {closeTaskEditor, saveTaskEditorNewTask} from "../../actions/taskEditor";
 
 const mapStateToProps = (state) => {
     const disabled = !getTaskEditorTaskValidationResult(state).result;

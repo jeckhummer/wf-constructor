@@ -3,8 +3,8 @@ import {
     CLOSE_TASK_EDITOR,
     UPDATE_EDITOR_TASK,
     OPEN_TASK_EDITOR_TAB,
-    SELECT_CUSTOM_FIELD, SET_CUSTOM_FIELDS_LOADING_ANIMATION_VISIBILITY, SET_CUSTOM_FIELDS
-} from "../../actions/ui";
+    SELECT_CUSTOM_FIELD, SET_CUSTOM_FIELDS_LOADING_ANIMATION_VISIBILITY, SET_CUSTOM_FIELDS, DELETE_CUSTOM_FIELD
+} from "../../actions/taskEditor";
 
 export const TASK_EDITOR_TABS = {
     GENERAL: 1,
@@ -12,17 +12,17 @@ export const TASK_EDITOR_TABS = {
     NOTIFICATIONS: 3
 };
 
-const CLOSED_STATE = {
+const DEFAULT_STATE = {
     open: false,
     isNewTask: false,
     activeTab: TASK_EDITOR_TABS.GENERAL,
     task: {},
-    selectedCustomField: null,
+    selectedCustomField: {},
     customFieldsLoading: false,
     customFields: []
 };
 
-export const taskEditor = (state = CLOSED_STATE, action) => {
+export const taskEditor = (state = DEFAULT_STATE, action) => {
     switch (action.type) {
         case OPEN_TASK_EDITOR:
             return openTaskEditor(state, action.isNewTask, action.task);
@@ -34,6 +34,8 @@ export const taskEditor = (state = CLOSED_STATE, action) => {
             return openTaskEditorTab(state, action.tab);
         case SELECT_CUSTOM_FIELD:
             return selectTaskCustomField(state, action.field);
+        case DELETE_CUSTOM_FIELD:
+            return deleteTaskCustomField(state, action.order);
         case SET_CUSTOM_FIELDS_LOADING_ANIMATION_VISIBILITY:
             return setCustomFieldsLoadingAnimationVisibility(state, action.visible);
         case SET_CUSTOM_FIELDS:
@@ -53,7 +55,7 @@ function openTaskEditor(state, isNewTask, task) {
 }
 
 function closeTaskEditor(state) {
-    return CLOSED_STATE;
+    return DEFAULT_STATE;
 }
 
 function updateEditorTask(state, diff) {
@@ -77,6 +79,13 @@ function selectTaskCustomField(state, field) {
     return {
         ...state,
         selectedCustomField: field
+    };
+}
+
+function deleteTaskCustomField(state, order) {
+    return {
+        ...state,
+        customFields: state.customFields.filter((_, i) => i !== order)
     };
 }
 

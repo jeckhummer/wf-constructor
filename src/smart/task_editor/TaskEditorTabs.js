@@ -1,5 +1,5 @@
 import {connect} from 'react-redux';
-import {openTaskEditorTab} from "../../actions/ui";
+import {openTaskEditorTab} from "../../actions/taskEditor";
 import {Menu} from "semantic-ui-react";
 import {getTaskEditorState} from '../../selectors/ui';
 import {TASK_EDITOR_TABS} from "../../reducers/ui/taskEditor";

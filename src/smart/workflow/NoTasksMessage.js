@@ -2,7 +2,7 @@ import React from 'react';
 import {COLORS} from '../../styles';
 import {connect} from 'react-redux';
 import {PlusButton} from "../../dumb/block_graph/PlusButton";
-import {openTaskEditorForAdding} from "../../actions/ui";
+import {openTaskEditorForAdding} from "../../actions/taskEditor";
 import {getEditMode} from "../../selectors/ui";
 
 const component = ({editable, onClick}) => {

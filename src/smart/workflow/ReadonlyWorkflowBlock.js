@@ -1,28 +1,24 @@
 import {connect} from 'react-redux';
-import {TASK_BLOCK} from '../../styles';
 import {getTasksInfoDataDictionary} from "../../selectors/tasks";
 import {ReadonlyBlockGraph} from "../../dumb/block_graph/ReadonlyBlockGraph";
+import {generateWOTLink} from '../../utils/WOTLinkGeneration';
+import {getWO} from "../../selectors/wo";
 
 const mapStateToProps = (state, {items}) => {
     return {
         matrix: items.map(row => row.map(id => {
             const taskInfo = getTasksInfoDataDictionary(state)[id];
+            const wo = getWO(state);
+            const link = generateWOTLink(taskInfo.id, wo.id);
 
             return {
                 id,
                 statusId: taskInfo.statusId,
                 name: taskInfo.name,
-                ...TASK_BLOCK.COLORS
+                link
             };
         }))
     };
 };
 
-const mapDispatchToProps = (dispatch) => {
-    return {};
-};
-
-export const ReadonlyWorkflowBlock = connect(
-    mapStateToProps,
-    mapDispatchToProps,
-)(ReadonlyBlockGraph);
+export const ReadonlyWorkflowBlock = connect(mapStateToProps)(ReadonlyBlockGraph);

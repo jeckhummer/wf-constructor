@@ -6,7 +6,7 @@ import {
     moveTaskRight,
     deleteTask
 } from "../../actions/tasks";
-import {openTaskEditorForEdit, openTaskEditorForAdding} from "../../actions/ui";
+import {openTaskEditorForEdit, openTaskEditorForAdding} from "../../actions/taskEditor";
 
 const mapStateToProps = (state, {items, phaseId, teamId}) => {
     return {

@@ -1,21 +1,30 @@
-import {CUSTOM_FIELD_TYPES} from './constants';
+import {CUSTOM_FIELD_TYPE_IDS} from './constants';
+
+const noPhases = false;
+const noTeams = false;
+const noTasks = false;
+const nothing = false;
 
 export const initialState = {
     entities: {
-        phases: true ? [
+        wo: {
+            id: '7399',
+            name: 'Super Duper Work Order!'
+        },
+        phases: !nothing && !noPhases ? [
             {id: '1', name: 'Flow Start', order: 1},
             {id: '2', name: 'Preparation', order: 2},
             {id: '3', name: 'Execution', order: 3},
             {id: '4', name: 'Flow End', order: 4}
         ] : [],
-        teams: true ? [
+        teams: !nothing && !noTeams ? [
             {id: '1', name: 'IPBB', order: 1},
             {id: '2', name: 'PS', order: 2},
             {id: '3', name: 'TX', order: 3},
             {id: '4', name: 'IT/Business', order: 4},
             {id: '5', name: 'Test', order: null}, // null если нет order
         ] : [],
-        tasks: true ? [
+        tasks: !nothing && !noTasks ? [
             {
                 id: '1',
                 name: 'Task 1',
@@ -24,7 +33,7 @@ export const initialState = {
                 parentId: null,
                 statusId: '1',
                 approvalFlow: true,
-                notificationMapNumber: '920350134'
+                notificationMapNumber: '920350134',
             },
             {
                 id: '2',
@@ -159,6 +168,11 @@ export const initialState = {
             customFieldsLoading: false,
             customFields: []
         },
+        customFieldEditor: {
+            open: false,
+            isNewCustomField: false,
+            customField: {}
+        },
         workflowEditor: {
             open: false
         },
@@ -168,7 +182,7 @@ export const initialState = {
 
 export const customFieldsMocks = [
     {
-        type: CUSTOM_FIELD_TYPES.CHECKBOX_LIST,
+        typeId: CUSTOM_FIELD_TYPE_IDS.CHECKBOX_LIST,
         data: {
             label: 'test checkbox',
             items: [
@@ -180,7 +194,7 @@ export const customFieldsMocks = [
         }
     },
     {
-        type: CUSTOM_FIELD_TYPES.RADIO_BUTTON_LIST,
+        typeId: CUSTOM_FIELD_TYPE_IDS.RADIO_BUTTON_LIST,
         data: {
             label: 'test radio button list',
             items: [
@@ -193,7 +207,7 @@ export const customFieldsMocks = [
         }
     },
     {
-        type: CUSTOM_FIELD_TYPES.TYPE_SELECTION,
+        typeId: CUSTOM_FIELD_TYPE_IDS.TYPE_SELECTION,
         data: {
             label: 'test type selection',
             items: [
@@ -205,19 +219,19 @@ export const customFieldsMocks = [
         }
     },
     {
-        type: CUSTOM_FIELD_TYPES.ASSET_SELECTION,
+        typeId: CUSTOM_FIELD_TYPE_IDS.ASSET_SELECTION,
         data: {
             label: 'test asset selection'
         }
     },
     {
-        type: CUSTOM_FIELD_TYPES.FREE_TEXT,
+        typeId: CUSTOM_FIELD_TYPE_IDS.FREE_TEXT,
         data: {
             label: 'test free text'
         }
     },
     {
-        type: CUSTOM_FIELD_TYPES.TEXT_STRING,
+        typeId: CUSTOM_FIELD_TYPE_IDS.TEXT_STRING,
         data: {
             label: 'test text string'
         }

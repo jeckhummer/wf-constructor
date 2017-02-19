@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {getSortedPhasesIds} from "../../selectors/phases";
 import {WorkflowGrid} from "../../dumb/WorkflowGrid";
-import {openTaskEditorForAdding} from '../../actions/ui';
+import {openTaskEditorForAdding} from '../../actions/taskEditor';
 import {AddBlockCommandBlock} from "../../dumb/block_graph/AddBlockCommandBlock";
 import {WORKFLOW_GRID} from "../../styles";
 

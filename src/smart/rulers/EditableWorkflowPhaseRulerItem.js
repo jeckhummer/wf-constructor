@@ -1,6 +1,6 @@
 import {connect} from 'react-redux';
-import {RulerItem} from "../../dumb/coordinate_plane/RulerItem";
-import {COLORS, EDITOR} from '../../styles';
+import {EditableRulerItem} from "../../dumb/coordinate_plane/EditableRulerItem";
+import {EDITOR} from '../../styles';
 import {getPhasesDictionary} from "../../selectors/phases";
 import {movePhaseLeft, movePhaseRight} from "../../actions/phases";
 
@@ -14,12 +14,6 @@ const mapStateToProps = (state, {id, size}) => {
         height: EDITOR.CORNER.HEIGHT,
         first: item.first,
         last: item.last,
-        style: {
-            backgroundColor: COLORS.PRIMARY_LIGHT,
-            color: COLORS.PRIMARY,
-            fontWeight: 'bold',
-            textTransform: 'uppercase'
-        }
     };
 };
 
@@ -30,7 +24,7 @@ const mapDispatchToProps = (dispatch, {id}) => {
     };
 };
 
-export const WorkflowPhaseRulerItem = connect(
+export const EditableWorkflowPhaseRulerItem = connect(
     mapStateToProps,
     mapDispatchToProps
-)(RulerItem);
+)(EditableRulerItem);
