@@ -1,6 +1,6 @@
 import React from 'react';
 import {Grid, Loader, Dimmer} from "semantic-ui-react";
-import {CustomFieldPreview} from "../custom_field_editor/CustomFieldPreview";
+import {CustomFieldPreview} from "./CustomFieldPreview";
 import {CustomFieldList} from "./CustomFieldList";
 
 export const CustomFieldManager = ({
@@ -29,7 +29,10 @@ export const CustomFieldManager = ({
                     }
                 </Grid.Column>
                 <Grid.Column only="computer" width={6}>
-                    <CustomFieldPreview selectedCustomField={selectedCustomField}/>
+                    <CustomFieldPreview
+                        selectedCustomField={selectedCustomField}
+                        placeholder="Select field to see preview."
+                    />
                 </Grid.Column>
             </Grid.Row>
         </Grid>

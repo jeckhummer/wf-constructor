@@ -1,6 +1,6 @@
 import {getTasksRelationalDataDictionary, getTasksInfoDataDictionary} from '../selectors/tasks';
-import {DEFAULT_TASK_NAME, DEFAULT_TASK_AF_MODE, DEFAULT_TASK_STATUS_ID} from "../constants";
-import {getTaskEditorActiveTask, getTaskEditorState, getCustomFieldEditorState} from "../selectors/ui";
+import {DEFAULT_TASK_NAME, DEFAULT_TASK_AF_MODE, DEFAULT_TASK_STATUS_ID, CUSTOM_FIELD_TYPES} from "../constants";
+import {getTaskEditorState, getCustomFieldEditorState} from "../selectors/ui";
 import {addNewTask, updateTask} from './tasks';
 import {API} from "../API/CurrentAPI";
 import {getTaskCustomFieldsCache} from "../selectors/cache";
@@ -70,22 +70,21 @@ export const OPEN_TASK_EDITOR_TAB = 'OPEN_TASK_EDITOR_TAB';
 export function openTaskEditorTab(tab) {
     return (dispatch, getState) => {
         const state = getState();
+        const {task, isNewTask} = getTaskEditorState(state);
 
-        if (tab === TASK_EDITOR_TABS.CUSTOM_FIELDS) {
+        if (tab === TASK_EDITOR_TABS.CUSTOM_FIELDS && !isNewTask) {
             const customFieldsCache = getTaskCustomFieldsCache(state);
-            const taskId = getTaskEditorState(state).task.id;
-            const cachedCustomFields = customFieldsCache[taskId];
+            const cachedCustomFields = customFieldsCache[task.id];
 
             if (cachedCustomFields !== undefined) {
-                dispatch(setCustomFieldsLoadingAnimationVisibility(false));
                 dispatch(setCustomFields(cachedCustomFields));
             } else {
                 dispatch(setCustomFieldsLoadingAnimationVisibility(true));
                 dispatch(setCustomFields([]));
 
-                API.getCustomFields(taskId)
+                API.getCustomFields(task.id)
                     .then(fields => {
-                        dispatch(cacheTaskCustomFields(taskId, fields));
+                        dispatch(cacheTaskCustomFields(task.id, fields));
                         dispatch(setCustomFields(fields));
                         dispatch(setCustomFieldsLoadingAnimationVisibility(false));
                     });
@@ -99,36 +98,35 @@ export function openTaskEditorTab(tab) {
 export function saveTaskEditorNewTask() {
     return function (dispatch, getState) {
         const state = getState();
-        const editorTask = getTaskEditorActiveTask(state);
+        const {task, customFields} = getTaskEditorState(state);
 
-        dispatch(addNewTask(editorTask));
+        dispatch(addNewTask(
+            task,
+            id => dispatch(cacheTaskCustomFields(id, customFields))
+        ));
     }
 }
 
 export function saveTaskEditorTask() {
     return function (dispatch, getState) {
         const state = getState();
-        const editorTask = getTaskEditorActiveTask(state);
+        const {task, customFields} = getTaskEditorState(state);
 
-        dispatch(updateTask(editorTask.id, editorTask));
+        dispatch(updateTask(task.id, task));
+        dispatch(cacheTaskCustomFields(task.id, customFields));
     }
 }
 
 export const SELECT_CUSTOM_FIELD = 'SELECT_CUSTOM_FIELD';
-export function selectCustomField(field) {
+export function selectCustomField(fieldId) {
     return function (dispatch) {
-        dispatch({type: SELECT_CUSTOM_FIELD, field});
+        dispatch({type: SELECT_CUSTOM_FIELD, fieldId});
     }
-}
-
-export function clearCustomFieldSelection() {
-    return selectCustomField(null);
 }
 
 export const DELETE_CUSTOM_FIELD = 'DELETE_CUSTOM_FIELD';
 export function deleteCustomField(id) {
     return function (dispatch) {
-        dispatch(clearCustomFieldSelection());
         dispatch({type: DELETE_CUSTOM_FIELD, id});
     }
 }
@@ -162,14 +160,33 @@ export function updateCustomField(id, customField) {
     };
 }
 
-export function saveEditedCustomField() {
+export function updateEditedCustomField() {
     return (dispatch, getState) => {
         const state = getState();
         const {customField} = getCustomFieldEditorState(state);
 
         dispatch(updateCustomField(
             customField.id,
-            customField
+            {
+                ...customField,
+                data: CUSTOM_FIELD_TYPES[customField.typeId].dataProcessor(customField.data)
+            }
+        ));
+    };
+}
+
+export function addNewEditedCustomField() {
+    return (dispatch, getState) => {
+        const state = getState();
+        const {customField} = getCustomFieldEditorState(state);
+        const {customFields} = getTaskEditorState(state);
+        const id = customFields.length + 1 + '';
+
+        dispatch(setCustomFields(
+            [
+                ...customFields,
+                { ...customField, id}
+            ]
         ));
     };
 }

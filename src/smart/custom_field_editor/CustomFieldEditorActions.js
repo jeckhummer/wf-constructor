@@ -1,32 +1,19 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {SaveButton} from "../../dumb/buttons/SaveButton";
-import {saveEditedCustomField} from "../../actions/taskEditor";
-import {closeCustomFieldEditor} from "../../actions/customFieldEditor";
+import {getCustomFieldEditorState} from "../../selectors/ui";
+import {AddNewCustomFieldButton} from "./AddNewCustomFieldButton";
+import {SaveCustomFieldButton} from "./SaveCustomFieldButton";
 
 const mapStateToProps = (state) => {
-    return {};
+    const {isNewCustomField} = getCustomFieldEditorState(state);
+
+    return {isNewCustomField};
 };
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        onClick: () => {
-            dispatch(saveEditedCustomField());
-            dispatch(closeCustomFieldEditor())
-        }
-    };
-};
-
-const component = ({onClick}) => {
+const component = ({isNewCustomField}) => {
     return (
-        <SaveButton
-            content="SAVE"
-            onClick={onClick}
-        />
-    );
+        isNewCustomField ? <AddNewCustomFieldButton/> : <SaveCustomFieldButton/>
+    )
 };
 
-export const CustomFieldEditorActions = connect(
-    mapStateToProps,
-    mapDispatchToProps,
-)(component);
+export const CustomFieldEditorActions = connect(mapStateToProps)(component);

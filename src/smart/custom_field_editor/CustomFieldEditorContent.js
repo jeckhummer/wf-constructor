@@ -1,7 +1,7 @@
 import {connect} from 'react-redux';
 import {getCustomFieldEditorActiveCustomField} from "../../selectors/ui";
-import {CustomFieldForm} from "../../dumb/custom_field_editor/CustomFieldForm";
-import {updateActiveCustomField} from "../../actions/customFieldEditor";
+import {CustomFieldForm} from "../../dumb/editor/custom_field/CustomFieldForm";
+import {updateActiveCustomFieldType} from "../../actions/customFieldEditor";
 
 const mapStateToProps = (state) => {
     const customField = getCustomFieldEditorActiveCustomField(state);
@@ -10,7 +10,9 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return {onCustomFieldChange: (data) => dispatch(updateActiveCustomField(data))};
+    return {
+        onTypeChange: (typeId) => dispatch(updateActiveCustomFieldType(typeId))
+    };
 };
 
 export const CustomFieldEditorContent = connect(

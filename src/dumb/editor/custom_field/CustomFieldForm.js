@@ -1,16 +1,19 @@
 import React from 'react';
 import {Grid, Form} from "semantic-ui-react";
 import {CustomFieldPreview} from "./CustomFieldPreview";
-import {CustomFieldTypeSelect} from "../../smart/custom_field_editor/CustomFieldTypeSelect";
-import {CUSTOM_FIELD_TYPES} from "../../constants";
+import {CustomFieldTypeSelect} from "./CustomFieldTypeSelect";
+import {CUSTOM_FIELD_TYPES} from "../../../constants";
 
 export const CustomFieldForm = ({
-    customField
+    customField,
+    onTypeChange
 }) => {
-    const form = React.createElement(
-        CUSTOM_FIELD_TYPES[customField.typeId].formTemplate,
-        customField.data
-    );
+    const form = CUSTOM_FIELD_TYPES[customField.typeId] !== undefined
+        ? React.createElement(
+            CUSTOM_FIELD_TYPES[customField.typeId].formTemplate,
+            customField.data
+        )
+        : null;
 
     return (
         <Grid celled='internally'>
@@ -27,7 +30,10 @@ export const CustomFieldForm = ({
                     <Form as="div">
                         <Form.Field>
                             <label>Type</label>
-                            <CustomFieldTypeSelect/>
+                            <CustomFieldTypeSelect
+                                selectedTypeId={customField.typeId}
+                                onChange={onTypeChange}
+                            />
                         </Form.Field>
                         {form}
                     </Form>
@@ -41,7 +47,10 @@ export const CustomFieldForm = ({
                         paddingBottom: '0px',
                     }}>
 
-                    <CustomFieldPreview selectedCustomField={customField}/>
+                    <CustomFieldPreview
+                        selectedCustomField={customField}
+                        placeholder="Select field type to see preview."
+                    />
                 </Grid.Column>
             </Grid.Row>
         </Grid>

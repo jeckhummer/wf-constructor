@@ -1,6 +1,6 @@
-import {updateActiveCustomField} from "../../../actions/customFieldEditor";
+import {updateActiveCustomFieldData} from "../../../actions/customFieldEditor";
 import {connect} from "react-redux";
-import {GenericListFormTemplate} from "../../../dumb/custom_field_editor/form_templates/GenericListFormTemplate";
+import {GenericListFormTemplate} from "../../../dumb/editor/custom_field/form_templates/GenericListFormTemplate";
 
 const mapStateToProps = (state, {label, items}) => {
     return {label, items};
@@ -8,37 +8,23 @@ const mapStateToProps = (state, {label, items}) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        updateActiveCustomField: diff => dispatch(updateActiveCustomField(diff))
+        update: diff => dispatch(updateActiveCustomFieldData(diff))
     };
 };
 
 export const mergeProps = (stateProps, dispatchProps) => {
     return {
-        onLabelChange: label => dispatchProps.updateActiveCustomField({
-            data: {
-                ...stateProps,
-                label
-            }
+        onLabelChange: label => dispatchProps.update({label}),
+        onItemChange: (index, value) => dispatchProps.update({
+            items: stateProps.items.map((item, i) =>
+                i === index ? value : item
+            )
         }),
-        onItemChange: (index, value) => dispatchProps.updateActiveCustomField({
-            data: {
-                ...stateProps,
-                items: stateProps.items.map((item, i) =>
-                    i === index ? value : item
-                )
-            }
+        onItemDelete: index => dispatchProps.update({
+            items: stateProps.items.filter((item, i) => i !== index)
         }),
-        onItemDelete: index => dispatchProps.updateActiveCustomField({
-            data: {
-                ...stateProps,
-                items: stateProps.items.filter((item, i) => i !== index)
-            }
-        }),
-        onItemAdd: () => dispatchProps.updateActiveCustomField({
-            data: {
-                ...stateProps,
-                items: stateProps.items.concat([''])
-            }
+        onItemAdd: () => dispatchProps.update({
+            items: stateProps.items.concat([''])
         }),
         ...stateProps
     };

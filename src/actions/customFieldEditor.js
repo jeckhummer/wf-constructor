@@ -1,5 +1,5 @@
-import {getTaskEditorState} from "../selectors/ui";
-import {DEFAULT_CUSTOM_FIELD_LABEL} from "../constants";
+import {getTaskEditorState, getCustomFieldEditorActiveCustomField} from "../selectors/ui";
+import {DEFAULT_CUSTOM_FIELD_LABEL, CUSTOM_FIELD_TYPES} from "../constants";
 
 export const OPEN_CUSTOM_FIELD_EDITOR = 'OPEN_CUSTOM_FIELD_EDITOR';
 export function openCustomFieldEditorForEdit(id) {
@@ -42,6 +42,33 @@ export function updateActiveCustomField(diff) {
             type: UPDATE_ACTIVE_CUSTOM_FIELD,
             diff
         });
+    };
+}
+
+export function updateActiveCustomFieldData(diff) {
+    return (dispatch, getState) => {
+        const state = getState();
+        const field = getCustomFieldEditorActiveCustomField(state);
+        const data = CUSTOM_FIELD_TYPES[field.typeId].dataProcessor({
+            ...field.data,
+            ...diff
+        });
+
+        dispatch(updateActiveCustomField({...field, data}));
+    };
+}
+
+export function updateActiveCustomFieldType(typeId) {
+    return (dispatch, getState) => {
+        const state = getState();
+        const field = getCustomFieldEditorActiveCustomField(state);
+        const processedData = CUSTOM_FIELD_TYPES[typeId].dataProcessor(field.data);
+        const data = {
+            ...field.data,
+            ...processedData
+        };
+
+        dispatch(updateActiveCustomField({ ...field, typeId, data}));
     };
 }
 

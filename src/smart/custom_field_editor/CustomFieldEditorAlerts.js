@@ -1,5 +1,5 @@
 import {connect} from 'react-redux';
-import {ValidationSummary} from "../../dumb/task_editor/ValidationSummary";
+import {ValidationSummary} from "../../dumb/editor/ValidationSummary";
 
 function mapStateToProps(state) {
     return {

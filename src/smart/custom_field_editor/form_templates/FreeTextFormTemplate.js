@@ -1,5 +1,5 @@
-import {GenericTextFormTemplate} from "../../../dumb/custom_field_editor/form_templates/GenericTextFormTemplate";
-import {updateActiveCustomField} from "../../../actions/customFieldEditor";
+import {GenericTextFormTemplate} from "../../../dumb/editor/custom_field/form_templates/GenericTextFormTemplate";
+import {updateActiveCustomFieldData} from "../../../actions/customFieldEditor";
 import {connect} from "react-redux";
 
 const mapStateToProps = (state, {label}) => {
@@ -8,15 +8,13 @@ const mapStateToProps = (state, {label}) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        updateActiveCustomField: diff => dispatch(updateActiveCustomField(diff))
+        update: diff => dispatch(updateActiveCustomFieldData(diff))
     };
 };
 
 export const mergeProps = (stateProps, dispatchProps) => {
     return {
-        onLabelChange: label => dispatchProps.updateActiveCustomField({
-            data: {label}
-        }),
+        onLabelChange: label => dispatchProps.update({label}),
         ...stateProps
     };
 };

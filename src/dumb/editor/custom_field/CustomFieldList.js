@@ -1,6 +1,6 @@
 import React from 'react';
 import {Table, Icon} from "semantic-ui-react";
-import {CUSTOM_FIELD_TYPES} from "../../constants";
+import {CUSTOM_FIELD_TYPES} from "../../../constants";
 
 export const CustomFieldList = ({
     customFields,
@@ -16,7 +16,7 @@ export const CustomFieldList = ({
                         <Table.Row
                             style={{cursor: 'pointer'}}
                             key={key}
-                            onClick={() => onSelect(field)}>
+                            onClick={() => onSelect(field.id)}>
 
                             <Table.Cell>{field.data.label}</Table.Cell>
                             <Table.Cell>{CUSTOM_FIELD_TYPES[field.typeId].name}</Table.Cell>

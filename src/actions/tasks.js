@@ -15,7 +15,7 @@ function _deleteTask(id) {
 }
 
 export const ADD_NEW_TASK = 'ADD_NEW_TASK';
-export function addNewTask(task) {
+export function addNewTask(task, onIdReceived) {
     return (dispatch, getState) => {
         const state = getState();
         const dictionary = getTasksRelationalDataDictionary(state);
@@ -30,6 +30,8 @@ export function addNewTask(task) {
         if (parent && !parent.isLeaf) {
             dispatch(setTaskParent(parent.childId, id));
         }
+
+        onIdReceived(id);
     };
 }
 

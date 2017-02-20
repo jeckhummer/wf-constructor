@@ -164,7 +164,7 @@ export const initialState = {
             isNewTask: false,
             activeTab: 1,
             task: {},
-            selectedCustomField: null,
+            selectedCustomFieldId: null,
             customFieldsLoading: false,
             customFields: []
         },

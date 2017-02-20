@@ -39,7 +39,8 @@ function initApp(state){
 }
 
 // const initialState = parse(window.initialState);
-initApp({
+initApp(initialState);
+   /* {
     entities: {
         wo: {
             id: '7399',
@@ -416,4 +417,4 @@ initApp({
         },
         editMode: true
     }
-});
+});*/

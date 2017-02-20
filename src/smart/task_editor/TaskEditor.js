@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {EditorModal} from "../../dumb/task_editor/EditorModal";
+import {EditorModal} from "../../dumb/editor/EditorModal";
 import {getTaskEditorState} from "../../selectors/ui";
 import {closeTaskEditor} from "../../actions/taskEditor";
 import {TaskEditorTabs} from "./TaskEditorTabs";

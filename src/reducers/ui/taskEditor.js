@@ -17,7 +17,7 @@ const DEFAULT_STATE = {
     isNewTask: false,
     activeTab: TASK_EDITOR_TABS.GENERAL,
     task: {},
-    selectedCustomField: {},
+    selectedCustomFieldId: {},
     customFieldsLoading: false,
     customFields: []
 };
@@ -33,7 +33,7 @@ export const taskEditor = (state = DEFAULT_STATE, action) => {
         case OPEN_TASK_EDITOR_TAB:
             return openTaskEditorTab(state, action.tab);
         case SELECT_CUSTOM_FIELD:
-            return selectTaskCustomField(state, action.field);
+            return selectTaskCustomField(state, action.fieldId);
         case DELETE_CUSTOM_FIELD:
             return deleteTaskCustomField(state, action.id);
         case SET_CUSTOM_FIELDS_LOADING_ANIMATION_VISIBILITY:
@@ -47,10 +47,11 @@ export const taskEditor = (state = DEFAULT_STATE, action) => {
 
 function openTaskEditor(state, isNewTask, task) {
     return {
+        ...state,
         open: true,
         isNewTask,
         activeTab: TASK_EDITOR_TABS.GENERAL,
-        task
+        task,
     };
 }
 
@@ -75,10 +76,10 @@ function openTaskEditorTab(state, tab) {
     };
 }
 
-function selectTaskCustomField(state, field) {
+function selectTaskCustomField(state, fieldId) {
     return {
         ...state,
-        selectedCustomField: field
+        selectedCustomFieldId: fieldId
     };
 }
 
