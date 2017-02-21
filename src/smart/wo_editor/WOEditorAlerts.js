@@ -1,13 +1,13 @@
 import {connect} from 'react-redux';
 import {ValidationSummary} from "../../dumb/editor/ValidationSummary";
-import {getTaskEditorTaskValidationResult} from "../../selectors/ui";
+import {getTaskEditorFormValidationResult} from "../../selectors/ui";
 
 function mapStateToProps(state) {
     const {
         isNameValid,
         isPhaseValid,
         isTeamValid,
-    } = getTaskEditorTaskValidationResult(state);
+    } = getTaskEditorFormValidationResult(state);
 
     const errorMessage = `
         ${!isNameValid ? 'Name shouldn\'t be empty. ' : ''}
