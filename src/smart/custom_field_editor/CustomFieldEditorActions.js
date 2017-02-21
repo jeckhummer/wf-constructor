@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {getCustomFieldEditorState} from "../../selectors/ui";
 import {AddNewCustomFieldButton} from "./AddNewCustomFieldButton";
 import {SaveCustomFieldButton} from "./SaveCustomFieldButton";
+import {CloseCustomFieldEditorButton} from "./CloseCustomFieldEditorButton";
 
 const mapStateToProps = (state) => {
     const {isNewCustomField} = getCustomFieldEditorState(state);
@@ -12,7 +13,14 @@ const mapStateToProps = (state) => {
 
 const component = ({isNewCustomField}) => {
     return (
-        isNewCustomField ? <AddNewCustomFieldButton/> : <SaveCustomFieldButton/>
+        <div>
+            <CloseCustomFieldEditorButton/>
+            {
+                isNewCustomField
+                    ? <AddNewCustomFieldButton/>
+                    : <SaveCustomFieldButton/>
+            }
+        </div>
     )
 };
 

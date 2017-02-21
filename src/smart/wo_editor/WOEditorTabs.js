@@ -36,7 +36,7 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export const TaskEditorTabs = connect(
+export const WOEditorTabs = connect(
     mapStateToProps,
     mapDispatchToProps
 )(Menu);

@@ -9,7 +9,8 @@ export const initialState = {
     entities: {
         wo: {
             id: '7399',
-            name: 'Super Duper Work Order!'
+            name: 'Super Duper Work Order!',
+            notificationMap: '920350134',
         },
         phases: !nothing && !noPhases ? [
             {id: '1', name: 'Flow Start', order: 1},
@@ -156,7 +157,8 @@ export const initialState = {
         ],
     },
     cache: {
-        taskCustomFields: {}
+        taskCustomFields: {},
+        WOCustomFields: []
     },
     ui: {
         taskEditor: {

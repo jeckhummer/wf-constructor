@@ -12,7 +12,7 @@ export const AssetSelectionPreviewTemplate = ({label}) => {
     return (
         <div>
             <Form>
-                <Form.Select label={label} options={options} placeholder="--"/>
+                <Form.Select label={label || "[NO TEXT PROVIDED]"} options={options} placeholder="--"/>
             </Form>
             <br/>
             <span style={{fontSize: '0.85em'}}>

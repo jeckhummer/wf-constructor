@@ -2,20 +2,22 @@ import React from 'react';
 import {Modal, Icon} from "semantic-ui-react";
 import {Floated} from "../common/Floated";
 import {Uppercase} from "../common/Uppercase";
+import {SaveButton} from "../buttons/SaveButton";
+import {CancelButton} from "../buttons/CancelButton";
 
 export const EditorModal = ({
     isActive,
-    onCloseClick,
     tabs,
     content,
     header,
-    actions,
-    alert
+    saveButtonDisabled,
+    onCloseClick,
+    onSaveClick,
+    errorMessage
 }) => {
     return (
         <Modal
             open={isActive}
-            size="small"
             onClose={onCloseClick}>
 
             <Modal.Header>
@@ -32,8 +34,12 @@ export const EditorModal = ({
             </Modal.Header>
 
             <Modal.Content>
-                {tabs}
-                {content}
+                <div style={{
+                    height: '411px',
+                }}>
+                    {tabs}
+                    {content}
+                </div>
             </Modal.Content>
 
             <Modal.Actions>
@@ -44,11 +50,19 @@ export const EditorModal = ({
                     alignItems: 'center',
                     textAlign: 'left'
                 }}>
-                    <div style={{flexGrow: '1'}}>
-                        {alert}
+                    <div style={{flexGrow: '1', color: '#e33737'}}>
+                        {errorMessage}
                     </div>
                     <div>
-                        {actions}
+                        <CancelButton
+                            content="CANCEL"
+                            onClick={onCloseClick}
+                        />
+                        <SaveButton
+                            content="SAVE"
+                            onClick={onSaveClick}
+                            disabled={saveButtonDisabled}
+                        />
                     </div>
                 </div>
             </Modal.Actions>

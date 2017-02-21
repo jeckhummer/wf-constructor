@@ -19,7 +19,7 @@ const DEFAULT_STATE = {
     task: {},
     selectedCustomFieldId: {},
     customFieldsLoading: false,
-    customFields: []
+    customFields: null
 };
 
 export const taskEditor = (state = DEFAULT_STATE, action) => {

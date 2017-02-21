@@ -1,26 +1,13 @@
-import {GenericTextFormTemplate} from "../../../dumb/editor/custom_field/form_templates/GenericTextFormTemplate";
-import {updateActiveCustomFieldData} from "../../../actions/customFieldEditor";
-import {connect} from "react-redux";
+import React from 'react';
+import {GenericTextFormTemplate} from "./GenericTextFormTemplate";
 
-const mapStateToProps = (state, {label}) => {
-    return {label};
-};
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        update: diff => dispatch(updateActiveCustomFieldData(diff))
+export const FreeTextFormTemplate = ({label, update}) => {
+    const props = {
+        onLabelChange: label => update({label}),
+        label
     };
-};
 
-export const mergeProps = (stateProps, dispatchProps) => {
-    return {
-        onLabelChange: label => dispatchProps.update({label}),
-        ...stateProps
-    };
+    return (
+        <GenericTextFormTemplate {...props}/>
+    );
 };
-
-export const FreeTextFormTemplate = connect(
-    mapStateToProps,
-    mapDispatchToProps,
-    mergeProps
-)(GenericTextFormTemplate);

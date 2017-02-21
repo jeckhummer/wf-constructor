@@ -5,12 +5,12 @@ export const CheckboxListPreviewTemplate = ({label, items}) => {
     return (
         <Form>
             <Form.Field>
-                <label>{label}</label>
+                <label>{label || "[NO TEXT PROVIDED]"}</label>
             </Form.Field>
             {
                 items.map((item, key) =>
                     <Form.Checkbox
-                        label={item}
+                        label={item || "[NO TEXT PROVIDED]"}
                         value={item}
                         key={key}
                     />

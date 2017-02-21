@@ -14,6 +14,8 @@ import {getEditMode} from "../../selectors/ui";
 import {ReadonlyWorkflow} from "../workflow/ReadonlyWorkflow";
 
 function mapStateToProps(state) {
+    const editMode = getEditMode(state);
+
     const cornerContent = (
         <div style={{
             height: '100%',
@@ -23,16 +25,20 @@ function mapStateToProps(state) {
             backgroundColor: COLORS.PRIMARY,
             color: COLORS.PRIMARY_CONTRAST
         }}>
-            <Icon
-                link
-                name="setting"
-                fitted
-                size='big'/>
+            {
+                editMode
+                ? <Icon
+                    link
+                    name="setting"
+                    fitted
+                    size='big'
+                />
+                : null
+            }
         </div>
     );
 
     let children;
-    const editMode = getEditMode(state);
     const noTasks = getTasks(state).length === 0;
 
     if (editMode) {

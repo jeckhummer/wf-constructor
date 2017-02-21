@@ -1,29 +1,46 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {EditorModal} from "../../dumb/editor/EditorModal";
-import {getTaskEditorState} from "../../selectors/ui";
-import {closeTaskEditor} from "../../actions/taskEditor";
+import {getTaskEditorFormValidationResult} from "../../selectors/ui";
+import {closeTaskEditor, saveTaskEditorTask} from "../../actions/taskEditor";
 import {TaskEditorTabs} from "./TaskEditorTabs";
-import {TaskEditorAlerts} from "./TaskEditorAlerts";
 import {TaskEditorContent} from "./TaskEditorContent";
-import {TaskEditorActions} from "./TaskEditorActions";
 import {TaskEditorHeader} from "./TaskEditorHeader";
 
 const mapStateToProps = (state) => {
-    const {open} = getTaskEditorState(state);
+    const {
+        isNameValid,
+        isPhaseValid,
+        isTeamValid,
+        result
+    } = getTaskEditorFormValidationResult(state);
+
+    const errorMessage = `
+        ${!isNameValid ? 'Name shouldn\'t be empty. ' : ''}
+        ${[
+            !isPhaseValid ? 'Phase' : null,
+            !isTeamValid ? 'Team' : null,
+        ].filter(x => x != null)
+        .join(' and ')} 
+        ${!isPhaseValid || !isTeamValid ? 'should be selected.' : ''}
+    `;
 
     return {
-        isActive: open,
+        isActive: true,
         header: <TaskEditorHeader/>,
         tabs: <TaskEditorTabs/>,
         content: <TaskEditorContent/>,
-        actions: <TaskEditorActions/>,
-        alert: <TaskEditorAlerts/>
+        saveButtonDisabled: !result,
+        errorMessage
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
+        onSaveClick: () => {
+            dispatch(saveTaskEditorTask());
+            dispatch(closeTaskEditor());
+        },
         onCloseClick: () => dispatch(closeTaskEditor())
     };
 };

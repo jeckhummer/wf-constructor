@@ -1,6 +1,5 @@
 import React from 'react';
-import {Table, Icon} from "semantic-ui-react";
-import {CUSTOM_FIELD_TYPES} from "../../../constants";
+import {Icon} from "semantic-ui-react";
 
 export const CustomFieldList = ({
     customFields,
@@ -9,18 +8,41 @@ export const CustomFieldList = ({
     onSelect
 }) => {
     return (
-        <Table basic='very' selectable>
-            <Table.Body>
-                {
-                    customFields.map((field, key) =>
-                        <Table.Row
-                            style={{cursor: 'pointer'}}
-                            key={key}
-                            onClick={() => onSelect(field.id)}>
+        <div>
+            {
+                customFields.map((field, key) =>
+                    <div
+                        key={key}
+                        onClick={() => onSelect(field.id)}
+                        className="hover"
+                        style={{
+                            cursor: 'pointer',
+                            display: 'flex',
+                            flexDirection: 'row',
+                            lineHeight: '1em'
+                        }}>
 
-                            <Table.Cell>{field.data.label}</Table.Cell>
-                            <Table.Cell>{CUSTOM_FIELD_TYPES[field.typeId].name}</Table.Cell>
-                            <Table.Cell>
+                        <div style={{
+                            flexGrow: '1',
+                            padding: '8px 0px 5px 8px',
+                            whiteSpace: 'nowrap',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                            borderBottom: key === customFields.length - 1 ? 'none' : '1px solid #dedede'
+                        }}>
+                            {field.data.label}
+                        </div>
+
+                        <div
+                            style={{
+                                flexGrow: '0',
+                                fontSize: '1.3em',
+                                padding: '8px 8px 5px 4px',
+                                whiteSpace: 'nowrap',
+                                borderBottom: key === customFields.length - 1 ? 'none' : '1px solid #dedede'
+                            }}>
+
+                            <span className="visible-on-hover">
                                 <Icon
                                     onClick={(e) => {
                                         onEditClick(field.id);
@@ -28,7 +50,8 @@ export const CustomFieldList = ({
                                     }}
                                     name="pencil"
                                     color="blue"
-                                    link/>
+                                    link
+                                />
                                 <Icon
                                     onClick={(e) => {
                                         onDeleteClick(field.id);
@@ -37,12 +60,14 @@ export const CustomFieldList = ({
                                     name="remove circle"
                                     color="red"
                                     fitted
-                                    link/>
-                            </Table.Cell>
-                        </Table.Row>
-                    )
-                }
-            </Table.Body>
-        </Table>
+                                    link
+                                />
+                            </span>
+                        </div>
+
+                    </div>
+                )
+            }
+        </div>
     );
 };

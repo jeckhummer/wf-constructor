@@ -21,4 +21,4 @@ const component = ({activeTab}) => {
     return contentMap[activeTab];
 };
 
-export const TaskEditorContent = connect(mapStateToProps)(component);
+export const WOEditorContent = connect(mapStateToProps)(component);

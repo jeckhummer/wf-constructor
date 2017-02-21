@@ -1,11 +1,11 @@
 import React from 'react';
 import {LabeledIconButton} from "./LabeledIconButton";
 
-export class AddButton extends React.Component{
+export class CancelButton extends React.Component{
     render() {
         return (
             <LabeledIconButton
-                icon="plus"
+                icon="remove"
                 {...this.props}
             />
         );

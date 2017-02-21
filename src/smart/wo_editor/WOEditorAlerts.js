@@ -24,4 +24,4 @@ function mapStateToProps(state) {
     };
 }
 
-export const TaskEditorAlerts = connect(mapStateToProps)(ValidationSummary);
+export const WOEditorAlerts = connect(mapStateToProps)(ValidationSummary);

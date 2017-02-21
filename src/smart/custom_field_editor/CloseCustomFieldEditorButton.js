@@ -1,6 +1,6 @@
 import {connect} from 'react-redux';
-import {closeTaskEditor} from "../../actions/taskEditor";
 import {CancelButton} from "../../dumb/buttons/CancelButton";
+import {closeCustomFieldEditor} from "../../actions/customFieldEditor";
 
 const mapStateToProps = (state) => {
     return {
@@ -11,12 +11,12 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         onClick: () => {
-            dispatch(closeTaskEditor());
+            dispatch(closeCustomFieldEditor());
         }
     };
 };
 
-export const CloseTaskEditorButton = connect(
+export const CloseCustomFieldEditorButton = connect(
     mapStateToProps,
     mapDispatchToProps
 )(CancelButton);

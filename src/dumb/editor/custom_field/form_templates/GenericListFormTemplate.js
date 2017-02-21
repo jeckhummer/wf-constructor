@@ -22,25 +22,38 @@ export const GenericListFormTemplate = ({
 
             <Form.Field>
                 <label>Items</label>
-                {
-                    items.map(
-                        (item, key) => (
-                            <Form.Input
-                                error={!item}
-                                key={key}
-                                icon={
-                                    <Icon
-                                        onClick={() => onItemDelete(key)}
-                                        name="remove circle"
-                                        color="red"
-                                        fitted
-                                        link/>
-                                }
-                                onChange={(_, {value}) => onItemChange(key, value)}
-                                value={item}/>
-                        )
-                    )
-                }
+                <div
+                    className="less-form-field-margin-fix"
+                    style={{
+                        overflow: 'auto',
+                        maxHeight: '195px'
+                    }}>
+                    {
+                        items.length
+                            ? items.map(
+                                (item, key) => (
+                                    <Form.Input
+                                        error={!item}
+                                        key={key}
+                                        size="small"
+                                        icon={
+                                            <Icon
+                                                onClick={() => onItemDelete(key)}
+                                                style={{fontSize: '1.3em'}}
+                                                name="remove circle"
+                                                color="red"
+                                                fitted
+                                                link/>
+                                        }
+                                        onChange={(_, {value}) => onItemChange(key, value)}
+                                        value={item}/>
+                                )
+                            )
+                            : <span style={{fontSize: '0.9em'}}>
+                            No items. Press "ADD ITEM" button below to add new item.
+                        </span>
+                    }
+                </div>
             </Form.Field>
 
             <AddButton

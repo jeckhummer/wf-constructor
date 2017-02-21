@@ -1,7 +1,6 @@
 import React from 'react';
 import {IconButton} from "./IconButton";
 
-
 export class DoneIconButton extends React.Component{
     render() {
         return (

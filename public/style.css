@@ -1,0 +1,19 @@
+.hover:hover {
+    background-color: #eaeaea;
+}
+
+.visible-on-hover {
+    visibility: hidden;
+}
+
+.hover:hover .visible-on-hover {
+    visibility: visible;
+}
+
+.less-form-field-margin-fix .field {
+    margin-bottom: 5px !important;
+}
+
+.less-form-field-margin-fix .field:last-child {
+    margin-bottom: 0px !important;
+}

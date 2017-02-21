@@ -29,4 +29,4 @@ const component = ({isNewTask}) => {
     );
 };
 
-export const TaskEditorActions = connect(mapStateToProps)(component);
+export const WOEditorActions = connect(mapStateToProps)(component);

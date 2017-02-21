@@ -1,34 +1,32 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {EditorModal} from "../../dumb/editor/EditorModal";
-import {getTaskEditorState} from "../../selectors/ui";
-import {closeTaskEditor} from "../../actions/taskEditor";
-import {TaskEditorTabs} from "./TaskEditorTabs";
-import {TaskEditorAlerts} from "./TaskEditorAlerts";
-import {TaskEditorContent} from "./TaskEditorContent";
-import {TaskEditorActions} from "./TaskEditorActions";
-import {TaskEditorHeader} from "./TaskEditorHeader";
+import {WOEditorAlerts} from "./WOEditorAlerts";
+import {WOEditorHeader} from "./WOEditorHeader";
+import {WOEditorTabs} from "./WOEditorTabs";
+import {WOEditorContent} from "./WOEditorContent";
+import {WOEditorActions} from "./WOEditorActions";
 
 const mapStateToProps = (state) => {
-    const {open} = getTaskEditorState(state);
+    const {open} = getWOEditorState(state);
 
     return {
         isActive: open,
-        header: <TaskEditorHeader/>,
-        tabs: <TaskEditorTabs/>,
-        content: <TaskEditorContent/>,
-        actions: <TaskEditorActions/>,
-        alert: <TaskEditorAlerts/>
+        header: <WOEditorHeader/>,
+        tabs: <WOEditorTabs/>,
+        content: <WOEditorContent/>,
+        actions: <WOEditorActions/>,
+        alert: <WOEditorAlerts/>
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onCloseClick: () => dispatch(closeTaskEditor())
+        onCloseClick: () => dispatch(closeWOEditor())
     };
 };
 
-export const TaskEditor = connect(
+export const WOEditor = connect(
     mapStateToProps,
     mapDispatchToProps
 )(EditorModal);

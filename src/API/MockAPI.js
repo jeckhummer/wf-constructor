@@ -7,7 +7,7 @@ const _API = {
         const deferred = $.Deferred();
         setTimeout(
             () => deferred.resolve(customFieldMocks),
-            1 * 1000
+            2 * 1000
         );
         return deferred.promise();
     }

@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 import {createStore, applyMiddleware, compose} from 'redux';
-import {App} from './dumb/App';
+import {App} from './smart/App';
 import {reducer} from './reducers/reducer';
 import thunk from 'redux-thunk';
 import {Loader} from "semantic-ui-react";
@@ -39,62 +39,13 @@ function initApp(state){
 }
 
 // const initialState = parse(window.initialState);
-initApp(initialState);
-   /* {
+// initApp(initialState);
+initApp({
     entities: {
         wo: {
             id: '7399',
             name: 'Super Duper Work Order!'
         },
-        phases: [
-            {
-                id: '1',
-                name: 'Flow Start',
-                order: 1
-            },
-            {
-                id: '2',
-                name: 'Preparation',
-                order: 2
-            },
-            {
-                id: '3',
-                name: 'Execution',
-                order: 3
-            },
-            {
-                id: '4',
-                name: 'Flow End',
-                order: 4
-            }
-        ],
-        teams: [
-            {
-                id: '1',
-                name: 'IPBB',
-                order: 1
-            },
-            {
-                id: '2',
-                name: 'PS',
-                order: 2
-            },
-            {
-                id: '3',
-                name: 'TX',
-                order: 3
-            },
-            {
-                id: '4',
-                name: 'IT/Business',
-                order: 4
-            },
-            {
-                id: '5',
-                name: 'Test',
-                order: null
-            }
-        ],
         tasks: [
             {
                 id: '1',
@@ -124,7 +75,10 @@ initApp(initialState);
                 parentId: '2',
                 statusId: '3',
                 approvalFlow: true,
-                notificationMapNumber: '920350134'
+                notificationMapNumber: '920350134',
+                childId: '4',
+                isRoot: false,
+                isLeaf: false
             },
             {
                 id: '4',
@@ -242,11 +196,60 @@ initApp(initialState);
                 id: '6',
                 name: 'On hold'
             }
+        ],
+        teams: [
+            {
+                id: '1',
+                name: 'IPBB',
+                order: 1
+            },
+            {
+                id: '2',
+                name: 'PS',
+                order: 2
+            },
+            {
+                id: '3',
+                name: 'TX',
+                order: 3
+            },
+            {
+                id: '4',
+                name: 'IT/Business',
+                order: 4
+            },
+            {
+                id: '5',
+                name: 'Test',
+                order: null
+            }
+        ],
+        phases: [
+            {
+                id: '1',
+                name: 'Flow Start',
+                order: 1
+            },
+            {
+                id: '2',
+                name: 'Preparation',
+                order: 2
+            },
+            {
+                id: '3',
+                name: 'Execution',
+                order: 3
+            },
+            {
+                id: '4',
+                name: 'Flow End',
+                order: 4
+            }
         ]
     },
     cache: {
         taskCustomFields: {
-            '3': [
+            '2': [
                 {
                     id: '1',
                     typeId: 'CKB',
@@ -308,6 +311,120 @@ initApp(initialState);
                         label: 'test text string'
                     }
                 }
+            ],
+            '3': [
+                {
+                    id: '1',
+                    typeId: 'CKB',
+                    data: {
+                        label: 'test checkbox',
+                        items: [
+                            'option 1',
+                            'option 2',
+                            'option 3',
+                            'option 4'
+                        ]
+                    }
+                },
+                {
+                    id: '2',
+                    typeId: 'RAD',
+                    data: {
+                        label: 'test radio button list test radio button list test radio button list test radio button list',
+                        items: [
+                            'option 1',
+                            'option 2',
+                            'option 3',
+                            'option 4',
+                            'option 5'
+                        ]
+                    }
+                },
+                {
+                    id: '3',
+                    typeId: 'DRP',
+                    data: {
+                        label: 'test type selection',
+                        items: [
+                            'option 1',
+                            'option 2',
+                            'option 3',
+                            'option 4'
+                        ]
+                    }
+                },
+                {
+                    id: '4',
+                    typeId: 'LNK',
+                    data: {
+                        label: 'test asset selection'
+                    }
+                },
+                {
+                    id: '5',
+                    typeId: 'TXT',
+                    data: {
+                        label: 'test free text'
+                    }
+                },
+                {
+                    id: '6',
+                    typeId: 'STR',
+                    data: {
+                        label: 'test text string'
+                    }
+                },
+                {
+                    typeId: 'TXT',
+                    data: {
+                        label: '123'
+                    },
+                    id: '7'
+                },
+                {
+                    typeId: 'TXT',
+                    data: {
+                        label: '123'
+                    },
+                    id: '8'
+                },
+                {
+                    typeId: 'TXT',
+                    data: {
+                        label: '123'
+                    },
+                    id: '9'
+                },
+                {
+                    typeId: 'TXT',
+                    data: {
+                        label: '123'
+                    },
+                    id: '10'
+                },
+                {
+                    typeId: 'TXT',
+                    data: {
+                        label: '123'
+                    },
+                    id: '11'
+                },
+                {
+                    label: '',
+                    typeId: 'RAD',
+                    data: {
+                        label: 'klhlhkhl',
+                        items: [
+                            'khijhk',
+                            'asdasdasdasdasd',
+                            'sdfsdf',
+                            'sdfsdf',
+                            'sdfsdf',
+                            'sdfsdfdsf'
+                        ]
+                    },
+                    id: '12'
+                }
             ]
         }
     },
@@ -317,18 +434,19 @@ initApp(initialState);
             isNewTask: false,
             activeTab: 2,
             task: {
-                id: '3',
-                name: 'Task 3',
+                id: '2',
+                name: 'Task 2',
                 approvalFlow: true,
                 notificationMapNumber: '920350134',
-                statusId: '3',
-                parentId: '2',
+                statusId: '2',
+                parentId: null,
                 phaseId: '2',
                 teamId: '1',
-                childId: '4',
-                isRoot: false,
+                childId: '3',
+                isRoot: true,
                 isLeaf: false
             },
+            selectedCustomFieldId: {},
             customFieldsLoading: false,
             customFields: [
                 {
@@ -398,16 +516,15 @@ initApp(initialState);
             open: true,
             isNewCustomField: false,
             customField: {
-                id: '2',
-                typeId: 'RAD',
+                id: '3',
+                typeId: 'DRP',
                 data: {
-                    label: 'test radio button list',
+                    label: 'test type selection',
                     items: [
                         'option 1',
                         'option 2',
                         'option 3',
-                        'option 4',
-                        'option 5'
+                        'option 4'
                     ]
                 }
             }
@@ -417,4 +534,4 @@ initApp(initialState);
         },
         editMode: true
     }
-});*/
+});

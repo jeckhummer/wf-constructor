@@ -15,4 +15,4 @@ export const mapStateToProps = (state) => {
     return {header};
 };
 
-export const TaskEditorHeader = connect(mapStateToProps)(component);
+export const WOEditorHeader = connect(mapStateToProps)(component);

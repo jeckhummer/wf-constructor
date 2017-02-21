@@ -1,18 +1,22 @@
 import {connect} from 'react-redux';
 import {SaveButton} from "../../dumb/buttons/SaveButton";
-import {updateEditedCustomField} from "../../actions/taskEditor";
+import {saveExistingEditedCustomField} from "../../actions/taskEditor";
 import {closeCustomFieldEditor} from "../../actions/customFieldEditor";
+import {getCustomFieldEditorFormValidationResult} from "../../selectors/ui";
 
 const mapStateToProps = (state) => {
+    const {result} = getCustomFieldEditorFormValidationResult(state);
+
     return {
-        content: "SAVE"
+        content: "SAVE",
+        disabled: !result,
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
         onClick: () => {
-            dispatch(updateEditedCustomField());
+            dispatch(saveExistingEditedCustomField());
             dispatch(closeCustomFieldEditor())
         }
     };

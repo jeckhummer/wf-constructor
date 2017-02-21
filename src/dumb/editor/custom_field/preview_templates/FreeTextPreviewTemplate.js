@@ -4,7 +4,7 @@ import {Form} from "semantic-ui-react";
 export const FreeTextPreviewTemplate = ({label}) => {
     return (
         <Form>
-            <Form.TextArea rows={3} label={label}/>
+            <Form.TextArea rows={3} label={label || "[NO TEXT PROVIDED]"}/>
         </Form>
     );
 };

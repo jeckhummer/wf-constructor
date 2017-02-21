@@ -6,17 +6,24 @@ import {CUSTOM_FIELD_TYPES} from "../../../constants";
 
 export const CustomFieldForm = ({
     customField,
-    onTypeChange
+    onTypeChange,
+    onDataChange
 }) => {
     const form = CUSTOM_FIELD_TYPES[customField.typeId] !== undefined
         ? React.createElement(
             CUSTOM_FIELD_TYPES[customField.typeId].formTemplate,
-            customField.data
+            {
+                ...customField.data,
+                update: onDataChange
+            }
         )
         : null;
 
     return (
-        <Grid celled='internally'>
+        <Grid
+            celled='internally'
+            style={{height: '100%'}}>
+
             <Grid.Row>
                 <Grid.Column
                     tablet={16}

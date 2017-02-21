@@ -76,7 +76,7 @@ export function openTaskEditorTab(tab) {
             const customFieldsCache = getTaskCustomFieldsCache(state);
             const cachedCustomFields = customFieldsCache[task.id];
 
-            if (cachedCustomFields !== undefined) {
+            if (cachedCustomFields) {
                 dispatch(setCustomFields(cachedCustomFields));
             } else {
                 dispatch(setCustomFieldsLoadingAnimationVisibility(true));
@@ -107,13 +107,22 @@ export function saveTaskEditorNewTask() {
     }
 }
 
-export function saveTaskEditorTask() {
+export function saveTaskEditorExistingTask() {
     return function (dispatch, getState) {
         const state = getState();
         const {task, customFields} = getTaskEditorState(state);
 
         dispatch(updateTask(task.id, task));
         dispatch(cacheTaskCustomFields(task.id, customFields));
+    }
+}
+
+export function saveTaskEditorTask() {
+    return function (dispatch, getState) {
+        const state = getState();
+        const {isNewTask} = getTaskEditorState(state);
+
+        dispatch(isNewTask ? saveTaskEditorNewTask() : saveTaskEditorExistingTask());
     }
 }
 
@@ -160,7 +169,7 @@ export function updateCustomField(id, customField) {
     };
 }
 
-export function updateEditedCustomField() {
+export function saveExistingEditedCustomField() {
     return (dispatch, getState) => {
         const state = getState();
         const {customField} = getCustomFieldEditorState(state);
@@ -175,18 +184,27 @@ export function updateEditedCustomField() {
     };
 }
 
-export function addNewEditedCustomField() {
+export function saveNewEditedCustomField() {
     return (dispatch, getState) => {
         const state = getState();
         const {customField} = getCustomFieldEditorState(state);
         const {customFields} = getTaskEditorState(state);
-        const id = customFields.length + 1 + '';
+        const id = customFields ? customFields.length + 1 + '' : '1';
 
         dispatch(setCustomFields(
             [
-                ...customFields,
+                ...(customFields ? customFields : {}),
                 { ...customField, id}
             ]
         ));
+    };
+}
+
+export function saveEditedCustomField() {
+    return (dispatch, getState) => {
+        const state = getState();
+        const {isNewCustomField} = getCustomFieldEditorState(state);
+
+        dispatch(isNewCustomField ? saveNewEditedCustomField() : saveExistingEditedCustomField());
     };
 }
