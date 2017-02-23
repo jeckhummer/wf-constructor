@@ -2,15 +2,16 @@ import {connect} from 'react-redux';
 import {NotificationMap} from "../../dumb/editor/NotificationMap";
 import {getStatuses} from "../../selectors/statuses";
 import {getAllTeams} from "../../selectors/teams";
-import {getTaskEditorState} from "../../selectors/ui";
-import {updateTaskEditorTask} from "../../actions/taskEditor";
+import {getWOEditorState} from "../../selectors/ui";
 import {deserializeNotificationMap, serializeNotificationMap} from "../../utils/notificationMapSerialization";
+import {updateWOEditorWO} from "../../actions/WOEditor";
 
 const mapStateToProps = (state) => {
     const statuses = getStatuses(state).map(x => x.name);
     const teams = getAllTeams(state).map(x => x.name);
 
-    const notificationMapNumber = getTaskEditorState(state).task.notificationMapNumber;
+    const notificationMapNumber = getWOEditorState(state).WO.notificationMapNumber;
+    console.log(notificationMapNumber);
     const notificationMap = deserializeNotificationMap(notificationMapNumber, statuses.length, teams.length);
 
     return {
@@ -23,7 +24,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        updateNotificationMapNumber: (number) => dispatch(updateTaskEditorTask({notificationMapNumber: number}))
+        updateNotificationMapNumber: (number) => dispatch(updateWOEditorWO({notificationMapNumber: number}))
     };
 };
 
@@ -45,7 +46,7 @@ function mergeProps(stateProps, dispatchProps) {
     };
 }
 
-export const TaskEditorNotificationMap = connect(
+export const WOEditorNotificationMap = connect(
     mapStateToProps,
     mapDispatchToProps,
     mergeProps

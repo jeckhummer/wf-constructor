@@ -27,7 +27,7 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export const TaskCustomFieldManager = connect(
+export const WOCustomFieldManager = connect(
     mapStateToProps,
     mapDispatchToProps
 )(CustomFieldManager);

@@ -1,4 +1,4 @@
-import {openWOEditor} from "../actions/WOEditor";
+import {openWOEditor} from "../../actions/WOEditor";
 import {connect} from "react-redux";
 import {Icon} from "semantic-ui-react";
 
