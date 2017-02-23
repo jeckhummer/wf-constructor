@@ -20,111 +20,108 @@ export const CUSTOM_FIELD_TYPE_IDS = {
     TEXT_STRING: 'STR',
 };
 
+const CustomTextFieldDataValidator = data => {
+    const isLabelValid = !!data.label;
+    const result = isLabelValid;
+
+    const errorMessage = result
+        ? ""
+        : isLabelValid ? null : 'Label shouldn\'t be empty. ';
+
+    return {
+        isLabelValid,
+        result,
+        errorMessage
+    };
+};
+
+const CustomTextFieldDataProcessor = data => ({
+    label: (data && data.label) || ""
+});
+
+const CustomListFieldDataValidator = data => {
+    const isLabelValid = !!data.label;
+    const isItemsListNotEmpty = !!data.items.length;
+    const areAllItemsNotEmpty = data.items.every(item => !!item);
+    const result = isLabelValid && isItemsListNotEmpty && areAllItemsNotEmpty;
+
+    const errorMessage = result
+        ? ""
+        : (
+            [
+                !isLabelValid ? 'Label' : null,
+                !isItemsListNotEmpty ? 'Items list' : null,
+            ].filter(x => x != null)
+                .join(' and ')
+        ) + (!isLabelValid || !isItemsListNotEmpty ? ' shouldn\'t be empty. ' : '')
+        + (
+            areAllItemsNotEmpty
+                ? ""
+                : "No item should be empty. "
+        );
+
+    return {
+        isLabelValid,
+        isItemsListNotEmpty,
+        areAllItemsNotEmpty,
+        result,
+        errorMessage
+    };
+};
+
+const CustomListFieldDataProcessor = data => ({
+    label: (data && data.label) || "",
+    items: (data && data.items) || []
+});
+
 export const CUSTOM_FIELD_TYPES = {
     [CUSTOM_FIELD_TYPE_IDS.FREE_TEXT]: {
         id: CUSTOM_FIELD_TYPE_IDS.FREE_TEXT,
         name: 'Free text',
         formTemplate: FreeTextFormTemplate,
         previewTemplate: FreeTextPreviewTemplate,
-        dataProcessor: (data) => ({
-            label: (data && data.label) || ""
-        }),
-        dataValidator: data => {
-            const isLabelValid = !!data.label;
-            return {isLabelValid, result: isLabelValid};
-        }
+        dataProcessor: CustomTextFieldDataProcessor,
+        dataValidator: CustomTextFieldDataValidator
     },
     [CUSTOM_FIELD_TYPE_IDS.TEXT_STRING]: {
         id: CUSTOM_FIELD_TYPE_IDS.TEXT_STRING,
         name: 'Text string',
         formTemplate: TextStringFormTemplate,
         previewTemplate: TextStringPreviewTemplate,
-        dataProcessor: (data) => ({
-            label: (data && data.label) || ""
-        }),
-        dataValidator: data => {
-            const isLabelValid = !!data.label;
-            return {isLabelValid, result: isLabelValid};
-        }
+        dataProcessor: CustomTextFieldDataProcessor,
+        dataValidator: CustomTextFieldDataValidator
     },
     [CUSTOM_FIELD_TYPE_IDS.ASSET_SELECTION]: {
         id: CUSTOM_FIELD_TYPE_IDS.ASSET_SELECTION,
         name: 'Asset selection',
         formTemplate: AssetSelectionFormTemplate,
         previewTemplate: AssetSelectionPreviewTemplate,
-        dataProcessor: (data) => ({
-            label: (data && data.label) || ""
-        }),
-        dataValidator: data => {
-            const isLabelValid = !!data.label;
-            return {isLabelValid, result: isLabelValid};
-        }
+        dataProcessor: CustomTextFieldDataProcessor,
+        dataValidator: CustomTextFieldDataValidator
     },
     [CUSTOM_FIELD_TYPE_IDS.TYPE_SELECTION]: {
         id: CUSTOM_FIELD_TYPE_IDS.TYPE_SELECTION,
         name: 'Type selection',
         formTemplate: TypeSelectionFormTemplate,
         previewTemplate: TypeSelectionPreviewTemplate,
-        dataProcessor: (data) => ({
-            label: (data && data.label) || "",
-            items: (data && data.items) || []
-        }),
-        dataValidator: data => {
-            const isLabelValid = !!data.label;
-            const isItemsListNotEmpty = !!data.items.length;
-            const areAllItemsNotEmpty = data.items.every(item => !!item);
-
-            return {
-                isLabelValid,
-                isItemsListNotEmpty,
-                areAllItemsNotEmpty,
-                result: isLabelValid && isItemsListNotEmpty && areAllItemsNotEmpty,
-            };
-        }
+        dataProcessor: CustomListFieldDataProcessor,
+        dataValidator: CustomListFieldDataValidator
     },
     [CUSTOM_FIELD_TYPE_IDS.RADIO_BUTTON_LIST]: {
         id: CUSTOM_FIELD_TYPE_IDS.RADIO_BUTTON_LIST,
         name: 'Radio button list',
         formTemplate: RadioButtonListFormTemplate,
         previewTemplate: RadioButtonListPreviewTemplate,
-        dataProcessor: (data) => ({
-            label: (data && data.label) || "",
-            items: (data && data.items) || []
-        }),
-        dataValidator: data => {
-            const isLabelValid = !!data.label;
-            const isItemsListNotEmpty = !!data.items.length;
-            const areAllItemsNotEmpty = data.items.every(item => !!item);
-
-            return {
-                isLabelValid,
-                isItemsListNotEmpty,
-                areAllItemsNotEmpty,
-                result: isLabelValid && isItemsListNotEmpty && areAllItemsNotEmpty,
-            };
-        }
+        dataProcessor: CustomListFieldDataProcessor,
+        dataValidator: CustomListFieldDataValidator
     },
     [CUSTOM_FIELD_TYPE_IDS.CHECKBOX_LIST]: {
         id: CUSTOM_FIELD_TYPE_IDS.CHECKBOX_LIST,
         name: 'Checkbox list',
         formTemplate: CheckboxListFormTemplate,
         previewTemplate: CheckboxListPreviewTemplate,
-        dataProcessor: (data) => ({
-            label: (data && data.label) || "",
-            items: (data && data.items) || []
-        }),
-        dataValidator: data => {
-            const isLabelValid = !!data.label;
-            const isItemsListNotEmpty = !!data.items.length;
-            const areAllItemsNotEmpty = data.items.every(item => !!item);
-
-            return {
-                isLabelValid,
-                isItemsListNotEmpty,
-                areAllItemsNotEmpty,
-                result: isLabelValid && isItemsListNotEmpty && areAllItemsNotEmpty,
-            };
-        }
+        dataProcessor: CustomListFieldDataProcessor,
+        dataValidator: CustomListFieldDataValidator
     },
 };
 

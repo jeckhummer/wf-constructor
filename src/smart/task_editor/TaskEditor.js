@@ -1,11 +1,10 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {EditorModal} from "../../dumb/editor/EditorModal";
-import {getTaskEditorFormValidationResult} from "../../selectors/ui";
-import {closeTaskEditor, saveTaskEditorTask} from "../../actions/taskEditor";
-import {TaskEditorTabs} from "./TaskEditorTabs";
+import {getTaskEditorFormValidationResult, getTaskEditorState} from "../../selectors/ui";
+import {closeTaskEditor, saveTaskEditorTask, openTaskEditorTab} from "../../actions/taskEditor";
 import {TaskEditorContent} from "./TaskEditorContent";
-import {TaskEditorHeader} from "./TaskEditorHeader";
+import {TASK_EDITOR_TABS} from "../../reducers/ui/taskEditor";
 
 const mapStateToProps = (state) => {
     const {
@@ -25,13 +24,35 @@ const mapStateToProps = (state) => {
         ${!isPhaseValid || !isTeamValid ? 'should be selected.' : ''}
     `;
 
+    const {isNewTask, task} = getTaskEditorState(state);
+    const header = isNewTask ? 'New task' : task.name;
+
+    const {activeTab} = getTaskEditorState(state);
+    const tabs = [
+        {
+            name: 'General',
+            value: TASK_EDITOR_TABS.GENERAL,
+            active: activeTab === TASK_EDITOR_TABS.GENERAL
+        },
+        {
+            name: 'Custom fields',
+            value: TASK_EDITOR_TABS.CUSTOM_FIELDS,
+            active: activeTab === TASK_EDITOR_TABS.CUSTOM_FIELDS
+        },
+        {
+            name: 'Notifications',
+            value: TASK_EDITOR_TABS.NOTIFICATIONS,
+            active: activeTab === TASK_EDITOR_TABS.NOTIFICATIONS,
+        },
+    ];
+
     return {
         isActive: true,
-        header: <TaskEditorHeader/>,
-        tabs: <TaskEditorTabs/>,
+        header: header,
         content: <TaskEditorContent/>,
         saveButtonDisabled: !result,
-        errorMessage
+        errorMessage,
+        tabs
     };
 };
 
@@ -41,7 +62,8 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(saveTaskEditorTask());
             dispatch(closeTaskEditor());
         },
-        onCloseClick: () => dispatch(closeTaskEditor())
+        onCloseClick: () => dispatch(closeTaskEditor()),
+        onTabClick: (_, {value}) => dispatch(openTaskEditorTab(value))
     };
 };
 

@@ -7,10 +7,10 @@ const nothing = false;
 
 export const initialState = {
     entities: {
-        wo: {
+        WO: {
             id: '7399',
             name: 'Super Duper Work Order!',
-            notificationMap: '920350134',
+            notificationMapNumber: '920350134',
         },
         phases: !nothing && !noPhases ? [
             {id: '1', name: 'Flow Start', order: 1},
@@ -175,8 +175,13 @@ export const initialState = {
             isNewCustomField: false,
             customField: {}
         },
-        workflowEditor: {
-            open: false
+        WOEditor: {
+            open: false,
+            activeTab: 1,
+            WO: {},
+            selectedCustomFieldId: {},
+            customFieldsLoading: false,
+            customFields: null
         },
         editMode: true
     }

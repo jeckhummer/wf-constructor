@@ -1,21 +1,19 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {getTaskEditorState} from '../../selectors/ui';
-import {TASK_EDITOR_TABS} from "../../reducers/ui/taskEditor";
-import {TaskEditorNotificationMap} from "./TaskEditorNotificationMap";
-import {TaskEditorTaskForm} from "./TaskEditorTaskForm";
-import {TaskCustomFieldManager} from "./TaskCustomFieldManager";
+import {WOEditorNotificationMap} from "./WOEditorNotificationMap";
+import {WOCustomFieldManager} from "./WOCustomFieldManager";
+import {getWOEditorState} from "../../selectors/ui";
+import {WO_EDITOR_TABS} from "../../reducers/ui/WOEditor";
 
 const mapStateToProps = (state) => {
-    const {activeTab} = getTaskEditorState(state);
+    const {activeTab} = getWOEditorState(state);
     return {activeTab};
 };
 
 const component = ({activeTab}) => {
     const contentMap = {
-        [TASK_EDITOR_TABS.GENERAL]: <TaskEditorTaskForm/>,
-        [TASK_EDITOR_TABS.NOTIFICATIONS]: <TaskEditorNotificationMap/>,
-        [TASK_EDITOR_TABS.CUSTOM_FIELDS]: <TaskCustomFieldManager/>,
+        [WO_EDITOR_TABS.NOTIFICATIONS]: <WOEditorNotificationMap/>,
+        [WO_EDITOR_TABS.CUSTOM_FIELDS]: <WOCustomFieldManager/>,
     };
 
     return contentMap[activeTab];

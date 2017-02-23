@@ -1,17 +1,17 @@
 import React from 'react';
-import {EditableWorkflow} from "../workflow/EditableWorkflow";
-import {WorkflowPhaseRuler} from "../rulers/WorkflowPhaseRuler";
-import {WorkflowTeamRuler} from "../rulers/WorkflowTeamRuler";
-import {EDITOR, COLORS} from '../../styles';
-import {Icon} from "semantic-ui-react";
+import {EditableWorkflow} from "./workflow/EditableWorkflow";
+import {WorkflowPhaseRuler} from "./rulers/WorkflowPhaseRuler";
+import {WorkflowTeamRuler} from "./rulers/WorkflowTeamRuler";
+import {EDITOR, COLORS} from '../styles';
 import {connect} from 'react-redux';
-import {CoordinatePlane} from "../../dumb/coordinate_plane/CoordinatePlane";
-import {getTasks} from "../../selectors/tasks";
-import {NoTasksMessage} from "../workflow/NoTasksMessage";
-import {getSortedPhases} from "../../selectors/phases";
-import {NoTasksWorkflow} from "../workflow/NoTasksWorkflow";
-import {getEditMode} from "../../selectors/ui";
-import {ReadonlyWorkflow} from "../workflow/ReadonlyWorkflow";
+import {CoordinatePlane} from "../dumb/coordinate_plane/CoordinatePlane";
+import {getTasks} from "../selectors/tasks";
+import {NoTasksMessage} from "./workflow/NoTasksMessage";
+import {getSortedPhases} from "../selectors/phases";
+import {NoTasksWorkflow} from "./workflow/NoTasksWorkflow";
+import {getEditMode} from "../selectors/ui";
+import {ReadonlyWorkflow} from "./workflow/ReadonlyWorkflow";
+import {WOEditorTrigger} from './wo_editor/WOEditorTrigger';
 
 function mapStateToProps(state) {
     const editMode = getEditMode(state);
@@ -27,12 +27,7 @@ function mapStateToProps(state) {
         }}>
             {
                 editMode
-                ? <Icon
-                    link
-                    name="setting"
-                    fitted
-                    size='big'
-                />
+                ? <WOEditorTrigger/>
                 : null
             }
         </div>

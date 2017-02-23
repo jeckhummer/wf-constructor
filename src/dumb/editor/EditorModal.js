@@ -1,5 +1,5 @@
 import React from 'react';
-import {Modal, Icon} from "semantic-ui-react";
+import {Modal, Icon, Menu} from "semantic-ui-react";
 import {Floated} from "../common/Floated";
 import {Uppercase} from "../common/Uppercase";
 import {SaveButton} from "../buttons/SaveButton";
@@ -13,7 +13,8 @@ export const EditorModal = ({
     saveButtonDisabled,
     onCloseClick,
     onSaveClick,
-    errorMessage
+    errorMessage,
+    onTabClick
 }) => {
     return (
         <Modal
@@ -37,7 +38,18 @@ export const EditorModal = ({
                 <div style={{
                     height: '411px',
                 }}>
-                    {tabs}
+                    {
+                        tabs
+                            ? (
+                                <Menu
+                                    secondary={true}
+                                    pointing={true}
+                                    items={tabs}
+                                    onItemClick={onTabClick}
+                                />
+                            )
+                            : null
+                    }
                     {content}
                 </div>
             </Modal.Content>

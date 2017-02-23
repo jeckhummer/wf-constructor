@@ -1,28 +1,48 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {EditorModal} from "../../dumb/editor/EditorModal";
-import {WOEditorAlerts} from "./WOEditorAlerts";
-import {WOEditorHeader} from "./WOEditorHeader";
-import {WOEditorTabs} from "./WOEditorTabs";
 import {WOEditorContent} from "./WOEditorContent";
-import {WOEditorActions} from "./WOEditorActions";
+import {getWOEditorState} from "../../selectors/ui";
+import {getWO} from "../../selectors/WO";
+import {WO_EDITOR_TABS} from "../../reducers/ui/WOEditor";
+import {closeWOEditor, openWOEditorTab} from "../../actions/WOEditor";
+import {saveWOFromEditor} from "../../actions/WO";
 
 const mapStateToProps = (state) => {
-    const {open} = getWOEditorState(state);
+    const {name} = getWO(state);
+    const {activeTab} = getWOEditorState(state);
+
+    const tabs = [
+        {
+            name: 'Custom fields',
+            value: WO_EDITOR_TABS.CUSTOM_FIELDS,
+            active: activeTab === WO_EDITOR_TABS.CUSTOM_FIELDS
+        },
+        {
+            name: 'Notifications',
+            value: WO_EDITOR_TABS.NOTIFICATIONS,
+            active: activeTab === WO_EDITOR_TABS.NOTIFICATIONS,
+        },
+    ];
 
     return {
-        isActive: open,
-        header: <WOEditorHeader/>,
-        tabs: <WOEditorTabs/>,
+        isActive: true,
+        header: name,
         content: <WOEditorContent/>,
-        actions: <WOEditorActions/>,
-        alert: <WOEditorAlerts/>
+        saveButtonDisabled: false,
+        errorMessage: null,
+        tabs
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onCloseClick: () => dispatch(closeWOEditor())
+        onSaveClick: () => {
+            dispatch(saveWOFromEditor());
+            dispatch(closeWOEditor());
+        },
+        onCloseClick: () => dispatch(closeWOEditor()),
+        onTabClick: (_, {value}) => dispatch(openWOEditorTab(value))
     };
 };
 

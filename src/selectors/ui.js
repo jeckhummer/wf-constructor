@@ -31,8 +31,7 @@ export const getCustomFieldEditorFormValidationResult = createSelector(
     }
 );
 
-
-export const getWorkflowEditorState = state => state.ui.workflowEditor;
+export const getWOEditorState = state => state.ui.WOEditor;
 
 export const getEditMode = state => state.ui.editMode;
 

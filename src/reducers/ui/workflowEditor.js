@@ -1,1 +1,0 @@
-export const workflowEditor = (state = {}, action) => state;

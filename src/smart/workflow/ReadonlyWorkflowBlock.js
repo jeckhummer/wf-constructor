@@ -2,7 +2,7 @@ import {connect} from 'react-redux';
 import {getTasksInfoDataDictionary} from "../../selectors/tasks";
 import {ReadonlyBlockGraph} from "../../dumb/block_graph/ReadonlyBlockGraph";
 import {generateWOTLink} from '../../utils/WOTLinkGeneration';
-import {getWO} from "../../selectors/wo";
+import {getWO} from "../../selectors/WO";
 
 const mapStateToProps = (state, {items}) => {
     return {

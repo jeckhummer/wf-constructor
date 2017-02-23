@@ -1,39 +1,28 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {EditorModal} from "../../dumb/editor/EditorModal";
-import {getCustomFieldEditorFormValidationResult, getCustomFieldEditorState} from "../../selectors/ui";
-import {CustomFieldEditorHeader} from "./CustomFieldEditorHeader";
+import {getCustomFieldEditorFormValidationResult, getCustomFieldEditorState, getTaskEditorState} from "../../selectors/ui";
 import {CustomFieldEditorContent} from "./CustomFieldEditorContent";
 import {closeCustomFieldEditor} from "../../actions/customFieldEditor";
 import {saveEditedCustomField} from "../../actions/taskEditor";
 
 const mapStateToProps = (state) => {
     const saveButtonDisabled = !getCustomFieldEditorFormValidationResult(state).result;
-    const {
-        isLabelValid,
-        isItemsListNotEmpty,
-        areAllItemsNotEmpty,
-        result,
-    } = getCustomFieldEditorFormValidationResult(state);
+    const {errorMessage} = getCustomFieldEditorFormValidationResult(state);
 
-    const errorMessage = result
-        ? ""
-        : (
-            [
-                !isLabelValid ? 'Label' : null,
-                !isItemsListNotEmpty ? 'Items list' : null,
-            ].filter(x => x != null)
-            .join(' and ')
-        ) + (!isLabelValid || !isItemsListNotEmpty ? ' shouldn\'t be empty. ' : '')
-        + (
-            areAllItemsNotEmpty
-                ? ""
-                : "No item should be empty. "
-        );
+    const {isNewCustomField, customField} = getCustomFieldEditorState(state);
+    const {isNewTask, task, customFields} = getTaskEditorState(state);
+    const header = `
+        ${isNewTask ? 'New task' : task.name}
+         : 
+        ${isNewCustomField 
+            ? 'New custom field' 
+            : customFields && customFields.find(x => x.id === customField.id).data.label}
+    `;
 
     return {
         isActive: true,
-        header: <CustomFieldEditorHeader/>,
+        header: header,
         tabs: null,
         content: <CustomFieldEditorContent/>,
         saveButtonDisabled,
