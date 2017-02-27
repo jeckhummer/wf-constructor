@@ -3,7 +3,7 @@ import {
     CLOSE_TASK_EDITOR,
     UPDATE_EDITOR_TASK,
     OPEN_TASK_EDITOR_TAB,
-    SELECT_CUSTOM_FIELD, SET_CUSTOM_FIELDS_LOADING_ANIMATION_VISIBILITY, SET_CUSTOM_FIELDS, DELETE_CUSTOM_FIELD
+    SELECT_CUSTOM_FIELD, SET_TASK_CUSTOM_FIELDS_LOADING_ANIMATION_VISIBILITY, SET_TASK_CUSTOM_FIELDS, DELETE_CUSTOM_FIELD
 } from "../../actions/taskEditor";
 
 export const TASK_EDITOR_TABS = {
@@ -36,9 +36,9 @@ export const taskEditor = (state = DEFAULT_STATE, action) => {
             return selectTaskCustomField(state, action.fieldId);
         case DELETE_CUSTOM_FIELD:
             return deleteTaskCustomField(state, action.id);
-        case SET_CUSTOM_FIELDS_LOADING_ANIMATION_VISIBILITY:
+        case SET_TASK_CUSTOM_FIELDS_LOADING_ANIMATION_VISIBILITY:
             return setCustomFieldsLoadingAnimationVisibility(state, action.visible);
-        case SET_CUSTOM_FIELDS:
+        case SET_TASK_CUSTOM_FIELDS:
             return setCustomFields(state, action.fields);
         default:
             return state;
@@ -91,6 +91,7 @@ function deleteTaskCustomField(state, id) {
 }
 
 function setCustomFieldsLoadingAnimationVisibility(state, visible) {
+    console.log(...arguments);
     return {
         ...state,
         customFieldsLoading: visible

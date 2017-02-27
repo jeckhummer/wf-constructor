@@ -1,7 +1,7 @@
 import {connect} from 'react-redux';
 import {selectCustomField, deleteCustomField} from "../../actions/taskEditor";
 import {CustomFieldManager} from "../../dumb/editor/custom_field/CustomFieldManager";
-import {getTaskEditorState} from "../../selectors/ui";
+import {getWOEditorState} from "../../selectors/ui";
 import {openCustomFieldEditorForEdit, openCustomFieldEditorForAdding} from "../../actions/customFieldEditor";
 
 const mapStateToProps = (state) => {
@@ -9,7 +9,7 @@ const mapStateToProps = (state) => {
         selectedCustomFieldId,
         customFieldsLoading,
         customFields
-    } = getTaskEditorState(state);
+    } = getWOEditorState(state);
 
     return {
         loading: customFieldsLoading,

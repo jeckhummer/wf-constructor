@@ -158,7 +158,7 @@ export const initialState = {
     },
     cache: {
         taskCustomFields: {},
-        WOCustomFields: []
+        WOCustomFields: null
     },
     ui: {
         taskEditor: {

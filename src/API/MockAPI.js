@@ -3,7 +3,15 @@ import * as $ from "jquery";
 import {customFieldMocks} from "../mocks";
 
 const _API = {
-    getCustomFields: (taskId) => {
+    getTaskCustomFields: (taskId) => {
+        const deferred = $.Deferred();
+        setTimeout(
+            () => deferred.resolve(customFieldMocks),
+            2 * 1000
+        );
+        return deferred.promise();
+    },
+    getWOCustomFields: (WOID) => {
         const deferred = $.Deferred();
         setTimeout(
             () => deferred.resolve(customFieldMocks),
